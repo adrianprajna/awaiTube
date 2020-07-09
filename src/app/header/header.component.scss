@@ -1,0 +1,77 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
+    // z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    i:hover{
+        cursor: pointer;
+    }
+
+    .left-header {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        position: relative;
+
+        img {
+            margin-left: 1rem;
+            margin-top: -0.5rem;
+        }
+    }
+
+    .center-header {
+
+        flex: 1.5;
+
+        input[type=text] {
+            padding: 0.4rem;
+            width: 90%;
+        }
+
+        button {
+            padding: 0.5rem;
+            outline: none;
+            border: none;
+        }
+    }
+
+    .right-header {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        i {
+            margin: 0 1rem;
+        }
+
+        .btn-sign-in {
+           display: flex;        
+           align-items: center;
+           background-color: salmon;
+           padding: 0.7rem;
+           color: white;
+           border-radius: 1rem;
+
+           i {
+               margin: 0;
+           }
+
+           p {
+               margin-left: 0.3rem;
+           }
+
+           :hover{
+               cursor: pointer;
+           }
+        }
+    }
+}
