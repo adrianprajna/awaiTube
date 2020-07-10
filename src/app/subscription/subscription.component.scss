@@ -1,0 +1,21 @@
+.subscription {
+    
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+
+    button {
+        display: flex;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 1rem;
+        justify-content: space-between;
+        width: 40%;
+        margin-top: 1rem;
+        border-radius: 1rem;
+        outline: none;
+    }
+}

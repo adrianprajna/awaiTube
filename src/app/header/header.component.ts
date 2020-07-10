@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,13 +10,17 @@ export class HeaderComponent implements OnInit {
 
   active: boolean = false;
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
   }
 
   onClick(){
     this.active = !this.active;
+  }
+
+  navigate(){
+    this.route.navigate(['/']);
   }
 
 }

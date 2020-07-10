@@ -6,10 +6,11 @@
     position: fixed;
     width: 100%;
     background-color: #fff;
-    // z-index: 2;
+    z-index: 2;
     top: 0;
     left: 0;
     right: 0;
+    font-family: 'Oswald', sans-serif;
 
     i:hover{
         cursor: pointer;
@@ -23,24 +24,31 @@
 
         img {
             margin-left: 1rem;
-            margin-top: -0.5rem;
+            cursor: pointer;
         }
     }
 
     .center-header {
 
         flex: 1.5;
+        display: flex;
+        align-items: center;
 
         input[type=text] {
             padding: 0.4rem;
             width: 90%;
         }
 
-        button {
+        i {
             padding: 0.5rem;
-            outline: none;
-            border: none;
+            background-color: rgb(247,247,247);
         }
+
+        // button {
+        //     padding: 0.5rem;
+        //     outline: none;
+        //     border: none;
+        // }
     }
 
     .right-header {
@@ -59,7 +67,7 @@
            background-color: salmon;
            padding: 0.7rem;
            color: white;
-           border-radius: 1rem;
+           border-radius: 0.5rem;
 
            i {
                margin: 0;
@@ -68,10 +76,46 @@
            p {
                margin-left: 0.3rem;
            }
+        }
 
-           :hover{
-               cursor: pointer;
-           }
+        
+        :hover{
+            cursor: pointer;
         }
     }
+}
+
+$breakpoint-mobile: 576px;
+
+@media (max-width: $breakpoint-mobile){
+
+
+    .header {
+
+        .center-header {
+
+
+            input[type=text] {
+                display: none;
+            }
+    
+            i {
+                background-color: white;
+            }
+    
+        }
+
+        .right-header {
+
+            .btn-sign-in {
+                width: 6rem;
+                padding: 0.4rem;
+                justify-content: space-evenly;
+             }
+
+        }
+
+    }
+
+
 }

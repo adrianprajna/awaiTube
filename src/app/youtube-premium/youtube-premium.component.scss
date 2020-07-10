@@ -1,0 +1,62 @@
+.youtube-premium {
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 2rem;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        i {
+            color: red;
+            margin-right: 1rem;
+        }
+    }
+
+    .title {
+        width: 70%;
+        margin: 1.5rem 0;
+    }
+
+    .footer {
+
+        button {
+            padding: 1rem;
+            background-color: royalblue;
+            border: 0;
+            outline: none;
+            color: #fff;    
+            margin-bottom: 1rem;      
+        }
+
+        p {
+            margin-bottom: 1rem;
+
+            span {
+                color: royalblue;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+    }
+}
+
+.footer button:hover {
+    cursor: pointer;
+}
+
+.text-md {
+    font-size: 1.5rem;
+}
