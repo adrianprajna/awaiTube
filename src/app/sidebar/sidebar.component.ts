@@ -1,5 +1,6 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +11,7 @@ export class SidebarComponent implements OnInit {
 
   @Input() active: boolean;
 
-  constructor(private route:Router) { 
+  constructor(private route:Router, private loginService: LoginService) { 
     
   }
 
@@ -18,12 +19,9 @@ export class SidebarComponent implements OnInit {
     this.addActiveClass();
   }
 
-  ngOnChanges(){
-  }
-
   addActiveClass(){
 
-    document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('DOMContentLoaded', () => {
         let lists = document.querySelectorAll('.list');
 
         lists.forEach((list) => {
@@ -37,9 +35,10 @@ export class SidebarComponent implements OnInit {
 
               console.log(this);
               this.classList.add('active');
+              
+              
             });
         })
-
       })
     }
 
@@ -55,6 +54,9 @@ export class SidebarComponent implements OnInit {
   }
 
   navigate(link: string){
+    // this.active = !this.active;
+    // document.getElementsByTagName('body')[0].style.backgroundColor = 'snow';
+    this.loginService.changeActive(!this.active);
     this.route.navigate([link]);
   }
 

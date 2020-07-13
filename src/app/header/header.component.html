@@ -3,7 +3,9 @@
 
         <div class="left-header">
             <i class="fa fa-bars fa-1x" (click)="onClick()"></i>
-            <img src="../../assets/images/logoyoutube.jpg" alt="" width="100" (click)=navigate()>
+            <a href="">
+                <img src="../../assets/images/logoyoutube.jpg" alt="" width="100" href="">
+            </a>
         </div>
     
         <div class="center-header">
@@ -14,10 +16,63 @@
         <div class="right-header">
             <i class="fa fa-video-camera" aria-hidden="true" title="Upload Video"></i>
             <i class="fa fa-th fa-1x" title="Youtube Apps"></i>
-            <i class="fa fa-ellipsis-v" title="Settings"></i>
-            <div class="btn-sign-in">
+            <i class="fa fa-ellipsis-v" title="Settings" *ngIf="!loggedIn" (click)="addSettingsDropdown()"></i>
+
+            <!-- Settings dropdown -->
+            <div class="settings-dropdown" *ngIf="isSettingsDrop">
+                <ul>
+                    <li class="lists">
+                        <i class="fa fa-keyboard-o" aria-hidden="true"></i>
+                        <p>Keyboard Shortcuts</p>
+                    </li>
+                    <li class="lists" (click)="switchRestriction()">
+                        <p>Restricted Mode: </p>
+                        <p id="restrict">Off</p>
+                    </li>
+                </ul>
+            </div>
+            <!--  -->
+
+            <i class="fa fa-bell" aria-hidden="true" *ngIf="loggedIn"></i>
+            <div class="btn-sign-in" (click)="signIn()" *ngIf="loggedIn == false">
                 <i class="fa fa-user-circle fa-1x"></i>
                 <p>Sign in</p>
+            </div>
+            <div *ngIf="loggedIn == true" class="img" class="user">
+                <img src="{{ user.photoUrl }}" alt="" (click)="addUserDropdown()">
+                <div class="user-dropdown" *ngIf="isUserDrop == true">
+                    <ul>
+                        <li>
+                            <div class="logo">
+                                <img src="{{ user.photoUrl }}" alt="">
+                            </div>
+                            <div>
+                                <p>{{ user.name }}</p>
+                                <p>{{ user.email }}</p>
+                            </div>
+                        </li>
+                        <li class="lists" (click)="signOut()">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <p>Switch Account</p>
+                        </li>
+                        <li class="lists" (click)="signOut()">
+                            <i class="fa fa-youtube" aria-hidden="true"></i>
+                            <p>Premium Membership</p>
+                        </li>
+                        <li class="lists">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <p>Your Channel</p>
+                        </li>
+                        <li class="lists">
+                            <i class="fa fa-keyboard-o" aria-hidden="true"></i>
+                            <p>Keyboard Shortcuts</p>
+                        </li>
+                        <li class="lists" (click)="switchRestriction()">
+                            <p>Restricted Mode: </p>
+                            <p id="restrict">Off</p>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     

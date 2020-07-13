@@ -2,45 +2,6 @@
     <h1>Recommended Videos</h1>
 
     <div class="row">
-
-        <div class="card" *ngFor="let list of lists">
-            <div class="card-video">
-                <video [src]="list.link" controls></video>
-            </div>
-            <div class="card-title">
-                <i class="fa fa-user-circle fa-1x"></i>
-                <p>{{list.name}}</p>
-            </div>
-            <div class="card-content">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nesciunt fugit aspernatur laboriosam id eos voluptatibus, soluta dolore eius ipsa.</p>
-            </div>
-        </div>
-
-        <div class="card" *ngFor="let list of lists">
-            <div class="card-video">
-                <video [src]="list.link" controls></video>
-            </div>
-            <div class="card-title">
-                <i class="fa fa-user-circle fa-1x"></i>
-                <p>{{list.name}}</p>
-            </div>
-            <div class="card-content">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nesciunt fugit aspernatur laboriosam id eos voluptatibus, soluta dolore eius ipsa.</p>
-            </div>
-        </div>
-
-        <div class="card" *ngFor="let list of lists">
-            <div class="card-video">
-                <video [src]="list.link" controls></video>
-            </div>
-            <div class="card-title">
-                <i class="fa fa-user-circle fa-1x"></i>
-                <p>{{list.name}}</p>
-            </div>
-            <div class="card-content">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nesciunt fugit aspernatur laboriosam id eos voluptatibus, soluta dolore eius ipsa.</p>
-            </div>
-        </div>
-
+        <app-video *ngFor="let list of lists; i as index;" [index] = "index" [list]="list"></app-video>
    </div>
 </div>

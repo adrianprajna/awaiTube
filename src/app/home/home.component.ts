@@ -7,12 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  isSettingsDrop = false;
+
   lists = [
     {
+      id: 1,
       name: 'Vendly Tanudjaja',
       link: '../../assets/videos/sample-video.m4v'
     },
     {
+      id: 2,
       name: 'Eric Saputro',
       link: '../../assets/videos/video.mp4'
     }
@@ -23,4 +27,7 @@ export class HomeComponent implements OnInit {
     console.log(this.lists)
   }
 
+  addDropdown(): void{
+    this.isSettingsDrop = !this.isSettingsDrop;
+  }
 }

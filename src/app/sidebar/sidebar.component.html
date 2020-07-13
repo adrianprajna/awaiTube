@@ -3,19 +3,19 @@
 
     <div class="sidebar-menu">
         <ul>
-            <li class="list active">
+            <li class="list active" [routerLink]="['']" routerLinkActive="router-link-active" >
                 <a href="">
                     <i class="fa fa-home"></i>
                     Home
                 </a>
             </li>
-            <li class="list">
-                <a href="">
+            <li class="list" (click)="navigate('/trending')">
+                <a>
                     <i class="fa fa-fire"></i>
                     Trending
                 </a>
             </li>
-            <li class="list" [routerLink]="['/subscription']" >
+            <li class="list" (click)="navigate('/subscription')">
                 <a>
                     <i class="fa fa-youtube-square"></i>
                     Subscription
@@ -29,8 +29,8 @@
     <div class="sidebar-menu">
         <p>Best from Youtube</p>
         <ul>
-            <li class="list">
-                <a href="">
+            <li class="list" (click)="navigate('/category/music')">
+                <a>
                     <i class="fa fa-music"></i>
                     Music
                 </a>
@@ -42,7 +42,7 @@
                 </a>
             </li>
             <li class="list">
-                <a href="">
+                <a>
                     <i class="fa fa-code"></i>
                     Code
                 </a>
@@ -55,7 +55,7 @@
     <div class="sidebar-menu">
         <p>More from Youtube</p>
         <ul>
-            <li class="list" [routerLink]="['/premium']">
+            <li class="list" (click)="navigate('/premium')">
                 <a>
                     <i class="fa fa-youtube"></i>
                     Youtube Premium

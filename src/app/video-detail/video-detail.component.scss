@@ -1,0 +1,211 @@
+.home-video-detail {
+
+    display: flex;
+    width: 100%;
+    padding: 2rem;
+
+    .left-content {
+        flex: 2.5;
+        
+        .video-content {
+
+            .video-player {
+                display: flex;
+                flex-direction: column;
+                
+                video {
+                    width: 100%;
+                    border: 0;
+                    outline: none;
+                }
+
+                .video-details {
+                    padding: 1rem;
+
+                    .details {
+                        display: flex;
+                        justify-content: space-between;
+
+                        ul {
+                            display: flex;
+
+                            li {
+                                list-style: none;
+                                display: flex;
+                                align-items: center;
+                                margin-left: 2rem;
+
+                                i {
+                                    margin-right: 1rem;
+                                }
+                            }
+
+                            :hover {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        .video-title {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+
+            .top {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+
+                .user {
+
+                    i {
+                        margin-right: 1rem;
+                    }
+                }
+
+                button {
+                    padding: 0.5rem;
+                    border: 0;
+                    background-color: crimson;
+                    color: white;
+                    border-radius: 0.2rem;
+                }
+                
+                
+            }
+
+            .top button:hover {
+                cursor: pointer;
+            }
+
+        }
+
+
+        .comment-content {
+
+            .insert-comment {
+
+                padding: 1rem;
+                margin-bottom: 1rem;
+
+                .comment-setting {
+                    display: flex;
+                    margin-bottom: 1rem;
+
+                    p {
+                        margin-right: 1rem;
+                    }
+
+                    i {
+                        margin-right: 1rem;
+                    }
+                }
+
+                .comment-setting div:hover {
+                    cursor: pointer;
+                }
+
+                .insert-comment-detail {
+                    display: flex;
+                    width: 100%;
+                    i {
+                        margin-right: 1rem;
+                    }
+
+                    input[type=text] {
+                        border: none;
+                        border-bottom: 1px solid #8842d5;  
+                        background-color: snow;
+                        display: block;
+                        overflow: hidden;
+                        margin-bottom: 1rem;
+                        cursor: text;
+                    }
+
+                    button {
+                        padding: 0.5rem;
+                        border: 0;
+                        background-color: royalblue;
+                        color: white;
+                        border-radius: 0.2rem;
+                    }
+
+                    :hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .comment-details {
+                padding: 1rem;
+                display: flex;
+                margin-bottom: 1rem;
+
+                ul {
+                    display: flex;
+
+                    li {
+                        display: flex;
+                        list-style-type: none;
+                        margin-right: 1rem;
+                        align-items: center;
+
+                        i {
+                            margin-right: 0.5rem;
+                        }
+                    }
+                }
+
+
+            }
+
+        }
+
+    }
+
+    .right-content {
+        flex: 1;
+        height: 100%;
+        margin-left: 1rem;
+
+        .next-video-detail {
+            display: flex;
+            height: 8rem;
+            margin-bottom: 1rem;
+
+            .image-video{
+                background-color: navy;
+                flex: 1.5;
+                margin-right: 0.5rem;
+            }
+
+            .image-video-detail {
+                flex: 1;
+
+                div {
+                    height: 3rem;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+}
+
+.bold {
+    font-weight: bold;
+}
+
+@media (max-width: 576px){
+
+
+    .home-video-detail {
+        flex-direction: column;
+    }
+
+
+}
