@@ -69,10 +69,11 @@
                 </div>
 
                 <div class="insert-comment-detail">
-                    <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                    <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" *ngIf="!loginUser"></i>
+                    <img src="{{loginUser.photoUrl}}" alt="" *ngIf="loginUser">
                     <div>
-                        <input type="text" name="" id="" placeholder="Add a public comment">
-                        <button>Comment</button>
+                        <input type="text" name="" id="description" placeholder="Add a public comment">
+                        <button (click)="comment()">Comment</button>
                     </div>
                 </div>
                 
@@ -81,7 +82,7 @@
             <hr>
 
             <div class="comment-details" *ngFor="let comment of comments">
-                <app-comment [comment]="comment"></app-comment>
+                <app-comment [comment]="comment" [loginUser]="loginUser"></app-comment>
             </div>
         
         </div>

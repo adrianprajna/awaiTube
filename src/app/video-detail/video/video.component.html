@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-video" [routerLink]="['/video-detail/', video.id]" routerLinkActive="router-link-active" >
-        <!-- <video [src]="list.link" controls></video> -->
+    <div class="card-video" [routerLink]="['/video-detail/', video.id]" routerLinkActive="router-link-active" style="outline: none;">
+        <img src="{{ video.thumbnail }}" alt="">
     </div>
     <div class="card-title" id="card-title">
         <img src="{{ user.img_url }}" alt="">
@@ -13,11 +13,11 @@
                 <p>{{ video.views }}x views • {{video.day}} - {{video.month}} - {{video.year}}</p>
             </div>
         </div>
-        <i class="fa fa-ellipsis-v" title="Setting" (click)="addDropdown($event, list.id)" *ngIf="isLoggedIn"></i>
+        <i class="fa fa-ellipsis-v" title="Setting" (click)="addDropdown($event, video.id)" *ngIf="isLoggedIn"></i>
 
         <!-- dropdown -->
         <!-- id="{{list.id}}" -->
-        <div class="settings-dropdown"> 
+        <div class="settings-dropdown" id="{{video.id}}"> 
             <ul>
                 <li class="lists">
                     <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>

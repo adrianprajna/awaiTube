@@ -4,6 +4,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { VideoService } from 'src/app/services/video.service';
+import { UserService } from 'src/app/services/user.service';
+import { SocialUser } from 'angularx-social-login';
+import { LoginService } from 'src/app/services/login.service';
+import { url } from 'inspector';
 
 @Component({
   selector: 'app-uploader',
@@ -39,10 +44,13 @@ export class UploaderComponent implements OnInit {
   description: string = "";
   selectControl: FormControl = new FormControl()
 
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore) { }
+  user: SocialUser
+  
+  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private videoService: VideoService, private userService: UserService, private loginService: LoginService) { }
 
   ngOnInit() {
-    
+    this.loginService.getUserFromStorage();
+    this.user = this.loginService.user;
   }
 
   toggleHover(e: boolean) {
@@ -61,7 +69,7 @@ export class UploaderComponent implements OnInit {
   }
 
   startUpload(file: File) {
-    const path = `assets/${Date.now()}_${file.name}`;
+    const path = `videos/${Date.now()}_${file.name}`;
 
     const ref = this.storage.ref(path);
 
@@ -85,7 +93,7 @@ export class UploaderComponent implements OnInit {
   }
 
   startUploadThumbnail(file: File){
-    const path = `assets/${Date.now()}_${file.name}`;
+    const path = `thumbnails/${Date.now()}_${file.name}`;
 
     const ref = this.storage.ref(path);
 
@@ -121,7 +129,7 @@ export class UploaderComponent implements OnInit {
     let privacy: string = "Public";
     let isRestricted: boolean = false;
     let isPremium: boolean = true;
-    let date = document.getElementById('date') as HTMLInputElement;
+    let date = new Date;
 
     restrictions.forEach(age => {
       if((age as HTMLInputElement).checked && (age as HTMLInputElement).value == "Yes"){
@@ -141,12 +149,21 @@ export class UploaderComponent implements OnInit {
       }
     })
 
-    // if(title.value == "" || desc.value == "" || this.selectControl.value == null){
-    //   alert('please fill all input!');
-    //   return;
-    // }
-    let datee = new Date;
-    console.log(datee.getMonth() + " " + datee.getFullYear())
-    // alert('success publish video!');
+    if(title.value == "" || desc.value == "" || this.selectControl.value == null){
+      alert('please fill all input!');
+      return;
+    }
+
+
+
+    this.userService.getUserByEmail(this.user.email).valueChanges
+      .subscribe(result => {
+        let user_id = result.data.getUserByEmail.id;
+
+        this.videoService.createVideo(user_id, title.value, this.downloadURL, desc.value, this.selectControl.value, 'South Korea', date.getDate(), date.getMonth() + 1, this.downloadThumbnailURL, isRestricted, privacy, isPremium)
+          .subscribe(result => console.log(result));
+      })
+
+    alert('success publish video!');
   }
 }

@@ -60,9 +60,9 @@
         
                 img {
                     border-radius: 50%;
-                    width: 3rem;
+                    width: 2.5rem;
                     align-self: flex-start;
-                    margin-right: 0.8rem;
+                    margin-right: 1rem;
                 }
 
                 
@@ -110,7 +110,15 @@
                 .insert-comment-detail {
                     display: flex;
                     width: 100%;
+
                     i {
+                        margin-right: 1rem;
+                    }
+
+                    img {
+                        width: 2.5rem;
+                        border-radius: 50%;
+                        align-self: flex-start;
                         margin-right: 1rem;
                     }
 
@@ -119,9 +127,10 @@
                         border-bottom: 1px solid #8842d5;  
                         background-color: snow;
                         display: block;
-                        overflow: hidden;
+                        outline: none;
                         margin-bottom: 1rem;
                         cursor: text;
+                        width: 22rem;
                     }
 
                     button {
@@ -140,7 +149,6 @@
 
             .comment-details {
                 padding: 1rem;
-                margin-bottom: 1rem;
             }
 
         }

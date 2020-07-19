@@ -30,11 +30,11 @@ export class VideoComponent implements OnInit {
     this.check(); 
   }
 
-  addDropdown(e, id): void{
+  addDropdown(e, id: number): void{
+  
+    
     if((e.target as HTMLElement).classList.contains('fa-ellipsis-v')){
       let dropdown = document.getElementById(`${id}`);
-      // let allDropdown = document.querySelectorAll('.settings-dropdown');
-
       dropdown.classList.toggle('block');
     }
   }

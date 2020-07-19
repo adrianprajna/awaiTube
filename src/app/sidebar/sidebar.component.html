@@ -18,49 +18,50 @@
         </ul>
     </div>
 
-    <hr>
-
-    <div class="sidebar-menu">
-        <p>Playlist</p>
-        <ul>
-            <li class="list" (click)="navigate('/playlist')">
-                <i class="fa fa-list" aria-hidden="true"></i>
-                <span>Full Stack Web</span>
-            </li>
-            <li class="list">
-                <i class="fa fa-list" aria-hidden="true"></i>
-                <span>REST API</span>
-            </li>
-            <li class="list">
-                <i class="fa fa-list" aria-hidden="true"></i>
-                <span>Laravel CRUD</span>
-            </li>
-        </ul>
+    <div *ngIf="user">
+        <hr>
+        <div class="sidebar-menu">
+            <p>Playlist</p>
+            <ul>
+                <li class="list" (click)="navigate('/playlist')">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <span>Full Stack Web</span>
+                </li>
+                <li class="list">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <span>REST API</span>
+                </li>
+                <li class="list">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <span>Laravel CRUD</span>
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <hr>
-
-    <div class="sidebar-menu">
-        <p>Subscription</p>
-        <ul>
-            <li class="list">
-                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                <span>The Joomers</span>
-            </li>
-            <li class="list">
-                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                <span>Traversy Media</span>
-            </li>
-            <li class="list">
-                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                <span>Lofi Hip Hop</span>
-            </li>
-        </ul>
+    <div *ngIf="user">
+        <hr>
+        <div class="sidebar-menu">
+            <p>Subscription</p>
+            <ul>
+                <li class="list">
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                    <span>The Joomers</span>
+                </li>
+                <li class="list">
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                    <span>Traversy Media</span>
+                </li>
+                <li class="list">
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                    <span>Lofi Hip Hop</span>
+                </li>
+            </ul>
+        </div>
     </div>
 
+
     <hr>
-
-
     <div class="sidebar-menu">
         <p>Best from Youtube</p>
         <ul>
@@ -91,8 +92,9 @@
         </ul>
     </div>
 
-    <hr>
 
+
+    <hr>
     <div class="sidebar-menu">
         <p>More from Youtube</p>
         <ul>
@@ -117,5 +119,4 @@
         <p>&copy;2020 Google LLC</p>
     </div>
 
-  
 </div>

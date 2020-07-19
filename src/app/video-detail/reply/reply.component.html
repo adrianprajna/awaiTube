@@ -1,0 +1,23 @@
+<div class="reply">
+   <img src="{{user.img_url}}" alt="">
+    <div>
+        <span class="bold">{{user.name}}</span> 
+        <span>{{reply.day}} - {{ reply.month }} - {{reply.year}}</span>
+        <p>{{reply.description}}</p>
+        <div>
+            <ul>
+                <li>
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <p>{{reply.likes}}</p>
+                </li>
+                <li>
+                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    <p>{{reply.dislikes}}</p>
+                </li>
+                <li>
+                   <span>Reply</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

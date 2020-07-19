@@ -1,6 +1,7 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { SocialUser } from 'angularx-social-login';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,11 +12,19 @@ export class SidebarComponent implements OnInit {
 
   @Input() active: boolean;
 
+  user: SocialUser
+
   constructor(private route:Router, private loginService: LoginService) { 
     
   }
 
   ngOnInit(): void {
+
+    if(localStorage.getItem('users') != null){
+      this.loginService.getUserFromStorage();
+      this.user = this.loginService.user;
+    }
+
     this.addActiveClass();
   }
 
@@ -26,17 +35,14 @@ export class SidebarComponent implements OnInit {
 
         lists.forEach((list) => {
             list.addEventListener('click', function(e){
-              
-
               // remove all class active
               lists.forEach((list) => {
                 list.classList.remove('active');
               })
 
               console.log(this);
-              this.classList.add('active');
-              
-              
+              this.classList.add('active');  
+            
             });
         })
       })
@@ -54,8 +60,6 @@ export class SidebarComponent implements OnInit {
   }
 
   navigate(link: string){
-    // this.active = !this.active;
-    // document.getElementsByTagName('body')[0].style.backgroundColor = 'snow';
     this.loginService.changeActive(!this.active);
     this.route.navigate([link]);
   }

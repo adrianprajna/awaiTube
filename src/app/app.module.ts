@@ -39,6 +39,7 @@ import { UploaderComponent } from './upload/uploader/uploader.component';
 import { UploadTaskComponent } from './upload/upload-task/upload-task.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentComponent } from './video-detail/comment/comment.component';
+import { ReplyComponent } from './video-detail/reply/reply.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { CommentComponent } from './video-detail/comment/comment.component';
     DropzoneDirective,
     UploaderComponent,
     UploadTaskComponent,
-    CommentComponent
+    CommentComponent,
+    ReplyComponent
   ],
   imports: [
     BrowserModule,

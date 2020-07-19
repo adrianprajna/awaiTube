@@ -28,6 +28,8 @@ export class SubscriptionComponent implements OnInit {
     
         this.loginService.newUser.next(user);
         this.loginService.userObservable.next(true);
+
+        window.location.reload();
     });
 
   }

@@ -17,7 +17,7 @@
         </div>
     
         <div class="right-header">
-            <i class="fa fa-video-camera" aria-hidden="true" title="Upload Video" [routerLink]="['/upload']" routerLinkActive="router-link-active" style="outline: none;"></i>
+            <i class="fa fa-video-camera" aria-hidden="true" title="Upload Video" [routerLink]="['/upload']" routerLinkActive="router-link-active" style="outline: none;" *ngIf="user"></i>
             <i class="fa fa-ellipsis-v" title="Settings" *ngIf="!loggedIn" (click)="addSettingsDropdown()"></i>
 
             <!-- Settings dropdown -->

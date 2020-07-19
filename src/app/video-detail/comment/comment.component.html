@@ -1,9 +1,8 @@
 <div class="comment">
-    <!-- <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="margin-right: 1rem;"></i> -->
-    <img src="{{ user.img_url }}" alt="">
+    <img src="{{ user.img_url }}" alt="" class="comment-img">
     <div>
         <p class="bold">{{ user.name }}</p>
-        <p>18 Minutes ago</p>
+        <p>{{day}}</p>
         <p>{{ comment.description }}</p>
         <div>
             <ul>
@@ -16,10 +15,35 @@
                     <p>{{ comment.dislikes }}</p>
                 </li>
                 <li>
-                    <p>Reply</p>
+                   <span (click)="dropReplyMenu()">Reply</span>
                 </li>
             </ul>
         </div>
+
+        <div class="reply" *ngIf="isReply">
+            <div>
+                <img src="{{ loginUser.photoUrl }}" alt="">
+                <input type="text" placeholder="add a reply" id="reply-text">
+            </div>
+            <div class="reply-btn">
+                <button (click)="cancelReplyMenu()">Cancel</button>
+                <button (click)="reply(comment.id)">Reply</button>
+            </div>
+        </div>
+
+        <div>
+            <span style="color: blue;" *ngIf="replies.length != 0 && !showReply" (click)="showReplyMenu()">Show {{replies.length}} replies <i class="fa fa-angle-down" aria-hidden="true"></i></span>
+            <span style="color: blue;" *ngIf="replies.length != 0 && showReply" (click)="showReplyMenu()">Hide {{replies.length}} replies <i class="fa fa-angle-up" aria-hidden="true"></i></span>
+
+            <div *ngIf="showReply">
+                <div class="show-reply" *ngFor="let reply of replies">
+                    <app-reply [loginUser]="loginUser" [reply]="reply"></app-reply>
+                </div>
+            </div>
+
+        </div>
+
+
     </div>
 </div>
 

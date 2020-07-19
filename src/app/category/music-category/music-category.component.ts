@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VideoService } from 'src/app/services/video.service';
 
 @Component({
   selector: 'app-music-category',
@@ -7,37 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MusicCategoryComponent implements OnInit {
 
-  lists = [
-    {
-      id: 1,
-      name: 'William',
-      link: '../../assets/videos/sample-video.m4v'
-    },
-    {
-      id: 2,
-      name: 'Eric Saputro',
-      link: '../../assets/videos/video.mp4'
-    },
-    {
-      id: 3,
-      name: 'Adrian',
-      link: ''
-    },
-    {
-      id: 4,
-      name: 'Andrew Tanjaya',
-      link: ''
-    },
-    {
-      id: 5,
-      name: 'DX',
-      link: ''
-    }
-  ]
+  videos: any;
 
-  constructor() { }
+  constructor(private videoService: VideoService) { }
 
   ngOnInit(): void {
+
+    this.videoService.getAllVideos()
+      .valueChanges
+      .subscribe((result) => {
+          this.videos = result.data.videos;
+          this.videos = Array.from(this.videos).filter((video: any) => video.category == "Music");
+      });
+
   }
 
 }

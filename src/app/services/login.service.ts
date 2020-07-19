@@ -37,7 +37,7 @@ export class LoginService {
     this.currentLoggedIn = this.userObservable.asObservable()
   }
 
-  async addToLocalStorage(user: SocialUser){
+  addToLocalStorage(user: SocialUser){
     //insert into array
     this.users.push(user);
     //add to local storage

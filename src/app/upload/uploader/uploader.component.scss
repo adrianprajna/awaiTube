@@ -166,7 +166,14 @@
                     border-radius: 0.2rem;
                     color: white;
                     width: 100%;
-                    background-color: #d9534f;
+                    background-color: red;
+                    opacity: 0.5;
+                    cursor: pointer;
+                }
+
+                :hover{
+                    opacity: 1;
+                    transition: 1s;
                 }
             }
         }
@@ -191,4 +198,8 @@
 
 input[type=radio]:hover {
     cursor: pointer;
+}
+
+.not-allowed {
+    cursor: not-allowed !important;
 }
