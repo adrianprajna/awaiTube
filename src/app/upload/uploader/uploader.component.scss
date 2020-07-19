@@ -1,0 +1,194 @@
+.wrapper {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+
+    .dropzone { 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column; 
+        width: 60%;
+        height: 80%;
+        border: 0.1rem dashed #5b24f1;
+        border-radius: 0.4rem;
+        background: white;
+        padding: 1rem;
+
+
+        h2 {
+            justify-self: flex-start;
+            align-self: flex-start;
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+
+            i {
+                margin-right: 1rem;
+                padding: 2rem;
+                background-color: darkslategray;
+                border-radius: 50%;
+                color: white;
+            }
+        }
+
+        input[type=file]{
+           margin-left: 4rem;
+        }
+    
+        &.hovering {
+            border: 0.125rem solid #f16624;
+            color: #dadada !important;
+        }
+      
+        .file-label {
+            font-size: 1.2rem;
+        }
+    
+      }
+      
+      progress::-webkit-progress-value {
+        transition: width 0.1s ease;
+      }
+
+}
+
+
+.upload {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 7rem auto;
+
+    .content {
+
+        width: 60%;
+
+        .top, .bottom {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .div {
+            margin-bottom: 1rem;
+        }
+  
+        .header-section {
+            display: flex;
+            align-items: center;
+            padding: 1rem;      
+            
+            span {
+                background-color: #0275d8;
+                width: 2.5rem;
+                padding: 0.5rem;
+                border-radius: 100%;
+                margin-right: 1rem;
+                text-align: center;
+                color: white;
+            }
+        }
+
+        .second-section {
+            padding: 1rem;
+
+            textarea {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            #description {
+                height: 5rem;
+            }
+
+            label {
+                margin-right: 1rem;
+            }
+
+            .playlist {
+
+                p {
+                    margin-bottom: 0.5rem;
+                }
+
+                span {
+                    margin: 0 1rem;
+                }
+
+                button {
+                    padding: 0.5rem;
+                    border: 0;
+                    outline: none;
+                    border-radius: 0.2rem;
+                    color: white;
+                }
+
+                button.blue {
+                    background-color: #0275d8;
+                }
+
+                button.green {
+                    background-color: #5cb85c;
+                }
+            }
+
+            .playlist button:hover {
+                cursor: pointer;
+            }
+
+            .age-restriction {
+                input[type=radio] {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+
+        .third-section {
+            padding: 1rem;
+
+            input[type=radio], label {
+                margin-right: 0.5rem;
+            }
+
+            .upload-btn {
+                display: flex;
+                justify-content: center;
+
+                button {
+                    padding: 0.5rem;
+                    border: 0;
+                    outline: none;
+                    border-radius: 0.2rem;
+                    color: white;
+                    width: 100%;
+                    background-color: #d9534f;
+                }
+            }
+        }
+    }
+
+    .aside {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 20rem;
+        height: 45vh;
+
+        .thumbnail {
+            img {
+                width: 100%;
+            }
+        }
+
+        .file {
+            padding: 1rem;
+        }
+    }
+}
+
+input[type=radio]:hover {
+    cursor: pointer;
+}

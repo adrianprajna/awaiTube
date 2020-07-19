@@ -5,20 +5,21 @@
         <div class="video-content">
             
             <div class="video-player">
-                <video src="../../assets/videos/sample-video.m4v" autoplay controls></video>
+                <mat-video [keyboard]="true" [quality]="true" [loop]="false" title="My Tutorial Title" [autoplay]="false" [preload]="true" [fullscreen]="true" [download]="false" color="primary" spinner="spin" [overlay]="true" src="{{ video.url }}" [showFrameByFrame]="true">                
+                </mat-video>
                 <div class="video-details">
-                    <h3>Kenapa Kita Gugup Kalau Ngomong di Depan Umum?</h3>
+                    <h3> {{video.title}} </h3>
                     <div class="details">
-                        <p>428.262 x ditonton • 9 Jul 2020</p>
+                        <p>{{video.views}}x views • {{video.day}} {{video.month}} {{video.year}}</p>
                         <div>
                             <ul>
                                 <li>
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                    <p>36RB</p>
+                                    <p>{{video.likes}}</p>
                                 </li>
                                 <li>
                                     <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                                    <p>500</p>
+                                    <p>{{video.dislikes}}</p>
                                 </li>
                                 <li>
                                     <i class="fa fa-share" aria-hidden="true"></i>
@@ -37,19 +38,18 @@
             <hr>
 
             <div class="video-title">
-                <div class="top">
+                <div class="left">
+                    <img src="{{ user.img_url }}" alt="">
                     <div class="user">
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        <span>Adrian Prajna</span>
-                        <p>2M Subscriber</p>
+                        <span>{{user.name}}</span>
+                        <p>{{user.subscribers}} subscribers</p>
+                        <p>{{ video.description }}</p>
                     </div>
+                </div>
+
+                <div class="right">
                     <button>Subscribe</button>
                 </div>
-
-                <div class="bottom">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores non ullam hic repellendus, velit expedita necessitatibus earum rerum? Laborum vitae provident quos culpa commodi deserunt id recusandae odio incidunt accusantium.Quidem, omnis. Deserunt magnam similique, eveniet voluptatibus tempore sequi sapiente magni nobis labore neque pariatur repudiandae rem dolore sed delectus voluptatem placeat optio officiis maiores, quas ipsum? Debitis, ad aut!
-                </div>
-
             </div>
 
         </div>
@@ -80,33 +80,11 @@
 
             <hr>
 
-            <div class="comment-details" *ngFor="let item of x">
-                <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="margin-right: 1rem;"></i>
-                <div>
-                    <p class="bold">Adrian Prajna</p>
-                    <p>18 Minutes ago</p>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam, cupiditate dicta distinctio illo inventore unde exercitationem beatae voluptate animi, labore alias provident ex nobis nesciunt vero optio, in soluta earum!</p>
-                    <div>
-                        <ul>
-                            <li>
-                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                <p>36RB</p>
-                            </li>
-                            <li>
-                                <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                                <p>500</p>
-                            </li>
-                            <li>
-                                <p>Reply</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="comment-details" *ngFor="let comment of comments">
+                <app-comment [comment]="comment"></app-comment>
             </div>
-
-
+        
         </div>
-
     </div>
 
     <div class="right-content">
@@ -145,3 +123,4 @@
 
 
 </div>
+

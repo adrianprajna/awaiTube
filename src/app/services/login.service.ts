@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { BehaviorSubject, Observable } from 'rxjs'
+import { UserService } from './user.service';
+import { User } from '../type';
 
 @Injectable({
   providedIn: 'root'
@@ -19,27 +21,30 @@ export class LoginService {
   user: SocialUser;
   loggedIn: boolean = false;
 
-  constructor(private authService: SocialAuthService) {
+  u;
+
+  constructor(private authService: SocialAuthService, private userService: UserService) {
     if(localStorage.getItem('users') == null) {
       this.userObservable = new BehaviorSubject(false);
       this.newUser = new BehaviorSubject(null);
-
-      this.currentUser = this.newUser.asObservable();
-      this.currentLoggedIn = this.userObservable.asObservable()
     }
     else {
       this.userObservable = new BehaviorSubject(true);
       this.newUser = new BehaviorSubject(this.user);
-
-      this.currentUser = this.newUser.asObservable();
-      this.currentLoggedIn = this.userObservable.asObservable()
     }
+
+    this.currentUser = this.newUser.asObservable();
+    this.currentLoggedIn = this.userObservable.asObservable()
   }
 
-  addToLocalStorage(user){
+  async addToLocalStorage(user: SocialUser){
+    //insert into array
     this.users.push(user);
+    //add to local storage
     localStorage.setItem('users', JSON.stringify(this.users));
 
+    //insert into db
+    this.userService.createUser(user.name, user.email, user.photoUrl);
   }
 
   signOut(): void {
@@ -54,7 +59,10 @@ export class LoginService {
   }
 
   removeUser(){
-    window.localStorage.clear();
+    while(localStorage.getItem('users') != null){
+      localStorage.clear();
+    }
+    window.location.reload();
     this.newUser.next(null);
     this.userObservable.next(false);
   }

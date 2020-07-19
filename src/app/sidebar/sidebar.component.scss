@@ -1,14 +1,15 @@
 .sidebar {
     
     width: 13rem;
-    height: 100vh;
+    height: 88vh;
     position: fixed;
-    top: 11%;
+    top: 10.5%;
     background-color: white;
     transition: all 0.5s;
     z-index: 2;
     font-family: 'Oswald', sans-serif;
     font-size: 0.9rem;
+    overflow: scroll;
 
     hr {
         height: 0.1rem;
@@ -22,7 +23,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 1rem 0;
+        margin-bottom: 1rem;
 
         p {
             font-weight: bold;
@@ -39,19 +40,18 @@
                 list-style-type: none;
                 padding: 0.8rem;
                 width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
 
-                
-                a {
-                    color: black;
-                    text-decoration: none;
-                    margin-left: 1rem;
-
-                    i {
-                        margin-right: 1rem;
-                    }
-
+                :nth-child(1){
+                    margin-left: 0.8rem;
+                    font-size: 1.25rem;
                 }
 
+                :nth-child(2){
+                    margin-right: 0.8rem;
+                }
             }
 
             :hover {
@@ -96,4 +96,28 @@
     i {
         color: crimson;
     }
+
+    span {
+        font-weight: bold;
+    }
+}
+
+#style-1::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
 }

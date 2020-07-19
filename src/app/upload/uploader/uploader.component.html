@@ -1,0 +1,157 @@
+<div class="wrapper" [style.display]="!isValid ? 'flex' : 'none'">
+  <div appDropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)"
+  [class.hovering]="isHovering" [ngClass]="isValid ? 'dropzone none' : 'dropzone' ">
+      <h2>Upload Video</h2>
+      <div class="center">
+        <i class="fa fa-download fa-2x" aria-hidden="true"></i>
+        <p>Drag and Drop a File</p>
+      </div>
+       <input type="file" name="" id="file" (change)="onDrop($event.target.files)" >
+  </div>
+</div>
+
+
+
+<div [style.display]="isValid ? 'flex' : 'none'" class="upload">
+  <div class="content">
+    <div class="top">
+          <!-- Details -->
+      <div class="header-section">
+        <span>1</span>
+        <h3>Details</h3>
+      </div>
+
+      <hr>
+      
+      <div class="second-section">
+        <textarea name="" placeholder="Title (required)" id="title"></textarea>
+        <textarea name="" placeholder="Description" id="description" id="description"></textarea>
+
+        <div class="div">
+          <label for="">Category</label>
+          <select name="" id="category" [formControl]="selectControl">
+            <option value="Music">Music</option>
+            <option value="Game">Game</option>
+            <option value="Sport">Sport</option>
+            <option value="Travel">Travel</option>
+            <option value="News">News</option>
+            <option value="Entertainment">Entertainment</option>
+          </select>
+        </div>
+
+        <div class="div">
+          <label for="">Thumbnail</label>
+          <input type="file" (change)="onDropThumbnail($event.target.files)">
+        </div>
+
+        <div class="playlist div">
+          <p>Playlist</p>
+          <button class="green">Add to Existing Playlist</button>
+          <span>Or</span>
+          <button class="blue">Create New Playlist</button>
+        </div>
+
+        <div class="age-restriction">
+          <label for="">Age Restriction</label>
+          <span>
+            <input type="radio" name="age" id="" value="Yes">
+            <label for="">Yes</label>
+          </span>
+          <span>
+            <input type="radio" name="age" id="" value="No" checked>
+            <label for="">No</label>
+          </span>
+        </div>
+
+      </div>  
+    </div>
+    
+    <div class="bottom">
+       <!-- 2. Visibility -->
+       <div class="header-section">
+        <span>2</span>
+        <h3>Visibility</h3>
+      </div>
+    
+      <hr>
+      <div class="third-section">
+        <div class="privacy div">
+          <p>Privacy</p>
+          <span>
+            <input type="radio" name="privacy" id="" value="Public" checked>
+            <label for="">Public</label>
+          </span>
+          <span>
+            <input type="radio" name="privacy" id="" value="Private">
+            <label for="">Private</label>
+          </span>
+        </div>
+
+        <div class="premium div">
+          <p>Premium</p>
+          <span>
+            <input type="radio" name="premium" id="" value="Yes" checked>
+            <label for="">Yes</label>
+          </span>
+          <span>
+            <input type="radio" name="premium" id="" value="No">
+            <label for="">No</label>
+          </span>
+        </div>
+        
+        <div class="date-publish div">
+          <p>Publish Time</p>
+          <input type="datetime-local" name="" id="date">
+        </div>
+
+        <div class="upload-btn">
+          <button (click)="upload()">Upload</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  
+  <div class="aside">
+    <!-- Thumbnail -->
+    <div class="thumbnail">
+
+      <div *ngIf="snapshotThumbnail | async as snap">
+        <div *ngIf="downloadThumbnailURL as url">
+          <img [src]="url"><br>
+        </div> 
+        <p *ngIf="!isThumbnailDone">{{ snap.bytesTransferred }} of {{ snap.totalBytes }}</p>   
+      </div>
+
+      <div *ngIf="!isThumbnailDone">
+        <div *ngIf="percentageThumbnail | async as pct">
+          <progress [value]="pct" max="100" style="margin-right: 0.5rem;"></progress>
+          <span>{{ pct | number }}%</span>
+        </div>   
+      </div>
+   
+    </div>
+
+    <!-- Video -->
+    <div *ngIf="!isVideoDone">
+      <div *ngIf="percentage | async as pct">
+        <p>Uploading Video...</p>
+        <progress [value]="pct" max="100" style="margin-right: 0.5rem;"></progress>
+          <span>{{ pct | number }}%</span>
+      </div>
+
+      <div *ngIf="snapshot | async as snap">
+        <p>{{ snap.bytesTransferred }} of {{ snap.totalBytes }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="isVideoDone" class="file">
+      <p>Video file name: {{ fileName }}</p>
+    </div>
+
+
+    <!--  -->
+  </div>
+</div>
+

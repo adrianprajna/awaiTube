@@ -3,23 +3,17 @@
 
     <div class="sidebar-menu">
         <ul>
-            <li class="list active" [routerLink]="['']" routerLinkActive="router-link-active" >
-                <a href="">
-                    <i class="fa fa-home"></i>
-                    Home
-                </a>
+            <li class="list active" (click)="navigate('')">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
             </li>
             <li class="list" (click)="navigate('/trending')">
-                <a>
-                    <i class="fa fa-fire"></i>
-                    Trending
-                </a>
+                <i class="fa fa-fire"></i>
+                <span>Trending</span>
             </li>
             <li class="list" (click)="navigate('/subscription')">
-                <a>
-                    <i class="fa fa-youtube-square"></i>
-                    Subscription
-                </a>
+                <i class="fa fa-youtube-square"></i>
+                <span>Subscription</span>
             </li>
         </ul>
     </div>
@@ -27,25 +21,72 @@
     <hr>
 
     <div class="sidebar-menu">
+        <p>Playlist</p>
+        <ul>
+            <li class="list" (click)="navigate('/playlist')">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                <span>Full Stack Web</span>
+            </li>
+            <li class="list">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                <span>REST API</span>
+            </li>
+            <li class="list">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                <span>Laravel CRUD</span>
+            </li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div class="sidebar-menu">
+        <p>Subscription</p>
+        <ul>
+            <li class="list">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span>The Joomers</span>
+            </li>
+            <li class="list">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span>Traversy Media</span>
+            </li>
+            <li class="list">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span>Lofi Hip Hop</span>
+            </li>
+        </ul>
+    </div>
+
+    <hr>
+
+
+    <div class="sidebar-menu">
         <p>Best from Youtube</p>
         <ul>
             <li class="list" (click)="navigate('/category/music')">
-                <a>
-                    <i class="fa fa-music"></i>
-                    Music
-                </a>
+                <i class="fa fa-music"></i>
+                <span>Music</span>
             </li>
-            <li class="list">
-                <a>
-                    <i class="fa fa-gamepad"></i>
-                    Game
-                </a>
+            <li class="list" (click)="navigate('/category/game')">
+                <i class="fa fa-gamepad"></i>
+                <span>Game</span>
             </li>
-            <li class="list">
-                <a>
-                    <i class="fa fa-code"></i>
-                    Code
-                </a>
+            <li class="list" (click)="navigate('/category/sport')">
+                <i class="fa fa-dribbble" aria-hidden="true"></i>
+                <span>Sport</span>
+            </li>
+            <li class="list" (click)="navigate('/category/news')">
+                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                <span>News</span>
+            </li>
+            <li class="list" (click)="navigate('/category/travel')">
+                <i class="fa fa-plane" aria-hidden="true"></i>
+                <span>Travel</span>
+            </li>
+            <li class="list" (click)="navigate('/category/entertainment')">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+                <span>Entertainment</span>
             </li>
         </ul>
     </div>
@@ -56,10 +97,8 @@
         <p>More from Youtube</p>
         <ul>
             <li class="list" (click)="navigate('/premium')">
-                <a>
-                    <i class="fa fa-youtube"></i>
-                    Youtube Premium
-                </a>
+                <i class="fa fa-youtube"></i>
+                <span>Youtube Premium</span>
             </li>
         </ul>
     </div>

@@ -12,11 +12,33 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { YoutubePremiumComponent } from './youtube-premium/youtube-premium.component';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider} from 'angularx-social-login'
 import { LoginService } from '../app/services/login.service';
+import { UserService } from '../app/services/user.service';
+import { VideoService } from '../app/services/video.service';
+import { CommentService } from '../app/services/comment.service'
 import { VideoDetailComponent } from './video-detail/video-detail.component';
 import { TrendingComponent } from './trending/trending.component';
 import { MusicCategoryComponent } from './category/music-category/music-category.component';
 import { VideoComponent } from './video-detail/video/video.component';
-import { SportCategoryComponent } from './category/sport-category/sport-category.component'
+import { SportCategoryComponent } from './category/sport-category/sport-category.component';
+import { GameCategoryComponent } from './category/game-category/game-category.component';
+import { NewsCategoryComponent } from './category/news-category/news-category.component';
+import { TravelCategoryComponent } from './category/travel-category/travel-category.component';
+import { EntertainmentCategoryComponent } from './category/entertainment-category/entertainment-category.component';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { ChannelHomeComponent } from './channel/channel-home/channel-home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatVideoModule } from 'mat-video';
+import { UploadComponent } from './upload/upload.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage'
+import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { environment } from '../environments/environment';
+import { firestore } from 'firebase';
+import { DropzoneDirective } from './dropzone.directive';
+import { UploaderComponent } from './upload/uploader/uploader.component';
+import { UploadTaskComponent } from './upload/upload-task/upload-task.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommentComponent } from './video-detail/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -30,14 +52,31 @@ import { SportCategoryComponent } from './category/sport-category/sport-category
     TrendingComponent,
     MusicCategoryComponent,
     VideoComponent,
-    SportCategoryComponent
+    SportCategoryComponent,
+    GameCategoryComponent,
+    NewsCategoryComponent,
+    TravelCategoryComponent,
+    EntertainmentCategoryComponent,
+    PlaylistComponent,
+    ChannelHomeComponent,
+    UploadComponent,
+    DropzoneDirective,
+    UploaderComponent,
+    UploadTaskComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    BrowserAnimationsModule,
+    MatVideoModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
@@ -58,7 +97,10 @@ import { SportCategoryComponent } from './category/sport-category/sport-category
       ],
     } as SocialAuthServiceConfig,
   },
-  LoginService
+  LoginService,
+  UserService,
+  VideoService,
+  CommentService
   ],
   bootstrap: [AppComponent]
 })

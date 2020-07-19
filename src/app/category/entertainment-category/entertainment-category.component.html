@@ -1,0 +1,22 @@
+<div class="entertainment">
+    <div class="header">
+        <div class="category-detail">
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+            <div>
+                <h2>Entertainment</h2>
+                <p>250.1M subscribers</p>
+            </div>
+        </div>
+        <button>Subscribe</button>
+    </div>
+
+    <div class="content">
+        <h3>Recommended</h3>
+        <p>Based on your Subscriptions and History</p>
+        <div class="row">
+            <app-video *ngFor="let video of videos" [video]="video"></app-video>
+        </div>
+    </div>
+
+</div>
+

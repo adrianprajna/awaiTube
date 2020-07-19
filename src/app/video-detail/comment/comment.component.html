@@ -1,0 +1,25 @@
+<div class="comment">
+    <!-- <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="margin-right: 1rem;"></i> -->
+    <img src="{{ user.img_url }}" alt="">
+    <div>
+        <p class="bold">{{ user.name }}</p>
+        <p>18 Minutes ago</p>
+        <p>{{ comment.description }}</p>
+        <div>
+            <ul>
+                <li>
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <p>{{ comment.likes }}</p>
+                </li>
+                <li>
+                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    <p>{{ comment.dislikes }}</p>
+                </li>
+                <li>
+                    <p>Reply</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

@@ -7,76 +7,14 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: 1rem;
-        margin-left: 1.24rem;
-
-        .card {
-            width: 18rem;
-            margin-right: 1.25rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-
-
-            .card-video {
-                height: 8rem;
-                // video {
-                //     width: 100%;
-                //     height: 100%;
-                // }
-                background-color: navy;
-            }
-
-            .card-title {
-                display: flex;
-                padding: 0.3rem;
-                align-items: center;
-                justify-content: flex-start;
-                
-
-                i {
-                    margin-right: 0.5rem;
-                }
-
-                .head-title {
-
-                    display: flex;
-                    flex-direction: column;
-                    
-                    .title {
-                        height: 3rem;
-                        overflow: hidden;
-                        font-weight: bold;
-                    }
-                }
-            }
-
-            .settings-dropdown {
-                position: absolute;
-    
-                ul {
-                    width: 100%;
-    
-                    li {
-                        background: white;
-                        width: 100%;
-                        padding: 1rem;
-                        list-style-type: none;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                    }
-    
-                :hover {
-                    background-color: lightgray;
-                }
-                
-                }
-            }
-        }
+        margin-left: 1.24rem;  
 
         :hover {
             cursor: pointer;
         }
     }
+
+    
 
     // .row {
     //     display: grid;
@@ -122,6 +60,5 @@ $breakpoint-mobile: 576px;
         }
 
     }
-   
-    }
+}
 

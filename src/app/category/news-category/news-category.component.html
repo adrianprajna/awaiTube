@@ -1,0 +1,21 @@
+<div class="news">
+    <div class="header">
+        <div class="category-detail">
+            <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+            <div>
+                <h2>News</h2>
+                <p>100.1M subscribers</p>
+            </div>
+        </div>
+        <button>Subscribe</button>
+    </div>
+
+    <div class="content">
+        <h3>Recommended</h3>
+        <p>Based on your Subscriptions and History</p>
+        <div class="row">
+            <app-video *ngFor="let list of lists" [list]="list"></app-video>
+        </div>
+    </div>
+
+</div>

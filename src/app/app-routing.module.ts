@@ -6,16 +6,32 @@ import { YoutubePremiumComponent } from './youtube-premium/youtube-premium.compo
 import { VideoDetailComponent } from './video-detail/video-detail.component';
 import { TrendingComponent } from './trending/trending.component';
 import { MusicCategoryComponent } from './category/music-category/music-category.component';
+import { GameCategoryComponent } from './category/game-category/game-category.component';
+import { SportCategoryComponent } from './category/sport-category/sport-category.component'
+import { NewsCategoryComponent } from './category/news-category/news-category.component';
+import { TravelCategoryComponent } from './category/travel-category/travel-category.component';
+import { EntertainmentCategoryComponent } from './category/entertainment-category/entertainment-category.component';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { ChannelHomeComponent } from './channel/channel-home/channel-home.component';
+import { UploaderComponent } from './upload/uploader/uploader.component';
 
 
 
 const routes: Routes = [
+  {path: '', redirectTo: '', pathMatch: "full", component:HomeComponent},
+  {path: 'playlist', component: PlaylistComponent},
+  {path: 'channel/home', component: ChannelHomeComponent},
   {path: 'category/music', component: MusicCategoryComponent},
+  {path: 'category/game', component: GameCategoryComponent},
+  {path: 'category/sport', component: SportCategoryComponent},
+  {path: 'category/news', component: NewsCategoryComponent},
+  {path: 'category/travel', component: TravelCategoryComponent},
+  {path: 'category/entertainment', component: EntertainmentCategoryComponent},
   {path: 'subscription', component: SubscriptionComponent},
   {path: 'premium', component: YoutubePremiumComponent},
   {path: 'trending', component: TrendingComponent},
-  {path: 'video-detail', component: VideoDetailComponent},
-  {path: '', component: HomeComponent, pathMatch: "full"}
+  {path: 'video-detail/:id', component: VideoDetailComponent},
+  {path: 'upload', component: UploaderComponent}
 ];
 
 @NgModule({

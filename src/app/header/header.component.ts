@@ -38,12 +38,12 @@ export class HeaderComponent implements OnInit {
 
   signIn(){
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
     this.authService.authState.subscribe((user) => {
         this.user = user;
         this.loggedIn = (user != null);
 
 
+        console.log(user.name);
         this.loginService.addToLocalStorage(user);
 
         
@@ -63,8 +63,9 @@ export class HeaderComponent implements OnInit {
     this.loginService.changeActive(!this.active);
   }
 
-  navigate(){
-    this.route.navigate(['/']);
+  navigate(link: string){
+    this.route.navigate([link]);
+    this.addUserDropdown();
   }
 
   switchRestriction(){

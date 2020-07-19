@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VideoService } from '../services/video.service';
 
 @Component({
   selector: 'app-home',
@@ -7,24 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  isSettingsDrop = false;
-
-  lists = [
-    {
-      id: 1,
-      name: 'Vendly Tanudjaja',
-      link: '../../assets/videos/sample-video.m4v'
-    },
-    {
-      id: 2,
-      name: 'Eric Saputro',
-      link: '../../assets/videos/video.mp4'
-    }
-  ]
-  constructor() { }
+  isSettingsDrop:boolean = false;
+  
+  videos: any
+  constructor(private videoService: VideoService) { }
 
   ngOnInit(): void {
-    console.log(this.lists)
+  
+    this.videoService.getAllVideos().valueChanges.subscribe(results => {
+      this.videos = results.data.videos;
+    })
   }
 
   addDropdown(): void{
