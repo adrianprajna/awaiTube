@@ -1,0 +1,20 @@
+<div class="content" (mouseenter)="addSettings()" (mouseleave)="addSettings()">
+
+    <div class="image-video">
+      <img src="{{video.thumbnail}}" alt="">
+    </div>
+    
+    <div class="next-video-detail" [routerLink]="['/video-detail']" routerLinkActive="router-link-active">
+      <div class="image-video-detail">
+        <div>
+          <p class="bold">{{video.title}}</p>
+        </div>
+        <p>{{user.name}}</p>
+        <span class="view">{{video.views}}x views</span>
+        <span>{{video.day}} - {{video.month}} - {{video.year}}</span>
+        <p>{{video.description}}</p>
+      </div>
+      <i class="fa fa-ellipsis-v" title="Settings" *ngIf="settings"></i>
+    </div>
+
+</div>

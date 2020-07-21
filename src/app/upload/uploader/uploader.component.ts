@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SocialUser } from 'angularx-social-login';
 import { LoginService } from 'src/app/services/login.service';
 import { url } from 'inspector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-uploader',
@@ -46,7 +47,7 @@ export class UploaderComponent implements OnInit {
 
   user: SocialUser
   
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private videoService: VideoService, private userService: UserService, private loginService: LoginService) { }
+  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private videoService: VideoService, private userService: UserService, private loginService: LoginService, private router:Router) { }
 
   ngOnInit() {
     this.loginService.getUserFromStorage();
@@ -161,9 +162,12 @@ export class UploaderComponent implements OnInit {
         let user_id = result.data.getUserByEmail.id;
 
         this.videoService.createVideo(user_id, title.value, this.downloadURL, desc.value, this.selectControl.value, 'South Korea', date.getDate(), date.getMonth() + 1, this.downloadThumbnailURL, isRestricted, privacy, isPremium)
-          .subscribe(result => console.log(result));
+          .subscribe(result => {
+            alert('success publish video!');
+            this.router.navigate(['']);
+          });
       })
 
-    alert('success publish video!');
+    
   }
 }

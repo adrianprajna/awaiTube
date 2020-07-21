@@ -12,12 +12,12 @@
             .video-player {
                 display: flex;
                 flex-direction: column;
-                
-                video {
-                    width: 100%;
-                    border: 0;
-                    outline: none;
-                }
+    
+                // video {
+                //     width: 100%;
+                //     border: 0;
+                //     outline: none;
+                // }
 
                 .video-details {
                     padding: 1rem;
@@ -169,6 +169,11 @@
                 background-color: navy;
                 flex: 1.5;
                 margin-right: 0.5rem;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
             }
 
             .image-video-detail {
@@ -186,6 +191,14 @@
 
 .bold {
     font-weight: bold;
+}
+
+.blue {
+    color: blue;
+}
+
+.red {
+    color: red;
 }
 
 @media (max-width: 576px){

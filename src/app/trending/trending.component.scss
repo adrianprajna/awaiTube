@@ -27,48 +27,6 @@
 
     }
 
-    .content {
-
-        display: flex;
-        margin-left: 2rem;
-        margin-top: 1rem;
-
-        .image-video{
-            flex: 1;
-            margin-right: 0.5rem;
-
-            video {
-                width: 100%;
-            }
-        }
-
-        .next-video-detail {
-            display: flex;
-            flex-direction: column;
-            height: 10rem;
-            margin-bottom: 1rem;
-            border: none;
-            outline: none;
-            flex: 2;
-
-            
-
-            .image-video-detail {
-                width: 60%;
-                margin-right: 1rem;
-                div {
-                    height: 3rem;
-                    overflow: hidden;
-                }
-            }
-        }
-
-        :hover {
-            cursor: pointer;
-        }
-
-    }
-
 }
 
 .bold {

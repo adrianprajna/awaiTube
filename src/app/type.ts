@@ -6,3 +6,7 @@ export class User {
     img_url: string
     subscribers: number
 }
+
+export class Obj {
+    id: number
+}

@@ -1,0 +1,12 @@
+<div class="next-video-detail" [routerLink]="['/video-detail/', video.id]" routerLinkActive="router-link-active" >
+  <div class="image-video">
+    <img src="{{video.thumbnail}}" alt="">
+  </div>
+  <div class="image-video-detail">
+    <div [ngClass]="video.title.length > 30 ? 'height': ''">
+      <p class="bold">{{video.title}}</p>
+    </div>
+    <p>{{user.name}}</p>
+    <p>{{video.views}}x views</p>
+  </div>
+</div>

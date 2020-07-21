@@ -1,0 +1,33 @@
+.next-video-detail {
+    display: flex;
+    height: 8rem;
+    margin-bottom: 1rem;
+    outline: none;
+    cursor: pointer;
+
+    .image-video{
+        background-color: navy;
+        flex: 1.5;
+        margin-right: 0.5rem;
+
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .image-video-detail {
+        flex: 1;
+
+    }
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.height{
+    height: 3rem;
+    overflow: hidden;
+}

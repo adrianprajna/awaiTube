@@ -1,44 +1,29 @@
 <div class="trending">
 
-    <div class="header">
-        <ul>
-            <li>
-                <i class="fa fa-music fa-3x" aria-hidden="true"></i>
-                <p>Music</p>
-            </li>
-            <li>
-                <i class="fa fa-gamepad fa-3x" aria-hidden="true"></i>
-                <p>Gaming</p>
-            </li>
-            <li>
-                <i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>
-                <p>News</p>
-            </li>
-            <li>
-                <i class="fa fa-film fa-3x" aria-hidden="true"></i>
-                <p>Movies</p>
-            </li>
+  <div class="header">
+    <ul>
+      <li>
+        <i class="fa fa-music fa-3x" aria-hidden="true"></i>
+        <p>Music</p>
+      </li>
+      <li>
+        <i class="fa fa-gamepad fa-3x" aria-hidden="true"></i>
+        <p>Gaming</p>
+      </li>
+      <li>
+        <i class="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>
+        <p>News</p>
+      </li>
+      <li>
+        <i class="fa fa-film fa-3x" aria-hidden="true"></i>
+        <p>Movies</p>
+      </li>
 
-        </ul>
-        
+    </ul>
+
     <hr>
-    </div>
+  </div>
 
-    <div class="content">
-        <div class="image-video">
-            <video src="../../assets/videos/sample-video.m4v"></video>
-        </div>
-        <div class="next-video-detail" [routerLink]="['/video-detail']" routerLinkActive="router-link-active">  
-            <div class="image-video-detail">
-                <div>
-                    <p class="bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem repellendus saepe veritatis earum, cum impedit totam laborum voluptates facere maxime asperiores nobis vel hic, nesciunt est quibusdam dolores sequi illum. lorem</p>
-                </div>
-                <p>Adrian Prajna</p>
-                <p>300k views</p>
-                <i class="fa fa-ellipsis-v" title="Settings"></i>
-            </div>
-        </div>
-    </div>
-
+  <app-video-trending *ngFor="let video of videos" [video]="video"></app-video-trending>
 
 </div>

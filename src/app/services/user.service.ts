@@ -7,6 +7,50 @@ import gql from 'graphql-tag';
 })
 export class UserService {
 
+  updateUserQuery = gql `
+    mutation updateUser($id: ID!, $name: String!, $email: String!, $img_url: String!, $premium: Boolean!, $subscribers: Int!, $liked_video: String!, $disliked_video: String!, $liked_comment: String!, $disliked_comment: String!) {
+      updateUser(id: $id, input: {
+        name: $name,
+        email: $email,
+        img_url: $img_url,
+        premium: $premium,
+        subscribers: $subscribers,
+        liked_video: $liked_video,
+        disliked_video: $disliked_video,
+        liked_comment: $liked_comment,
+        disliked_comment: $disliked_comment
+      }){
+        id
+        name
+        email
+        premium
+        img_url
+        subscribers
+        liked_video
+        disliked_video
+        liked_comment
+        disliked_comment
+      }
+    }
+  `;
+
+  getUserByEmailQuery = gql `
+      query getUserByEmail($email: String!){
+        getUserByEmail(email: $email){
+          id
+          name
+          email
+          premium
+          img_url
+          subscribers
+          liked_video
+          disliked_video
+          liked_comment
+          disliked_comment
+        }
+      }
+  `;
+
   constructor(private apollo: Apollo) { }
 
   getUser(user_id: number){
@@ -20,6 +64,10 @@ export class UserService {
           premium
           img_url
           subscribers
+          liked_video
+          disliked_video
+          liked_comment
+          disliked_comment
         }
       }
       `,
@@ -31,18 +79,7 @@ export class UserService {
 
   getUserByEmail(email: string){
     return this.apollo.watchQuery<any>({
-      query: gql `
-      query getUserByEmail($email: String!){
-        getUserByEmail(email: $email){
-          id
-          name
-          email
-          premium
-          img_url
-          subscribers
-        }
-      }
-      `,
+      query: this.getUserByEmailQuery,
       variables: {
         email: email
       }
@@ -59,7 +96,11 @@ export class UserService {
           email: $email,
           premium: false,
           subscribers: 0,
-          img_url: $img_url
+          img_url: $img_url,
+          liked_video: "[]",
+          disliked_video: "[]",
+          liked_comment: "[]",
+          disliked_comment: "[]"
         }) {
           id
           name
@@ -67,6 +108,10 @@ export class UserService {
           premium
           img_url
           subscribers
+          liked_video
+          disliked_video,
+          liked_comment,
+          disliked_comment
         }
       }
       `,

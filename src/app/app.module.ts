@@ -40,6 +40,9 @@ import { UploadTaskComponent } from './upload/upload-task/upload-task.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentComponent } from './video-detail/comment/comment.component';
 import { ReplyComponent } from './video-detail/reply/reply.component';
+import { KeyboardModalComponent } from './header/keyboard-modal/keyboard-modal.component';
+import { VideoTrendingComponent } from './trending/video-trending/video-trending.component';
+import { VideoAsideComponent } from './video-detail/video-aside/video-aside.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { ReplyComponent } from './video-detail/reply/reply.component';
     UploaderComponent,
     UploadTaskComponent,
     CommentComponent,
-    ReplyComponent
+    ReplyComponent,
+    KeyboardModalComponent,
+    VideoTrendingComponent,
+    VideoAsideComponent
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,8 @@ export class HeaderComponent implements OnInit {
   loggedIn: Boolean = false;
   isUserDrop: boolean = false;
   isSettingsDrop: boolean = false;
+  isLocationDrop: boolean = false;
+  isModalDrop: boolean = false;
   users = [];
 
   focus:boolean = true;
@@ -85,6 +87,14 @@ export class HeaderComponent implements OnInit {
     this.isSettingsDrop = !this.isSettingsDrop;
   }
 
+  addLocationDropdown(){
+    this.isLocationDrop = !this.isLocationDrop;
+  }
+
+  addModal(){
+    this.isModalDrop = true;
+  }
+
   observeActive(){
     this.loginService.currentActive.subscribe(active => {
       this.active = active;
@@ -95,6 +105,10 @@ export class HeaderComponent implements OnInit {
       }
 
     })
+  }
+
+  receiveModal($event){
+    this.isModalDrop = $event;
   }
 
 }

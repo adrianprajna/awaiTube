@@ -1,4 +1,4 @@
-<div class="wrapper" [style.display]="isValid ? 'flex' : 'none'">
+<div class="wrapper" [style.display]="!isValid ? 'flex' : 'none'">
   <div appDropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)"
   [class.hovering]="isHovering" [ngClass]="isValid ? 'dropzone none' : 'dropzone' ">
       <h2>Upload Video</h2>
@@ -12,7 +12,7 @@
 
 
 
-<div [style.display]="!isValid ? 'flex' : 'none'" class="upload">
+<div [style.display]="isValid ? 'flex' : 'none'" class="upload">
   <div class="content">
     <div class="top">
           <!-- Details -->

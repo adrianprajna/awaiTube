@@ -1,127 +1,120 @@
 <div class="home-video-detail">
 
-    <div class="left-content">
+  <div class="left-content">
 
-        <div class="video-content">
-            
-            <div class="video-player">
-                <mat-video [keyboard]="true" [quality]="true" [loop]="false" title="My Tutorial Title" [autoplay]="false" [preload]="true" [fullscreen]="true" [download]="false" color="primary" spinner="spin" [overlay]="true" src="{{ video.url }}" [showFrameByFrame]="true">                
-                </mat-video>
-                <div class="video-details">
-                    <h3> {{video.title}} </h3>
-                    <div class="details">
-                        <p>{{video.views}}x views • {{video.day}} {{video.month}} {{video.year}}</p>
-                        <div>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                    <p>{{video.likes}}</p>
-                                </li>
-                                <li>
-                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                                    <p>{{video.dislikes}}</p>
-                                </li>
-                                <li>
-                                    <i class="fa fa-share" aria-hidden="true"></i>
-                                    <p>Share</p>
-                                </li>
-                                <li>
-                                    <i class="fa fa-list" aria-hidden="true"></i>
-                                    <p>Save</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    <div class="video-content">
+
+      <div class="video-player">
+        <mat-video [keyboard]="true" [quality]="true" [loop]="false" title="My Tutorial Title" [autoplay]="false"
+          [preload]="true" [fullscreen]="true" [download]="false" color="accent" spinner="spin" [overlay]="true"
+          src="{{ video.url }}" [showFrameByFrame]="true" style="width: 100%; height: 70vh;" id="vv">
+        </mat-video>
+        <video src="" style="display: none;" id="v">asd</video>
+        <div class="video-details">
+          <h3> {{video.title}} </h3>
+          <div class="details">
+            <p>{{video.views}}x views • {{video.day}} - {{video.month}} - {{video.year}}</p>
+            <div>
+              <ul>
+                <li (click)="likeVideo()" id="like">
+                  <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                  <p>{{video.likes}}</p>
+                </li>
+                <li id="dislike" (click)="dislikeVideo()">
+                  <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                  <p>{{video.dislikes}}</p>
+                </li>
+                <li>
+                  <i class="fa fa-share" aria-hidden="true"></i>
+                  <p>Share</p>
+                </li>
+                <li>
+                  <i class="fa fa-list" aria-hidden="true"></i>
+                  <p>Save</p>
+                </li>
+              </ul>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <hr>
+      <hr>
 
-            <div class="video-title">
-                <div class="left">
-                    <img src="{{ user.img_url }}" alt="">
-                    <div class="user">
-                        <span>{{user.name}}</span>
-                        <p>{{user.subscribers}} subscribers</p>
-                        <p>{{ video.description }}</p>
-                    </div>
-                </div>
-
-                <div class="right">
-                    <button>Subscribe</button>
-                </div>
-            </div>
-
+      <div class="video-title">
+        <div class="left">
+          <img src="{{ user.img_url }}" alt="">
+          <div class="user">
+            <span>{{user.name}}</span>
+            <p>{{user.subscribers}} subscribers</p>
+            <p>{{ video.description }}</p>
+          </div>
         </div>
 
-        <hr>
-
-        <div class="comment-content">
-
-            <div class="insert-comment">
-
-                <div class="comment-setting">
-                    <p>4164 Komentar</p>
-                    <div class="sort">
-                        <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
-                        <span>Sort</span>
-                    </div>
-                </div>
-
-                <div class="insert-comment-detail">
-                    <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" *ngIf="!loginUser"></i>
-                    <img src="{{loginUser.photoUrl}}" alt="" *ngIf="loginUser">
-                    <div>
-                        <input type="text" name="" id="description" placeholder="Add a public comment">
-                        <button (click)="comment()">Comment</button>
-                    </div>
-                </div>
-                
-            </div>
-
-            <hr>
-
-            <div class="comment-details" *ngFor="let comment of comments">
-                <app-comment [comment]="comment" [loginUser]="loginUser"></app-comment>
-            </div>
-        
+        <div class="right">
+          <button>Subscribe</button>
         </div>
+      </div>
+
     </div>
 
-    <div class="right-content">
-        <p class="bold" style="margin-bottom: 1rem;">Up Next</p>
+    <hr>
 
-        <div class="next-video-detail">
-            <div class="image-video">
+    <div class="comment-content">
 
-            </div>
-            <div class="image-video-detail">
-                <div>
-                    <p class="bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem repellendus saepe veritatis earum, cum impedit totam laborum voluptates facere maxime asperiores nobis vel hic, nesciunt est quibusdam dolores sequi illum.</p>
-                </div>
-                <p>Adrian Prajna</p>
-                <p>300k views</p>
-            </div>
+      <div class="insert-comment">
+
+        <div class="comment-setting">
+          <p>4164 Komentar</p>
+          <div class="sort">
+            <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+            <span>Sort</span>
+          </div>
         </div>
 
-        <hr style="margin-bottom: 1rem;">
-
-        <div class="next-video-detail" *ngFor="let item of x">
-            <div class="image-video">
-
-            </div>
-            <div class="image-video-detail">
-                <div>
-                    <p class="bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem repellendus saepe veritatis earum, cum impedit totam laborum voluptates facere maxime asperiores nobis vel hic, nesciunt est quibusdam dolores sequi illum.</p>
-                </div>
-                <p>Adrian Prajna</p>
-                <p>300k views</p>
-            </div>
+        <div class="insert-comment-detail">
+          <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" *ngIf="!loginUser"></i>
+          <img src="{{loginUser.photoUrl}}" alt="" *ngIf="loginUser">
+          <div>
+            <input type="text" name="" id="description" placeholder="Add a public comment">
+            <button (click)="comment()">Comment</button>
+          </div>
         </div>
 
+      </div>
+
+      <hr>
+
+      <div class="comment-details" *ngFor="let comment of comments">
+        <app-comment [comment]="comment" [loginUser]="loginUser"></app-comment>
+      </div>
 
     </div>
+  </div>
+
+  <div class="right-content">
+    <p class="bold" style="margin-bottom: 1rem;">Up Next</p>
+
+    <div class="next-video-detail" *ngIf="nextVideo">
+      <div class="image-video">
+        <img src="{{nextVideo.thumbnail}}" alt="">
+      </div>
+      <div class="image-video-detail">
+        <div>
+          <p class="bold">{{nextVideo.title}}</p>
+        </div>
+        <p>Adrian Prajna</p>
+        <p>{{nextVideo.views}}x views</p>
+      </div>
+
+    </div>
+
+    <hr style="margin-bottom: 1rem;">
+
+    <div class="next-video-detail" *ngFor="let video of videos">
+      <app-video-aside [video]="video"></app-video-aside>
+    </div>
+
+  </div>
 
 
 </div>
-

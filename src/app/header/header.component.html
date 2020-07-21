@@ -1,92 +1,134 @@
+<div class="header">
 
-    <div class="header">
+  <div class="left-header">
+    <i class="fa fa-bars fa-1x" (click)="onClick()"></i>
+    <a href="">
+      <div class="logo-header">
+        <i class="fa fa-youtube-play fa-2x"></i>
+        <p>AwaiTube</p>
+      </div>
+    </a>
+  </div>
 
-        <div class="left-header">
-            <i class="fa fa-bars fa-1x" (click)="onClick()"></i>
-            <a href="">
-                <div class="logo-header">
-                    <i class="fa fa-youtube-play fa-2x"></i>
-                    <p>AwaiTube</p>
-                </div>
-            </a>
-        </div>
-    
-        <div class="center-header">
-            <input type="text" name="" id="" placeholder="Search" autocomplete="on">
-            <i class="fa fa-search"></i>
-        </div>
-    
-        <div class="right-header">
-            <i class="fa fa-video-camera" aria-hidden="true" title="Upload Video" [routerLink]="['/upload']" routerLinkActive="router-link-active" style="outline: none;" *ngIf="user"></i>
-            <i class="fa fa-ellipsis-v" title="Settings" *ngIf="!loggedIn" (click)="addSettingsDropdown()"></i>
+  <div class="center-header">
+    <input type="text" name="" id="" placeholder="Search" autocomplete="on">
+    <i class="fa fa-search"></i>
+  </div>
 
-            <!-- Settings dropdown -->
-            <div class="settings-dropdown" *ngIf="isSettingsDrop">
-                <ul>
-                    <li class="lists">
-                        <i class="fa fa-keyboard-o" aria-hidden="true"></i>
-                        <p>Keyboard Shortcuts</p>
-                    </li>
-                    <li class="lists">
-                        <i class="fa fa-globe" aria-hidden="true"></i>
-                        <p>Location</p>
-                    </li>
-                    <li class="lists" (click)="switchRestriction()">
-                        <p>Restricted Mode: </p>
-                        <p id="restrict">Off</p>
-                    </li>
-                </ul>
-            </div>
-            <!--  -->
+  <div class="right-header">
+    <i class="fa fa-video-camera" aria-hidden="true" title="Upload Video" [routerLink]="['/upload']"
+      routerLinkActive="router-link-active" style="outline: none;" *ngIf="user"></i>
+    <i class="fa fa-ellipsis-v" title="Settings" *ngIf="!loggedIn" (click)="addSettingsDropdown()"></i>
 
-            <i class="fa fa-bell" aria-hidden="true" *ngIf="loggedIn"></i>
-            <div class="btn-sign-in" (click)="signIn()" *ngIf="loggedIn == false">
-                <i class="fa fa-user-circle fa-1x"></i>
-                <p>Sign in</p>
-            </div>
-            <div *ngIf="user" class="img" class="user">
-                <img src="{{ user.photoUrl }}" alt="" (click)="addUserDropdown()">
-                <div class="user-dropdown" *ngIf="isUserDrop == true">
-                    <ul>
-                        <li>
-                            <div class="logo">
-                                <img src="{{ user.photoUrl }}" alt="">
-                            </div>
-                            <div>
-                                <p>{{ user.name }}</p>
-                                <p>{{ user.email }}</p>
-                            </div>
-                        </li>
-                        <li class="lists" (click)="signOut()">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                            <p>Switch Account</p>
-                        </li>
-                        <li class="lists" (click)="navigate('/premium')">
-                            <i class="fa fa-youtube" aria-hidden="true"></i>
-                            <p>Premium Membership</p>
-                        </li>
-                        <li class="lists">
-                            <i class="fa fa-user-circle" aria-hidden="true"></i>
-                            <p>Your Channel</p>
-                        </li>
-                        <li class="lists">
-                            <i class="fa fa-keyboard-o" aria-hidden="true"></i>
-                            <p>Keyboard Shortcuts</p>
-                        </li>
-                        <li class="lists">
-                            <i class="fa fa-globe" aria-hidden="true"></i>
-                            <p>Location</p>
-                        </li>
-                        <li class="lists" (click)="switchRestriction()">
-                            <p>Restricted Mode: </p>
-                            <p id="restrict">Off</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    
+    <!-- Settings dropdown -->
+    <div class="settings-dropdown" [ngClass]="isSettingsDrop ? 'settings-dropdown' : 'settings-dropdown not-active'">
+      <ul>
+        <li class="lists" (click)="addModal()">
+          <i class="fa fa-keyboard-o" aria-hidden="true"></i>
+          <p>Keyboard Shortcuts</p>
+        </li>
+        <li class="lists">
+          <i class="fa fa-globe" aria-hidden="true" (click)="addLocationDropdown()"></i>
+          <p (click)="addLocationDropdown()">Location</p>
+          <!-- Location Dropdown -->
+          <ul class="location-dropdown"
+            [ngClass]="isLocationDrop ? 'location-dropdown' : 'location-dropdown not-active'">
+            <li (click)="addLocationDropdown()">
+              <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              <p>Back</p>
+            </li>
+            <li>
+              <i class="fa fa-globe" aria-hidden="true"></i>
+              <p>Indonesia</p>
+            </li>
+            <li>
+              <i class="fa fa-globe" aria-hidden="true"></i>
+              <p>South Korea</p>
+            </li>
+            <li>
+              <i class="fa fa-globe" aria-hidden="true"></i>
+              <p>Singapore</p>
+            </li>
+          </ul>
+        </li>
+        <li class="lists" (click)="switchRestriction()">
+          <p>Restricted Mode: </p>
+          <p id="restrict">Off</p>
+        </li>
+      </ul>
+
     </div>
+    <!--  -->
+
+
+
+    <i class="fa fa-bell" aria-hidden="true" *ngIf="loggedIn"></i>
+    <div class="btn-sign-in" (click)="signIn()" *ngIf="loggedIn == false">
+      <i class="fa fa-user-circle fa-1x"></i>
+      <p>Sign in</p>
+    </div>
+    <div *ngIf="user" class="img" class="user">
+      <img src="{{ user.photoUrl }}" alt="" (click)="addUserDropdown()">
+      <div class="user-dropdown" *ngIf="isUserDrop == true">
+        <ul>
+          <li>
+            <div class="logo">
+              <img src="{{ user.photoUrl }}" alt="">
+            </div>
+            <div>
+              <p>{{ user.name }}</p>
+              <p>{{ user.email }}</p>
+            </div>
+          </li>
+          <li class="lists" (click)="signOut()">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <p>Switch Account</p>
+          </li>
+          <li class="lists" (click)="navigate('/premium')">
+            <i class="fa fa-youtube" aria-hidden="true"></i>
+            <p>Premium Membership</p>
+          </li>
+          <li class="lists">
+            <i class="fa fa-user-circle" aria-hidden="true"></i>
+            <p>Your Channel</p>
+          </li>
+          <li class="lists" (click)="addModal()">
+            <i class="fa fa-keyboard-o" aria-hidden="true"></i>
+            <p>Keyboard Shortcuts</p>
+          </li>
+          <li class="lists">
+            <i class="fa fa-globe" aria-hidden="true" (click)="addLocationDropdown()"></i>
+            <p>Location</p>
+                <!-- Location Dropdown -->
+              <ul [ngClass]="isLocationDrop ? 'location-dropdown-user' : 'location-dropdown-user not-active'">
+              <li (click)="addLocationDropdown()">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                <p>Back</p>
+              </li>
+              <li>
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <p>Indonesia</p>
+              </li>
+              <li>
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <p>South Korea</p>
+              </li>
+              <li>
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <p>Singapore</p>
+              </li>
+            </ul>
+          </li>
+          <li class="lists" (click)="switchRestriction()">
+            <p>Restricted Mode: </p>
+            <p id="restrict">Off</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <app-sidebar [active]="active"></app-sidebar>
-
+<app-keyboard-modal (modal)="receiveModal($event)" [isModalDrop]="isModalDrop"></app-keyboard-modal>
