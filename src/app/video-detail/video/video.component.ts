@@ -98,8 +98,8 @@ export class VideoComponent implements OnInit {
       return today.getFullYear() - this.video.year == 1 ? (today.getFullYear() - this.video.year).toString() + " year ago" : (today.getFullYear() - this.video.year).toString() + " years ago"
     }
 
-    if(today.getMonth() > this.video.month){
-      return (today.getMonth() - this.video.month) == 1 ? (today.getMonth() - this.video.month).toString() + " month ago" : (today.getMonth() - this.video.month).toString() + " months ago"
+    if(today.getMonth() + 1 > this.video.month){
+      return (today.getMonth() - this.video.month + 1) == 1 ? (today.getMonth() - this.video.month + 1).toString() + " month ago" : (today.getMonth() - this.video.month + 1).toString() + " months ago"
     }
 
     if(today.getDate() > this.video.day){
@@ -107,13 +107,14 @@ export class VideoComponent implements OnInit {
     }
 
     let video_time: any = JSON.parse(this.video.time)
+   
 
     if(today.getHours() > video_time.hour){
       return (today.getHours() - video_time.hour) == 1 ? (today.getHours() - video_time.hour).toString() + " hour ago" : (today.getHours() - video_time.hour).toString() + " hours ago"
     }
 
     if(today.getMinutes() > video_time.minute){
-      return (today.getMinutes() - video_time.minute) == 1 ? (today.getMinutes() - video_time.minutes).toString() + " minute ago" : (today.getMinutes() - video_time.minutes).toString() + " minutes ago"
+      return (today.getMinutes() - video_time.minute) == 1 ? (today.getMinutes() - video_time.minute).toString() + " minute ago" : (today.getMinutes() - video_time.minute).toString() + " minutes ago"
     }
 
     if(today.getSeconds() > video_time.second){

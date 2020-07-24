@@ -101,18 +101,20 @@ export class CommentComponent implements OnInit {
       return (today.getDate() - this.comment.day) == 1 ? (today.getDate() - this.comment.day).toString() + " days ago" : (today.getDate() - this.comment.day).toString() + " days ago"
     }
 
-    // let video_time: any = JSON.parse(this.video.time)
+    let comment: any = JSON.parse(this.comment.time)
 
-    // if(today.getHours() > video_time.hour){
-    //   return (today.getHours() - video_time.hour) == 1 ? (today.getHours() - video_time.hour).toString() + " hour ago" : (today.getHours() - video_time.hour).toString() + " hours ago"
-    // }
+    if(today.getHours() > comment.hour){
+      return (today.getHours() - comment.hour) == 1 ? (today.getHours() - comment.hour).toString() + " hour ago" : (today.getHours() - comment.hour).toString() + " hours ago"
+    }
 
-    // if(today.getMinutes() > video_time.minute){
-    //   return (today.getMinutes() - video_time.minute) == 1 ? (today.getMinutes() - video_time.minutes).toString() + " minute ago" : (today.getMinutes() - video_time.minutes).toString() + " minutes ago"
-    // }
+    if(today.getMinutes() > comment.minute){
+      return (today.getMinutes() - comment.minute) == 1 ? (today.getMinutes() - comment.minute).toString() + " minute ago" : (today.getMinutes() - comment.minute).toString() + " minutes ago"
+    }
 
-    // if(today.getSeconds() > video_time.second){
-    //   return (today.getSeconds() - video_time.second).toString() + " seconds ago"
+    if(today.getSeconds() > comment.second){
+      return (today.getSeconds() - comment.second).toString() + " seconds ago"
     }
   
+}
+
 }

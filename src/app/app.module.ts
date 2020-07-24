@@ -49,6 +49,7 @@ import { ChannelVideosComponent } from './channel/channel-videos/channel-videos.
 import { ChannelCommunityComponent } from './channel/channel-community/channel-community.component';
 import { PostComponent } from './channel/post/post.component';
 import { SearchComponent } from './search/search.component';
+import { ListSubscribersComponent } from './sidebar/list-subscribers/list-subscribers.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { SearchComponent } from './search/search.component';
     ChannelVideosComponent,
     ChannelCommunityComponent,
     PostComponent,
-    SearchComponent
+    SearchComponent,
+    ListSubscribersComponent
   ],
   imports: [
     BrowserModule,

@@ -55,7 +55,8 @@
         </div>
 
         <div class="right">
-          <button>Subscribe</button>
+          <button (click)=subscribeChannel() class="red-bg" *ngIf="!isSubscribed">Subscribe</button>
+          <button class="gray" *ngIf="isSubscribed" (click)="unsubscribeChannel()">Unsubscribe</button>
         </div>
       </div>
 
@@ -68,7 +69,7 @@
       <div class="insert-comment">
 
         <div class="comment-setting">
-          <p>{{comments.length}} Komentar</p>
+          <p>{{comments.length}} Comments</p>
           <div class="sort" *ngIf="!isSort" (click)="addSort()">
             <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
             <span>Sort</span>
@@ -109,7 +110,7 @@
     <p class="bold" style="margin-bottom: 1rem;">Up Next</p>
 
     <div class="next-video-detail" *ngIf="nextVideo">
-      <div class="image-video">
+      <div class="image-video" (click)="navigate()" style="cursor: pointer;">
         <img src="{{nextVideo.thumbnail}}" alt="">
       </div>
       <div class="image-video-detail">
@@ -125,7 +126,7 @@
     <hr style="margin-bottom: 1rem;">
 
     <div class="next-video-detail" *ngFor="let video of videos">
-      <app-video-aside [video]="video"></app-video-aside>
+      <app-video-aside [video]="video" [nextVideo]="nextVideo"></app-video-aside>
     </div>
 
   </div>

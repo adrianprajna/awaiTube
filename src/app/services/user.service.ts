@@ -11,7 +11,7 @@ export class UserService {
 
  
   updateUserQuery = gql `
-    mutation updateUser($id: ID!, $name: String!, $email: String!, $img_url: String!, $premium: Boolean!, $subscribers: Int!, $liked_video: String!, $disliked_video: String!, $liked_comment: String!, $disliked_comment: String!) {
+    mutation updateUser($id: ID!, $name: String!, $email: String!, $img_url: String!, $premium: Boolean!, $subscribers: Int!, $liked_video: String!, $disliked_video: String!, $liked_comment: String!, $disliked_comment: String!, $subscribed_channel: String!) {
       updateUser(id: $id, input: {
         name: $name,
         email: $email,
@@ -21,7 +21,8 @@ export class UserService {
         liked_video: $liked_video,
         disliked_video: $disliked_video,
         liked_comment: $liked_comment,
-        disliked_comment: $disliked_comment
+        disliked_comment: $disliked_comment,
+        subscribed_channel: $subscribed_channel
       }){
         id
         name
@@ -33,6 +34,7 @@ export class UserService {
         disliked_video
         liked_comment
         disliked_comment
+        subscribed_channel
       }
     }
   `;
@@ -50,6 +52,7 @@ export class UserService {
           disliked_video
           liked_comment
           disliked_comment
+          subscribed_channel
         }
       }
   `;
@@ -73,6 +76,7 @@ export class UserService {
           disliked_video
           liked_comment
           disliked_comment
+          subscribed_channel
         }
       }
       `,
@@ -105,7 +109,8 @@ export class UserService {
           liked_video: "[]",
           disliked_video: "[]",
           liked_comment: "[]",
-          disliked_comment: "[]"
+          disliked_comment: "[]",
+          subscribed_channel: "[]"
         }) {
           id
           name
@@ -114,9 +119,10 @@ export class UserService {
           img_url
           subscribers
           liked_video
-          disliked_video,
-          liked_comment,
+          disliked_video
+          liked_comment
           disliked_comment
+          subscribed_channel
         }
       }
       `,

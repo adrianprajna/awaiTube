@@ -17,8 +17,9 @@
                     </div>
                 </div>
                 <div class="subscription">
-                    <button>Subscribe</button>
-                    <i class="fa fa-bell"></i>
+                    <button *ngIf="!isSubscribed" class="red">Subscribe</button>
+                    <button *ngIf="isSubscribed" class="gray">Unsubscribe</button>
+                    <i class="fa fa-bell" *ngIf="isSubscribed"></i>
                 </div>
             </div>
             <div class="nav-list">

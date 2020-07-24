@@ -9,6 +9,7 @@ export class User {
     disliked_video: string
     liked_comment: string
     disliked_comment: string
+    subscribed_channel: string
 }
 
 export class Obj {

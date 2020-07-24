@@ -57,8 +57,6 @@ export class HeaderComponent implements OnInit {
       
         this.loginService.newUser.next(this.user);
         this.loginService.userObservable.next(this.loggedIn);
-        window.location.reload();
-
     });
 
   }

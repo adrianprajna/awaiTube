@@ -11,13 +11,15 @@ export class VideoAsideComponent implements OnInit {
 
   @Input() video: any;
 
+  @Input() nextVideo: any;
+
   user: User;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.getUser(this.video.user_id).valueChanges
-      .subscribe(result => this.user = result.data.getUser)
+      .subscribe(result => this.user = result.data.getUser)   
   }
 
   navigate(){

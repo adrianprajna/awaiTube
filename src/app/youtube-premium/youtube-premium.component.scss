@@ -29,6 +29,17 @@
 
     .footer {
 
+        .billing {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            span {
+                margin: 0 1rem;
+                input[type=radio]{
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+
         button {
             padding: 1rem;
             background-color: royalblue;

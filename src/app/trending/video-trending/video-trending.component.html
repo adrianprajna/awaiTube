@@ -11,7 +11,7 @@
         </div>
         <p>{{user.name}}</p>
         <span class="view">{{video.views}}x views</span>
-        <span>{{video.day}} - {{video.month}} - {{video.year}}</span>
+        <span>{{getUploadedDate()}}</span>
         <p>{{video.description}}</p>
       </div>
       <i class="fa fa-ellipsis-v" title="Settings" *ngIf="settings"></i>

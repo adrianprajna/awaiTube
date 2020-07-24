@@ -172,7 +172,7 @@ export class UploaderComponent implements OnInit {
       .subscribe(result => {
         let user_id = result.data.getUserByEmail.id;
 
-        this.videoService.createVideo(user_id, title.value, this.downloadURL, desc.value, this.selectControl.value, 'South Korea', date.getDate(), date.getMonth() + 1, this.downloadThumbnailURL, isRestricted, privacy, isPremium, Math.floor(video.duration), JSON.stringify(time))
+        this.videoService.createVideo(user_id, title.value, this.downloadURL, desc.value, this.selectControl.value, 'Indonesia', date.getDate(), date.getMonth() + 1, this.downloadThumbnailURL, isRestricted, privacy, isPremium, Math.floor(video.duration), JSON.stringify(time))
           .subscribe(result => {
             alert('success publish video!');
             this.router.navigate(['']);

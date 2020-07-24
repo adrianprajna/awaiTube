@@ -48,10 +48,10 @@ export class LoginService {
     //insert into db
     this.userService.getUserByEmail(user.email)
       .valueChanges.subscribe(result => {
-          console.log(result.data);          
+          console.log(result.data);  
+          window.location.reload();        
       }, error => {
         this.userService.createUser(user.name, user.email, user.photoUrl);
-        console.log(error);        
       })
   }
 

@@ -85,12 +85,10 @@
         border: 0;
         outline: none;
         border-radius: 0.3rem;
-        background-color: #ce2e03;
-      }
-
-      .right button:hover {
         cursor: pointer;
       }
+
+      
     }
 
 
@@ -235,6 +233,14 @@
 
 .red {
   color: red;
+}
+
+.red-bg {
+  background-color: red;
+}
+
+.gray {
+  background-color: lightgray;
 }
 
 @media (max-width: 576px) {

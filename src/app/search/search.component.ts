@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
         else if(filter == "week"){
           this.videos = Array.from(this.videos).filter((vid: any) => vid.year == this.date.getFullYear());
           this.videos = Array.from(this.videos).filter((vid: any) => vid.month == this.date.getMonth() + 1);
-          this.videos = Array.from(this.videos).filter((vid: any) => vid.day > this.date.getDate() - this.date.getDay() + 1 && vid.day < vid.day + (7 - this.date.getDay())); 
+          this.videos = Array.from(this.videos).filter((vid: any) => vid.day > this.date.getDate() - 6)
         } 
 
       });

@@ -14,6 +14,8 @@ import {
 import {
   UserService
 } from 'src/app/services/user.service';
+import { SocialUser } from 'angularx-social-login';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-channel-community',
@@ -22,7 +24,7 @@ import {
 })
 export class ChannelCommunityComponent implements OnInit {
 
-  constructor(private channelService: ChannelService, private activatedRoute: ActivatedRoute, private userService: UserService) {}
+  constructor(private channelService: ChannelService, private activatedRoute: ActivatedRoute, private userService: UserService, private loginService: LoginService) {}
 
   id: number;
 
@@ -30,7 +32,16 @@ export class ChannelCommunityComponent implements OnInit {
 
   user: User;
 
+  loginUser: SocialUser
+
+  isInput: boolean = false;
+
   ngOnInit(): void {
+
+    if(localStorage.getItem('users') != null){
+      this.loginService.getUserFromStorage();
+      this.loginUser = this.loginService.user
+    }
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = parseInt(params.get('id'));
@@ -38,6 +49,15 @@ export class ChannelCommunityComponent implements OnInit {
       this.getAllPosts();
     })
 
+  }
+
+  getUserByEmail(){
+    this.userService.getUserByEmail(this.loginUser.email).valueChanges
+      .subscribe(result => {
+        if(result.data.getUserByEmail.id == this.user.id){
+            this.isInput = true;
+        }
+      })
   }
 
 
@@ -48,6 +68,7 @@ export class ChannelCommunityComponent implements OnInit {
         this.userService.getUser(result.data.channel.user_id).valueChanges
           .subscribe(res => {
             this.user = res.data.getUser;
+            this.getUserByEmail();
           });
 
       })
@@ -72,6 +93,7 @@ export class ChannelCommunityComponent implements OnInit {
     let join_date = `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 
     this.channelService.addPost(this.id, description, 'this is picture', join_date)
+    alert('successfuly posted a new post!');
   }
 
 }

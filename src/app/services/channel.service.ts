@@ -59,7 +59,7 @@ export class ChannelService {
         join_date: join_date,
         links: links
       }
-    }).subscribe(result => console.log(result));
+    }).subscribe(result => window.location.reload());
   }
 
   getChannelByUser(user_id: number) {

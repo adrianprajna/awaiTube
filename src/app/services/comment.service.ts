@@ -19,6 +19,7 @@ export class CommentService {
         day
         month
         year
+        time
       }
     }
   `;
@@ -34,10 +35,10 @@ export class CommentService {
     })
   }
 
-  createComment(user_id: number, video_id: number, description: string, day: number, month: number){
+  createComment(user_id: number, video_id: number, description: string, day: number, month: number, time: string){
     this.apollo.mutate({
       mutation: gql `
-        mutation createComment ($user_id: Int!, $video_id: Int!, $description: String!, $day: Int!, $month: Int!){
+        mutation createComment ($user_id: Int!, $video_id: Int!, $description: String!, $day: Int!, $month: Int!, $time: String!){
           createComment(input: {
               user_id: $user_id,
               video_id: $video_id,
@@ -46,7 +47,8 @@ export class CommentService {
               description: $description,
               day: $day,
               month: $month,
-              year: 2020
+              year: 2020,
+              time: $time
           }){
             id
             user_id
@@ -57,6 +59,7 @@ export class CommentService {
             day
             month
             year
+            time
           }
         }
       `,
@@ -65,7 +68,8 @@ export class CommentService {
         video_id: video_id,
         description: description,
         day: day,
-        month: month
+        month: month,
+        time: time
       },
       refetchQueries: [{
         query: this.getCommentQuery,

@@ -2,6 +2,8 @@ import { Component, OnInit , Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { SocialUser } from 'angularx-social-login';
+import { UserService } from '../services/user.service';
+import { Obj } from '../type';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +16,9 @@ export class SidebarComponent implements OnInit {
 
   user: SocialUser
 
-  constructor(private route:Router, private loginService: LoginService) { 
+  subscribers: Array<Obj>;
+
+  constructor(private route:Router, private loginService: LoginService, private userService: UserService) { 
     
   }
 
@@ -23,6 +27,7 @@ export class SidebarComponent implements OnInit {
     if(localStorage.getItem('users') != null){
       this.loginService.getUserFromStorage();
       this.user = this.loginService.user;
+      this.getUserByEmail()
     }
 
     this.addActiveClass();
@@ -63,5 +68,13 @@ export class SidebarComponent implements OnInit {
     this.loginService.changeActive(!this.active);
     this.route.navigate([link]);
   }
+  
+  getUserByEmail(){
+    this.userService.getUserByEmail(this.user.email).valueChanges
+      .subscribe(res => {
+        this.subscribers = JSON.parse(res.data.getUserByEmail.subscribed_channel)
+      })
+  }
+
 
 }

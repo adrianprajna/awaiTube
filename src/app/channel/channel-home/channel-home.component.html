@@ -1,6 +1,10 @@
 <app-channel-header></app-channel-header>
 <div class="channel-home">
-    <h1>Recently Uploaded</h1>
+    <div class="header">
+        <h1>Recently Uploaded</h1>
+        <button (click)="navigate('videos')">Show All Videos</button>
+    </div>
+    
 
     <div class="row">
         <div *ngFor="let video of videos; index as i">

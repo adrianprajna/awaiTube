@@ -66,4 +66,8 @@ export class ChannelHomeComponent implements OnInit {
       })
   }
 
+  navigate(link: string){
+    window.location.href = `/channel/${this.id}/${link}`
+  }
+
 }

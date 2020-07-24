@@ -23,3 +23,22 @@
         cursor: pointer;
     }
 }
+
+.subscriber {
+    padding: 1rem;
+
+    h2 {
+        margin-left: 1rem;
+    }
+    
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+        margin-left: 1.24rem;  
+
+        :hover {
+            cursor: pointer;
+        }
+    }
+}

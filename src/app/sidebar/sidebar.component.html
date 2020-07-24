@@ -44,17 +44,10 @@
         <div class="sidebar-menu">
             <p>Subscription</p>
             <ul>
-                <li class="list">
-                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                    <span>The Joomers</span>
-                </li>
-                <li class="list">
-                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                    <span>Traversy Media</span>
-                </li>
-                <li class="list">
-                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                    <span>Lofi Hip Hop</span>
+                <li class="list" *ngFor="let subscriber of subscribers">
+                    <!-- <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                    <span>The Joomers</span> -->
+                    <app-list-subscribers [subscriber]="subscriber"></app-list-subscribers>
                 </li>
             </ul>
         </div>

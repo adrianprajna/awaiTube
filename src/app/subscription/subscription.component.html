@@ -1,5 +1,4 @@
 <div class="subscription" [style.display]="loggedIn ? 'none' : 'flex'">
-
     <div class="content">
         <i class="fa fa-youtube-play fa-5x" aria-hidden="true"></i>
         <h2>Dont's miss new video</h2>
@@ -10,6 +9,35 @@
             <p>Sign in</p>
         </button>
     </div>
+</div>
 
+<div *ngIf="loggedIn" class="subscriber">
+    
+    <div class="today">
+        <h2>Today</h2>
+        <div class="row">
+            <div *ngFor="let video of today_videos; index as i">
+                <app-video [video]="video"></app-video>
+           </div>     
+        </div>
+    </div>
+
+    <div class="this-week">
+        <h2>This Week</h2>
+        <div class="row">
+            <div *ngFor="let video of week_videos; index as i">
+                <app-video [video]="video"></app-video>
+           </div>     
+        </div>
+    </div>
+
+    <div class="this-month">
+        <h2>This Month</h2>
+        <div class="row">
+            <div *ngFor="let video of month_videos; index as i">
+                <app-video [video]="video"></app-video>
+           </div>     
+        </div>
+    </div>
 
 </div>
