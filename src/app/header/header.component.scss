@@ -201,6 +201,17 @@
   transform: translateY(-250%);
 }
 
+#hidden {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 10.5%;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 5555;
+  display: none;
+}
+
 $breakpoint-mobile: 576px;
 
 @media (max-width: $breakpoint-mobile) {

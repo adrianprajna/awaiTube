@@ -1,0 +1,26 @@
+<app-channel-header></app-channel-header>
+<div class="channel-videos">
+    <div class="head">
+        <h1 style="margin-left: 1.24rem;">All Videos</h1>
+        <div class="sort">
+            <div class="drop-sort" *ngIf="!dropSort" (click)="addDropSort()">
+                <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+                <p>Sort</p>
+            </div>
+            <div class="sort-dropdown" *ngIf="dropSort">
+                <ul>
+                    <li (click)="getMostPopular()">Most Popular</li>
+                    <li (click)="getOldest()">Oldest</li>
+                    <li (click)="getNewest()">Newest</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div *ngFor="let video of videos">
+            <app-video [video]="video"></app-video>
+       </div>     
+    </div>
+    <div id="footer"></div>
+</div>

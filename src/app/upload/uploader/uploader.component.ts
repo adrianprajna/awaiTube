@@ -10,6 +10,7 @@ import { SocialUser } from 'angularx-social-login';
 import { LoginService } from 'src/app/services/login.service';
 import { url } from 'inspector';
 import { Router } from '@angular/router';
+import { log } from 'console';
 
 @Component({
   selector: 'app-uploader',
@@ -131,6 +132,12 @@ export class UploaderComponent implements OnInit {
     let isRestricted: boolean = false;
     let isPremium: boolean = true;
     let date = new Date;
+    let video = document.getElementById('vid') as HTMLVideoElement;
+    let time = {
+      second: date.getSeconds(),
+      minute: date.getMinutes(),
+      hour: date.getHours()
+    }
 
     restrictions.forEach(age => {
       if((age as HTMLInputElement).checked && (age as HTMLInputElement).value == "Yes"){
@@ -155,13 +162,17 @@ export class UploaderComponent implements OnInit {
       return;
     }
 
-
+    console.log(date.getSeconds());
+    console.log(date.getMinutes());
+    console.log(date.getHours());
+    
+    
 
     this.userService.getUserByEmail(this.user.email).valueChanges
       .subscribe(result => {
         let user_id = result.data.getUserByEmail.id;
 
-        this.videoService.createVideo(user_id, title.value, this.downloadURL, desc.value, this.selectControl.value, 'South Korea', date.getDate(), date.getMonth() + 1, this.downloadThumbnailURL, isRestricted, privacy, isPremium)
+        this.videoService.createVideo(user_id, title.value, this.downloadURL, desc.value, this.selectControl.value, 'South Korea', date.getDate(), date.getMonth() + 1, this.downloadThumbnailURL, isRestricted, privacy, isPremium, Math.floor(video.duration), JSON.stringify(time))
           .subscribe(result => {
             alert('success publish video!');
             this.router.navigate(['']);

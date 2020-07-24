@@ -14,6 +14,8 @@ export class TrendingComponent implements OnInit {
 
   settings: boolean = false;
 
+  date = new Date()
+
   constructor(private videoService: VideoService) { }
 
   ngOnInit(): void {
@@ -21,6 +23,9 @@ export class TrendingComponent implements OnInit {
       .subscribe(result => {
         this.videos = result.data.videos;
         this.videos = Array.from(this.videos).sort((a: any, b: any) => (a.views < b.views) ? 1 : -1);
+        this.videos = Array.from(this.videos).filter((vid: any) => vid.year == this.date.getFullYear());
+        this.videos = Array.from(this.videos).filter((vid: any) => vid.month == this.date.getMonth() + 1);
+        this.videos = Array.from(this.videos).filter((vid: any) => vid.day > this.date.getDate() - 6)
       })
   }
 

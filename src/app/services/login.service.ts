@@ -3,6 +3,8 @@ import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUs
 import { BehaviorSubject, Observable } from 'rxjs'
 import { UserService } from './user.service';
 import { User } from '../type';
+import { error } from 'console';
+import { ChannelService } from './channel.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,7 @@ export class LoginService {
 
   u;
 
-  constructor(private authService: SocialAuthService, private userService: UserService) {
+  constructor(private authService: SocialAuthService, private userService: UserService, private channelService: ChannelService) {
     if(localStorage.getItem('users') == null) {
       this.userObservable = new BehaviorSubject(false);
       this.newUser = new BehaviorSubject(null);
@@ -44,7 +46,13 @@ export class LoginService {
     localStorage.setItem('users', JSON.stringify(this.users));
 
     //insert into db
-    this.userService.createUser(user.name, user.email, user.photoUrl);
+    this.userService.getUserByEmail(user.email)
+      .valueChanges.subscribe(result => {
+          console.log(result.data);          
+      }, error => {
+        this.userService.createUser(user.name, user.email, user.photoUrl);
+        console.log(error);        
+      })
   }
 
   signOut(): void {
@@ -65,6 +73,7 @@ export class LoginService {
     window.location.reload();
     this.newUser.next(null);
     this.userObservable.next(false);
+    window.location.href = '/'
   }
 
   changeActive(flag: Boolean){

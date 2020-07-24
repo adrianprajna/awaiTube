@@ -1,0 +1,35 @@
+<div class="channel-home">
+
+    <div class="background">
+        <!-- <img src="../../../assets/images/bg.jpg" alt=""> -->
+    </div>
+    <div class="header">
+        <div class="wrapper">
+            <div class="user-header">
+                <div class="user-detail">
+                    <!-- <img src="" alt=""> -->
+                    <div class="logo">
+                        <img src="{{user.img_url}}" alt="">
+                    </div>
+                    <div>
+                        <h2>{{user.name}}</h2>
+                        <p>{{user.subscribers}} Subscribers</p>
+                    </div>
+                </div>
+                <div class="subscription">
+                    <button>Subscribe</button>
+                    <i class="fa fa-bell"></i>
+                </div>
+            </div>
+            <div class="nav-list">
+                <ul>
+                    <li (click)="navigate('home')">Home</li>
+                    <li (click)="navigate('videos')">Videos</li>
+                    <li>Playlists</li>
+                    <li (click)="navigate('community')">Community</li>
+                    <li>About</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

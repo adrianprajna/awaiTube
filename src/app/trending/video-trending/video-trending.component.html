@@ -4,7 +4,7 @@
       <img src="{{video.thumbnail}}" alt="">
     </div>
     
-    <div class="next-video-detail" [routerLink]="['/video-detail']" routerLinkActive="router-link-active">
+    <div class="next-video-detail" [routerLink]="['/video-detail/', video.id]" routerLinkActive="router-link-active">
       <div class="image-video-detail">
         <div>
           <p class="bold">{{video.title}}</p>

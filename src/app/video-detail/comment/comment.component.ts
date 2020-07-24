@@ -86,4 +86,33 @@ export class CommentComponent implements OnInit {
     
   }
 
+  getUploadedDate(): string{
+    let today = new Date();
+    
+    if(today.getFullYear() > this.comment.year){
+      return today.getFullYear() - this.comment.year == 1 ? (today.getFullYear() - this.comment.year).toString() + " year ago" : (today.getFullYear() - this.comment.year).toString() + " years ago"
+    }
+
+    if(today.getMonth() > this.comment.month){
+      return (today.getMonth() - this.comment.month) == 1 ? (today.getMonth() - this.comment.month).toString() + " month ago" : (today.getMonth() - this.comment.month).toString() + " months ago"
+    }
+
+    if(today.getDate() > this.comment.day){
+      return (today.getDate() - this.comment.day) == 1 ? (today.getDate() - this.comment.day).toString() + " days ago" : (today.getDate() - this.comment.day).toString() + " days ago"
+    }
+
+    // let video_time: any = JSON.parse(this.video.time)
+
+    // if(today.getHours() > video_time.hour){
+    //   return (today.getHours() - video_time.hour) == 1 ? (today.getHours() - video_time.hour).toString() + " hour ago" : (today.getHours() - video_time.hour).toString() + " hours ago"
+    // }
+
+    // if(today.getMinutes() > video_time.minute){
+    //   return (today.getMinutes() - video_time.minute) == 1 ? (today.getMinutes() - video_time.minutes).toString() + " minute ago" : (today.getMinutes() - video_time.minutes).toString() + " minutes ago"
+    // }
+
+    // if(today.getSeconds() > video_time.second){
+    //   return (today.getSeconds() - video_time.second).toString() + " seconds ago"
+    }
+  
 }

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { ChannelService } from './channel.service';
+import { User } from '../type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+ 
   updateUserQuery = gql `
     mutation updateUser($id: ID!, $name: String!, $email: String!, $img_url: String!, $premium: Boolean!, $subscribers: Int!, $liked_video: String!, $disliked_video: String!, $liked_comment: String!, $disliked_comment: String!) {
       updateUser(id: $id, input: {
@@ -51,7 +54,9 @@ export class UserService {
       }
   `;
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo, private channelService: ChannelService) { }
+
+  user: User
 
   getUser(user_id: number){
     return this.apollo.watchQuery<any>({
@@ -120,7 +125,13 @@ export class UserService {
         email: email,
         img_url: img_url
       }
-    }).subscribe(result => console.log(result))
+    }).subscribe((result: any) => {
+      this.user = result.data.createUser; 
+      let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      let date = new Date();
+      let join_date = `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+      this.channelService.createChannel(this.user.id, this.user.img_url, 'this is a description', join_date, 'this is a link')
+    })
   }
 
 }

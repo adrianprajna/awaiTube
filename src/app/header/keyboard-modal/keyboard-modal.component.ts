@@ -8,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 export class KeyboardModalComponent implements OnInit {
 
   @Output() modal = new EventEmitter<boolean>();
-  @Input() isModalDrop: boolean = false;
+  @Input() isModalDrop: boolean;
 
   constructor() { }
 

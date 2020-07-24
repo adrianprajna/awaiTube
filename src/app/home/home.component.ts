@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   isSettingsDrop:boolean = false;
   
   videos: any
-  columns: number = 4;
+  columns: number = 8;
   displayedVideos: number = 8;
 
   observer: IntersectionObserver;
@@ -25,12 +25,12 @@ export class HomeComponent implements OnInit {
 
     this.observer = new IntersectionObserver(entry => {
       if(entry[0].isIntersecting){
+        
         for(let i = 0; i < this.columns; i++){
           if(this.displayedVideos < this.videos.length){
             let div = document.createElement('div');
             let video = document.createElement('app-video')
             video.setAttribute('video', 'this.videos[this.displayedVideos]');
-
             div.appendChild(video);
             let row = document.querySelector('.row');
             row.appendChild(div);

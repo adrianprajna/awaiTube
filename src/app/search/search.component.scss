@@ -1,0 +1,48 @@
+.trending {
+    padding: 1rem;
+
+    .header {
+        display: flex;
+        justify-content: flex-end;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 0.5rem;
+
+        .filter {
+            font-size: 1.25rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+
+            i {
+                margin-right: 0.5rem;
+            }
+        }
+
+        .dropdown {
+            position: absolute;
+            background: white;
+            top: 23%;
+            width: 10%;
+            text-align: center;
+            border-radius: 0.5rem;
+            overflow: hidden;
+
+            ul {
+                list-style: none;
+                
+                li {
+                    padding: 1rem;
+                    cursor: pointer;
+                }
+
+                :hover {
+                    background-color: lightgray;
+                    transition: all 0.3s;
+                }
+            }
+        }
+
+       
+    }
+}

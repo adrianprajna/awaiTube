@@ -39,6 +39,28 @@
                 transition: all 0.2s;
             }
         }
+
+        .modal-content {
+
+            margin-top: 1rem;
+
+            ul {
+                list-style: none;
+                width: 85%;
+                margin: 0 auto;
+                font-size: 1.25rem;
+
+                li {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 0.75rem;
+                }
+
+                hr {
+                    margin-bottom: 0.75rem;
+                }
+            }
+        }
     }
 }
 

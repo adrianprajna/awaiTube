@@ -5,24 +5,27 @@
     <div class="video-content">
 
       <div class="video-player">
-        <mat-video [keyboard]="true" [quality]="true" [loop]="false" title="My Tutorial Title" [autoplay]="false"
-          [preload]="true" [fullscreen]="true" [download]="false" color="accent" spinner="spin" [overlay]="true"
-          src="{{ video.url }}" [showFrameByFrame]="true" style="width: 100%; height: 70vh;" id="vv">
+        <mat-video [keyboard]="isKeyboardActive" [quality]="true" [loop]="false" [autoplay]="false"
+          [preload]="true" [fullscreen]="true" color="accent" spinner="spin" [overlay]="true"
+          src="{{ video.url }}" style="width: 100%; height: 70vh;" (mouseenter)="addKeyboard()" (mouseleave)="addKeyboard()" [download]="isDownload" id="v">
         </mat-video>
-        <video src="" style="display: none;" id="v">asd</video>
+        <!-- <button title="Next Video" [routerLink]="['/video-detail/', nextVideo.id]" routerLinkActive="router-link-active" *ngIf="nextVideo">
+          <i class="fa fa-step-forward" aria-hidden="true"></i>
+        </button> -->
+
         <div class="video-details">
           <h3> {{video.title}} </h3>
           <div class="details">
-            <p>{{video.views}}x views • {{video.day}} - {{video.month}} - {{video.year}}</p>
+            <p>{{convertToComma(video.views)}} views • {{getDate()}}</p>
             <div>
               <ul>
-                <li (click)="likeVideo()" id="like">
+                <li (click)="likeVideo()" id="like" title="{{video.likes}}">
                   <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                  <p>{{video.likes}}</p>
+                  <p>{{convertMetric(video.likes)}}</p>
                 </li>
-                <li id="dislike" (click)="dislikeVideo()">
+                <li id="dislike" (click)="dislikeVideo()" title="{{video.dislikes}}">
                   <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                  <p>{{video.dislikes}}</p>
+                  <p>{{convertMetric(video.dislikes)}}</p>
                 </li>
                 <li>
                   <i class="fa fa-share" aria-hidden="true"></i>
@@ -37,16 +40,17 @@
           </div>
         </div>
       </div>
-
+      
       <hr>
 
       <div class="video-title">
         <div class="left">
           <img src="{{ user.img_url }}" alt="">
           <div class="user">
-            <span>{{user.name}}</span>
+            <span class="bold">{{user.name}}</span>
             <p>{{user.subscribers}} subscribers</p>
             <p>{{ video.description }}</p>
+            <p>Category: {{video.category}}</p>
           </div>
         </div>
 
@@ -64,10 +68,20 @@
       <div class="insert-comment">
 
         <div class="comment-setting">
-          <p>4164 Komentar</p>
-          <div class="sort">
+          <p>{{comments.length}} Komentar</p>
+          <div class="sort" *ngIf="!isSort" (click)="addSort()">
             <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
             <span>Sort</span>
+          </div>
+          <div class="sort-dropdown" *ngIf="isSort">
+            <ul>
+              <li (click)="getTopLiked()">
+                <span>Top liked comment</span>
+              </li>
+              <li (click)="getNewest()">
+                <span>Newest</span>
+              </li>
+            </ul>
           </div>
         </div>
 

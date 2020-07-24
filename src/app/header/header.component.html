@@ -11,8 +11,8 @@
   </div>
 
   <div class="center-header">
-    <input type="text" name="" id="" placeholder="Search" autocomplete="on">
-    <i class="fa fa-search"></i>
+    <input type="text" name="" id="" placeholder="Search" id="search" (keyup)="onKeyUp($event)">
+    <i class="fa fa-search" (click)="searchPage()"></i>
   </div>
 
   <div class="right-header">
@@ -88,7 +88,7 @@
             <i class="fa fa-youtube" aria-hidden="true"></i>
             <p>Premium Membership</p>
           </li>
-          <li class="lists">
+          <li class="lists" (click)="navigate('/channel/'+channel_id+'/home')">
             <i class="fa fa-user-circle" aria-hidden="true"></i>
             <p>Your Channel</p>
           </li>
@@ -132,3 +132,6 @@
 
 <app-sidebar [active]="active"></app-sidebar>
 <app-keyboard-modal (modal)="receiveModal($event)" [isModalDrop]="isModalDrop"></app-keyboard-modal>
+<div id="hidden">
+
+</div>

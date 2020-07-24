@@ -20,4 +20,8 @@ export class VideoAsideComponent implements OnInit {
       .subscribe(result => this.user = result.data.getUser)
   }
 
+  navigate(){
+    window.location.href = `/video-detail/${this.video.id}`;
+  }
+
 }

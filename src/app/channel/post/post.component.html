@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="left">
+        <img src="{{user.img_url}}" alt="">
+    </div>
+    <div class="right">
+        <span class="bold">{{user.name}}</span>
+        <span>{{post.date}}</span>
+        <p>{{post.description}}</p>
+        <div class="like-dislike">
+            <ul>
+                <li>
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <p>{{post.likes}}</p>
+                </li>
+                <li>
+                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    <p>{{post.dislikes}}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

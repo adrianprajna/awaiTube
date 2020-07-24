@@ -2,6 +2,9 @@ import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login'
 import { LoginService } from '../services/login.service';
+import { UserService } from '../services/user.service';
+import { User } from '../type';
+import { ChannelService } from '../services/channel.service';
 
 @Component({
   selector: 'app-header',
@@ -21,8 +24,9 @@ export class HeaderComponent implements OnInit {
   users = [];
 
   focus:boolean = true;
+  channel_id: number;
 
-  constructor(private route: Router, private authService: SocialAuthService, private loginService: LoginService) { }
+  constructor(private route: Router, private authService: SocialAuthService, private loginService: LoginService, private channelService: ChannelService, private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -33,6 +37,11 @@ export class HeaderComponent implements OnInit {
         this.loginService.getUserFromStorage();
         this.user = this.loginService.user;
         this.loggedIn = this.loginService.loggedIn;
+        this.userService.getUserByEmail(this.user.email).valueChanges
+          .subscribe(result => {
+            this.channelService.getChannelByUser(result.data.getUserByEmail.id).valueChanges
+              .subscribe(res => this.channel_id = res.data.getChannelByUser.id);
+          })
       }
 
       this.observeActive();
@@ -44,14 +53,12 @@ export class HeaderComponent implements OnInit {
         this.user = user;
         this.loggedIn = (user != null);
 
-
-        console.log(user.name);
         this.loginService.addToLocalStorage(user);
-
-        
+      
         this.loginService.newUser.next(this.user);
         this.loginService.userObservable.next(this.loggedIn);
         window.location.reload();
+
     });
 
   }
@@ -99,9 +106,9 @@ export class HeaderComponent implements OnInit {
     this.loginService.currentActive.subscribe(active => {
       this.active = active;
       if(this.active){
-        document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(0, 0, 0, 0.5)';
+        document.getElementById('hidden').style.display = 'block'
       } else if(!this.active){
-        document.getElementsByTagName('body')[0].style.backgroundColor = 'snow';
+        document.getElementById('hidden').style.display = 'none'
       }
 
     })
@@ -109,6 +116,19 @@ export class HeaderComponent implements OnInit {
 
   receiveModal($event){
     this.isModalDrop = $event;
+  }
+
+  onKeyUp(event){
+    let input = (document.getElementById('search') as HTMLInputElement).value;
+
+    if(event.keyCode == 13){
+      this.route.navigate([`search/${input}`])
+    }
+  }
+
+  searchPage(){
+    let input = (document.getElementById('search') as HTMLInputElement).value;
+    this.route.navigate([`search/${input}`])
   }
 
 }

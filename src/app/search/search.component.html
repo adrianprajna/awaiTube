@@ -1,0 +1,25 @@
+<div class="trending">
+
+  <div class="header">
+    <div class="filter" (click)="setFilter()">
+      <i class="fa fa-filter" aria-hidden="true"></i>
+      <span>Filter</span>
+    </div>
+    <div class="dropdown" *ngIf="isFilterDrop">
+      <ul>
+        <li (click)="getByWeek()">
+          <span>This Week</span>
+        </li>
+        <li (click)="getByMonth()">
+          <span>This Month</span>
+        </li>
+        <li (click)="getByYear()">
+          <Span>This Year</Span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+  <app-video-trending *ngFor="let video of videos" [video]="video"></app-video-trending>
+
+</div>

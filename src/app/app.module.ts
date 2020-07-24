@@ -14,7 +14,8 @@ import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, Facebo
 import { LoginService } from '../app/services/login.service';
 import { UserService } from '../app/services/user.service';
 import { VideoService } from '../app/services/video.service';
-import { CommentService } from '../app/services/comment.service'
+import { CommentService } from '../app/services/comment.service';
+import { ChannelService } from '../app/services/channel.service'
 import { VideoDetailComponent } from './video-detail/video-detail.component';
 import { TrendingComponent } from './trending/trending.component';
 import { MusicCategoryComponent } from './category/music-category/music-category.component';
@@ -43,6 +44,11 @@ import { ReplyComponent } from './video-detail/reply/reply.component';
 import { KeyboardModalComponent } from './header/keyboard-modal/keyboard-modal.component';
 import { VideoTrendingComponent } from './trending/video-trending/video-trending.component';
 import { VideoAsideComponent } from './video-detail/video-aside/video-aside.component';
+import { ChannelHeaderComponent } from './channel/channel-header/channel-header.component';
+import { ChannelVideosComponent } from './channel/channel-videos/channel-videos.component';
+import { ChannelCommunityComponent } from './channel/channel-community/channel-community.component';
+import { PostComponent } from './channel/post/post.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +77,12 @@ import { VideoAsideComponent } from './video-detail/video-aside/video-aside.comp
     ReplyComponent,
     KeyboardModalComponent,
     VideoTrendingComponent,
-    VideoAsideComponent
+    VideoAsideComponent,
+    ChannelHeaderComponent,
+    ChannelVideosComponent,
+    ChannelCommunityComponent,
+    PostComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +119,8 @@ import { VideoAsideComponent } from './video-detail/video-aside/video-aside.comp
   LoginService,
   UserService,
   VideoService,
-  CommentService
+  CommentService,
+  ChannelService
   ],
   bootstrap: [AppComponent]
 })
