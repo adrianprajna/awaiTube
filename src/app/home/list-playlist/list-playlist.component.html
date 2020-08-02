@@ -1,0 +1,6 @@
+<div class="list" (click)="updatePlaylist()">
+    <i class="fa fa-check" aria-hidden="true" *ngIf="isExists"></i>
+    <span>{{playlist.name}}</span>
+    <i class="fa fa-globe" aria-hidden="true" *ngIf="playlist.privacy == 'Public'"></i>
+    <i class="fa fa-lock" aria-hidden="true" *ngIf="playlist.privacy == 'Private'"></i>
+</div>

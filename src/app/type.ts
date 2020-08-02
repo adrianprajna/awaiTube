@@ -10,6 +10,7 @@ export class User {
     liked_comment: string
     disliked_comment: string
     subscribed_channel: string
+    playlists: string
 }
 
 export class Obj {

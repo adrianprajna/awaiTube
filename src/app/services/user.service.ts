@@ -11,7 +11,7 @@ export class UserService {
 
  
   updateUserQuery = gql `
-    mutation updateUser($id: ID!, $name: String!, $email: String!, $img_url: String!, $premium: Boolean!, $subscribers: Int!, $liked_video: String!, $disliked_video: String!, $liked_comment: String!, $disliked_comment: String!, $subscribed_channel: String!) {
+    mutation updateUser($id: ID!, $name: String!, $email: String!, $img_url: String!, $premium: Boolean!, $subscribers: Int!, $liked_video: String!, $disliked_video: String!, $liked_comment: String!, $disliked_comment: String!, $subscribed_channel: String!, $playlists: String!) {
       updateUser(id: $id, input: {
         name: $name,
         email: $email,
@@ -22,7 +22,8 @@ export class UserService {
         disliked_video: $disliked_video,
         liked_comment: $liked_comment,
         disliked_comment: $disliked_comment,
-        subscribed_channel: $subscribed_channel
+        subscribed_channel: $subscribed_channel,
+        playlists: $playlists
       }){
         id
         name
@@ -35,6 +36,7 @@ export class UserService {
         liked_comment
         disliked_comment
         subscribed_channel
+        playlists
       }
     }
   `;
@@ -53,6 +55,7 @@ export class UserService {
           liked_comment
           disliked_comment
           subscribed_channel
+          playlists
         }
       }
   `;
@@ -77,6 +80,7 @@ export class UserService {
           liked_comment
           disliked_comment
           subscribed_channel
+          playlists
         }
       }
       `,
@@ -93,7 +97,6 @@ export class UserService {
         email: email
       }
     })
-
   }
 
   createUser(name: string, email: string, img_url: string){
@@ -110,7 +113,8 @@ export class UserService {
           disliked_video: "[]",
           liked_comment: "[]",
           disliked_comment: "[]",
-          subscribed_channel: "[]"
+          subscribed_channel: "[]",
+          playlists: "[]"
         }) {
           id
           name
@@ -123,6 +127,7 @@ export class UserService {
           liked_comment
           disliked_comment
           subscribed_channel
+          playlists
         }
       }
       `,
@@ -137,6 +142,32 @@ export class UserService {
       let date = new Date();
       let join_date = `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
       this.channelService.createChannel(this.user.id, this.user.img_url, 'this is a description', join_date, 'this is a link')
+    })
+  }
+
+  getAllUsers(name: string){
+    return this.apollo.watchQuery<any>({
+      query: gql `
+        query getAllUsers($name: String!) {
+          getAllUsers(name: $name){
+            id
+            name
+            email
+            premium
+            img_url
+            subscribers
+            liked_video
+            disliked_video
+            liked_comment
+            disliked_comment
+            subscribed_channel
+            playlists
+          }
+        }
+      `,
+      variables: {
+        name: name
+      }
     })
   }
 

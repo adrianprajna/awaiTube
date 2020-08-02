@@ -14,7 +14,6 @@ import { EntertainmentCategoryComponent } from './category/entertainment-categor
 import { PlaylistComponent } from './playlist/playlist.component';
 import { ChannelHomeComponent } from './channel/channel-home/channel-home.component';
 import { UploaderComponent } from './upload/uploader/uploader.component';
-import { ChannelService } from './services/channel.service';
 import { ChannelVideosComponent } from './channel/channel-videos/channel-videos.component';
 import { ChannelCommunityComponent } from './channel/channel-community/channel-community.component';
 import { SearchComponent } from './search/search.component';
@@ -23,7 +22,7 @@ import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '', pathMatch: "full", component:HomeComponent},
-  {path: 'playlist', component: PlaylistComponent},
+  {path: 'playlist/:id', component: PlaylistComponent},
   {path: 'channel/:id/home', component: ChannelHomeComponent},
   {path: 'channel/:id/videos', component: ChannelVideosComponent},
   {path: 'channel/:id/community', component: ChannelCommunityComponent},

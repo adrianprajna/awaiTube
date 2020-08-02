@@ -55,6 +55,7 @@ export class VideoDetailComponent implements OnInit {
   isSort: boolean = false;
   isSubscribed: boolean = false;
   isGetAllVideos: boolean = false;
+  isPlaylistExists: boolean = false;
   category: string;
   ranges = [{
       divider: 1e18,
@@ -98,6 +99,17 @@ export class VideoDetailComponent implements OnInit {
       this.getVideo(this.id);
       this.getAllComments(this.id);
     })
+
+    this.route.queryParams
+      .subscribe(params => {
+        if(Object.keys(params).length == 0){
+          console.log("ga ada");          
+        }else {
+          this.isPlaylistExists = true;
+          console.log(params)
+        }
+      })
+      
   }
 
   getVideo(id: number) {
@@ -121,8 +133,6 @@ export class VideoDetailComponent implements OnInit {
         this.comments = result.data.getAllComments
         this.updateView();
       });
-
-
   }
 
   getAllVideos(category: string) {
@@ -207,13 +217,6 @@ export class VideoDetailComponent implements OnInit {
       minute: date.getMinutes(),
       hour: date.getHours()
     }
-    
-    console.log(this.userByEmail.id)
-    console.log(this.id);
-    console.log(desc.value);
-    console.log(date.getDate());
-    console.log(date.getMonth());
-    console.log(JSON.stringify(time));
     this.commentService.createComment(this.userByEmail.id, this.id, desc.value, date.getDate(), date.getMonth() + 1, JSON.stringify(time));
     alert('success add a new comment!');
     desc.value = "";
@@ -353,7 +356,8 @@ export class VideoDetailComponent implements OnInit {
           disliked_video: JSON.stringify(dislikedVideos),
           liked_comment: this.userByEmail.liked_comment,
           disliked_comment: this.userByEmail.disliked_comment,
-          subscribed_channel: this.userByEmail.subscribed_channel
+          subscribed_channel: this.userByEmail.subscribed_channel,
+          playlists: this.userByEmail.playlists
         },
         refetchQueries: [{
           query: this.userService.getUserByEmailQuery,
@@ -476,7 +480,8 @@ export class VideoDetailComponent implements OnInit {
         disliked_video: this.userByEmail.disliked_video,
         liked_comment: this.userByEmail.liked_comment,
         disliked_comment: this.userByEmail.disliked_comment,
-        subscribed_channel: JSON.stringify(subscribed_channel)
+        subscribed_channel: JSON.stringify(subscribed_channel),
+        playlists: this.userByEmail.playlists
       },
       refetchQueries: [{
         query: this.userService.getUserByEmailQuery,
@@ -514,7 +519,8 @@ export class VideoDetailComponent implements OnInit {
         disliked_video: this.userByEmail.disliked_video,
         liked_comment: this.userByEmail.liked_comment,
         disliked_comment: this.userByEmail.disliked_comment,
-        subscribed_channel: JSON.stringify(subscribed_channel)
+        subscribed_channel: JSON.stringify(subscribed_channel),
+        playlists: this.userByEmail.playlists
       },
       refetchQueries: [{
         query: this.userService.getUserByEmailQuery,
@@ -542,7 +548,8 @@ export class VideoDetailComponent implements OnInit {
         disliked_video: this.user.disliked_video,
         liked_comment: this.user.liked_comment,
         disliked_comment: this.user.disliked_comment,
-        subscribed_channel: this.user.subscribed_channel
+        subscribed_channel: this.user.subscribed_channel,
+        playlists: this.userByEmail.playlists
       }
     }).subscribe(res => console.log(res.data));
   }

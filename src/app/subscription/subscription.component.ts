@@ -117,7 +117,7 @@ export class SubscriptionComponent implements OnInit {
       videos = Array.from(videos).sort((a: Obj, b: Obj) => b.id - a.id);
       videos = Array.from(videos).filter((vid: any) => vid.year == this.date.getFullYear());
       videos = Array.from(videos).filter((vid: any) => vid.month == this.date.getMonth() + 1 || vid.month == this.date.getMonth());
-      videos = Array.from(videos).filter((vid: any) => vid.user_id == chan.user_id && vid.day > 30 - this.date.getDate());
+      videos = Array.from(videos).filter((vid: any) => vid.user_id == chan.user_id);
                       
       if(!this.month_videos){                   
         this.month_videos = videos;

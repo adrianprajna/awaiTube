@@ -1,0 +1,76 @@
+.row {
+
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .video-thumbnail {
+        flex: 1;
+        margin-right: 0.5rem;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .vid-length{
+            position: absolute;
+            color: white;
+            background: black;
+            padding: 0.2rem;
+
+            bottom: 0;
+            right: 0;
+            font-size: 0.8rem;
+        }
+    }
+
+    .video-desc {
+        flex: 2;
+        
+        .desc {
+            height: 1.8rem;
+            overflow: hidden;
+        }
+    }
+
+    .video-setting {
+        position: relative;
+        i {
+            cursor: pointer;
+        }
+        
+        .setting-dropdown {
+            position: absolute;
+            background-color: white;
+            right: 0;
+            width: 7rem;
+            display: none;
+
+            ul {
+                list-style-type: none;
+
+                li {
+                    padding: 0.5rem;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: gray;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.user {
+    cursor: pointer;
+    outline: none;
+    &:hover {
+        color: salmon;
+    }
+}
+
+.block {
+    display: block !important;
+}

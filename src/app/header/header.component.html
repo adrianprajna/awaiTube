@@ -11,8 +11,21 @@
   </div>
 
   <div class="center-header">
-    <input type="text" name="" id="" placeholder="Search" id="search" (keyup)="onKeyUp($event)">
+    <input type="text" name="" id="" placeholder="Search" id="search" (keyup)="onKeyUp($event)" autocomplete="off">
     <i class="fa fa-search" (click)="searchPage()"></i>
+    <div class="auto-complete" *ngIf="isAutoComplete">
+      <ul>
+        <li *ngFor="let video of videos_name">
+          <span (click)="routeToSearch(video.title)">{{video.title}}</span>
+        </li>
+        <li *ngFor="let playlist of playlists_name">
+          <span>{{playlist.name}}</span>
+        </li>
+        <li *ngFor="let user of channels_name">
+          <span>{{user.name}}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div class="right-header">

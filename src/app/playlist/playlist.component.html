@@ -1,152 +1,122 @@
 <div class="playlist">
 
     <div class="left-content">
-        <div class="video">
-            <video src="../../assets/videos/sample-video.m4v"></video>
+        <div class="video" [routerLink]="['/video-detail/'+topVideo.id]" [queryParams]="{playlist:playlist_id}">
+            <img src="{{topVideo.thumbnail}}" alt="">
             <button>
-                <i class="fa fa-play" aria-hidden="true"></i>
-                Play All
+                <i class="fa fa-play" aria-hidden="true" style="margin-right: 0.5rem;"></i>
+                <span>Play All</span>
             </button>
         </div>
 
         <div class="playlist-thumbnail">
             <div class="title">
-                <h2>Web Development</h2>
-                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <h2>{{playlist.name}}</h2>
+                <i class="fa fa-pencil" aria-hidden="true" (click)="addInputDropdown()"></i>
+            </div>
+            <div class="edit-title" *ngIf="inputDropdown">
+                <div>
+                    <input type="text" name="" id="" style="width: 100%;" id="input-title">
+                </div>
+                <div>
+                    <button (click)="addInputDropdown()">Cancel</button>
+                    <button class="blue" (click)="editTitle()">Save</button>
+                </div>
             </div>
             <div class="description">
-                <span>11 Videos •</span>
-                <span> 14,515 views •</span>
-                <span> Last updated on May 20, 2020</span>
+                <span>{{this.videos.length}} Videos •</span>
+                <span> {{playlist.views}} views •</span>
+                <span> Last updated on {{getDate()}}</span>
             </div>
             <div class="privacy">
-                <button>
+                <button (click)="addPrivacyDropdown()" *ngIf="public">
                     <span>Public</span>
                     <i class="fa fa-arrow-down" aria-hidden="true"></i>
                 </button>
+                <button (click)="addPrivacyDropdown()" *ngIf="private">
+                    <span>Private</span>
+                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                </button>
+                <div class="privacy-dropdown" *ngIf="privacyDropdown">
+                    <ul>
+                        <li (click)="editPrivacy('Public')">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span>Public</span>
+                        </li>
+                        <li (click)="editPrivacy('Private')">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            <span>Private</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="button">
-                <i class="fa fa-random" aria-hidden="true" title="Shuffle Play"></i>
-                <i class="fa fa-share" aria-hidden="true" title="Share"></i>
-                <i class="fa fa-trash-o" aria-hidden="true" title="Remove All Videos"></i>
+                <i class="fa fa-random" aria-hidden="true" title="Shuffle Play" (click)="shufflePlay()"></i>
+                <i class="fa fa-share" aria-hidden="true" title="Share" *ngIf="public"></i>
+                <i class="fa fa-trash-o" aria-hidden="true" title="Remove All Videos" (click)="addModalDrop()"></i>
             </div>
             <div class="edit-desc">
                 <h3>Description</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, beatae accusamus distinctio animi ducimus repellendus iusto rem a asperiores nobis molestiae tenetur est nesciunt, id labore quibusdam ratione, incidunt placeat.</p>
-                <button>
+                <p>{{playlist.description}}</p>
+                <button (click)="addDescDropdown()">
                     <span>Edit Description</span>
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
             </div>
+
+            <div class="edit-title" *ngIf="descDropdown">
+                <div>
+                    <input type="text" name="" id="" style="width: 100%;" id="input-desc">
+                </div>
+                <div>
+                    <button (click)="addDescDropdown()">Cancel</button>
+                    <button class="blue" (click)="editDesc()">Save</button>
+                </div>
+            </div>
             
             <hr>
 
-            <div class="account">
+            <div class="account" [routerLink]="['/channel/'+channel.id+'/home']">
                 <div class="image">
-
+                    <img src="{{user.img_url}}" alt="">
                 </div>
-                <p>Adrian Prajna</p>
+                <p>{{user.name}}</p>
             </div>
         </div>
     </div>
 
     <div class="right-content">
         <div class="sort">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-            <span>Sort</span>
+            <div (click)="addSort()">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+                <span>Sort</span>
+            </div>    
+            <div class="sort-dropdown" *ngIf="sortDropdown">
+                <ul>
+                    <li>Date added (newest)</li>
+                    <li>Date added (oldest)</li>
+                    <li>Most popular</li>
+                    <li>Date published (newest)</li>
+                    <li>Date published (oldest)</li>
+                </ul>
+            </div>
         </div>
 
         <!-- Video Content -->
-        <div class="row">
-            <div class="video-thumbnail">
-                <video src="../../assets/videos/sample-video.m4v"></video>
-            </div>
-            <div class="video-desc">
-                <h3>Front End Web Development</h3>
-                <p>Adrian Prajna</p>
-            </div>
-            <div class="video-setting">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
+        <div class="row" *ngFor="let video of videos">
+            <app-playlist-video [video]="video" [playlist]="playlist"></app-playlist-video>
         </div>
 
-        <div class="row">
-            <div class="video-thumbnail">
-                <video src="../../assets/videos/sample-video.m4v"></video>
-            </div>
-            <div class="video-desc">
-                <h3>Front End Web Development</h3>
-                <p>Adrian Prajna</p>
-            </div>
-            <div class="video-setting">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="video-thumbnail">
-                <video src="../../assets/videos/sample-video.m4v"></video>
-            </div>
-            <div class="video-desc">
-                <h3>Front End Web Development</h3>
-                <p>Adrian Prajna</p>
-            </div>
-            <div class="video-setting">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="video-thumbnail">
-                <video src="../../assets/videos/sample-video.m4v"></video>
-            </div>
-            <div class="video-desc">
-                <h3>Front End Web Development</h3>
-                <p>Adrian Prajna</p>
-            </div>
-            <div class="video-setting">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="video-thumbnail">
-                <video src="../../assets/videos/sample-video.m4v"></video>
-            </div>
-            <div class="video-desc">
-                <h3>Front End Web Development</h3>
-                <p>Adrian Prajna</p>
-            </div>
-            <div class="video-setting">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="video-thumbnail">
-                <video src="../../assets/videos/sample-video.m4v"></video>
-            </div>
-            <div class="video-desc">
-                <h3>Front End Web Development</h3>
-                <p>Adrian Prajna</p>
-            </div>
-            <div class="video-setting">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="video-thumbnail">
-                <video src="../../assets/videos/sample-video.m4v"></video>
-            </div>
-            <div class="video-desc">
-                <h3>Front End Web Development</h3>
-                <p>Adrian Prajna</p>
-            </div>
-            <div class="video-setting">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-        </div>
     </div>
 
+</div>
+
+<div class="modal-bg" [ngClass]="isModalDrop ? 'modal-bg active' : 'modal-bg'">   
+    <div class="modal">
+        <h3>Are you sure?</h3>
+        <div>
+            <p (click)="removeAll()">Yes</p>
+            <p (click)="addModalDrop()">No</p>
+        </div>
+    </div>
 </div>

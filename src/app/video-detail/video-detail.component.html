@@ -108,6 +108,7 @@
 
   <div class="right-content">
     <p class="bold" style="margin-bottom: 1rem;">Up Next</p>
+    <h2 *ngIf="isPlaylistExists">Playlist</h2>
 
     <div class="next-video-detail" *ngIf="nextVideo">
       <div class="image-video" (click)="navigate()" style="cursor: pointer;">

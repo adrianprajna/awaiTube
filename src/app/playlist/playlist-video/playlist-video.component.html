@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="video-thumbnail">
+        <img src="{{vid.thumbnail}}" alt="">
+        <div class="vid-length">
+            <p>{{getVideoLength(vid.length)}}</p>
+        </div>
+    </div>
+    <div class="video-desc">
+        <h3>{{vid.title}}</h3>
+        <p class="user" [routerLink]="['/channel/'+channel.id+'/home']">{{user.name}}</p>
+        <p>{{convertViewToString(vid.views)}} views • {{getUploadedDate()}}</p>
+        <div class="desc">
+            <p>{{vid.description}}</p>
+        </div>
+    </div>
+    <div class="video-setting">
+        <i class="fa fa-ellipsis-v" aria-hidden="true" (click)="addDropdown($event, vid.id)"></i>
+        <div class="setting-dropdown" id="{{vid.id}}">
+            <ul>
+                <li>Add to Queue</li>
+                <li>Save to Playlist</li>
+                <li (click)="remove(vid.id)">Remove from Playlist</li>
+            </ul>
+        </div>
+    </div>
+</div>

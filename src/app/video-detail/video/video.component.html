@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-video" [routerLink]="['/video-detail/', video.id]" routerLinkActive="router-link-active" style="outline: none;">
+    <div class="card-video" [routerLink]="['/video-detail/'+video.id]" style="outline: none;">
         <img src="{{ video.thumbnail }}" alt="">
         <div class="vid-length">
             <p>{{getVideoLength(video.length)}}</p>

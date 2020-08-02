@@ -1,20 +1,85 @@
 <div class="content" (mouseenter)="addSettings()" (mouseleave)="addSettings()">
 
-    <div class="image-video">
+    <div class="image-video" [routerLink]="['/video-detail/', video.id]">
       <img src="{{video.thumbnail}}" alt="">
+      <div class="vid-length">
+            <p>{{getVideoLength(video.length)}}</p>
+      </div>
     </div>
     
-    <div class="next-video-detail" [routerLink]="['/video-detail/', video.id]" routerLinkActive="router-link-active">
+    <div class="next-video-detail">
       <div class="image-video-detail">
         <div>
           <p class="bold">{{video.title}}</p>
         </div>
-        <p>{{user.name}}</p>
-        <span class="view">{{video.views}}x views</span>
+        <p [routerLink]="['/channel/'+channel.id+'/home']" routerLinkActive="router-link-active" >{{userVideo.name}}</p>
+        <span class="view">{{convertViewToString(video.views)}} views</span>
         <span>{{getUploadedDate()}}</span>
-        <p>{{video.description}}</p>
+        <div class="desc">
+          <p>{{video.description}}</p>
+        </div>
       </div>
-      <i class="fa fa-ellipsis-v" title="Settings" *ngIf="settings"></i>
+      <i class="fa fa-ellipsis-v" title="Settings" *ngIf="settings" (click)="addDropdown($event, video.id)"></i>
+      <!-- Dropdown -->
+      <div class="settings-dropdown" id="{{video.id}}"> 
+            <ul>
+                <li class="lists">
+                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                    <p>Add to queue</p>
+                </li>
+                <li class="lists" (click)="addModal()">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <p>Save to playlist</p>
+                </li>
+            </ul>
+        </div>
+        <!--  -->
     </div>
 
+</div>
+
+<div class="modal-bg" [ngClass]="isModalDrop ? 'modal-bg active' : 'modal-bg'">   
+  <div class="modal">
+      <div class="header">
+          <p>Save to...</p>
+          <i class="fa fa-times" aria-hidden="true" (click)="addModal()"></i>
+      </div>
+
+      <hr>
+
+      <div class="playlist">
+        <ul>
+          <li *ngFor="let playlist of playlists">
+              <app-list-playlist [playlist]="playlist"></app-list-playlist>
+          </li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <div class="create" (click)="addCreateDropdown()">
+        <p>Create New Playlist</p>
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </div>
+
+      <div class="create-dropdown" *ngIf="createDropdown">
+        <div class="title">
+          <p>Name</p>
+          <input type="text" name="" id="" style="width: 100%;" placeholder="enter playlist name..." id="input-create">
+        </div>
+        <div class="privacy">
+          <p>Privacy</p>
+          <span>
+            <input type="radio" name="privacy" id="" value="Private">
+            <label for="">Private</label>
+          </span>
+          <span>
+            <input type="radio" name="privacy" id="" value="Public" checked>
+            <label for="">Public</label>
+          </span>
+        </div>
+        <button (click)="createPlaylist()">Create</button>
+      </div>
+
+  </div>
 </div>

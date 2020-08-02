@@ -9,16 +9,29 @@
         margin-right: 0.5rem;
         height: 10rem;
         background-color: navy;
+        position: relative;
 
         img {
-            width: 100%;
+            width: 17rem;
             height: 100%;
+        }
+
+        .vid-length{
+            position: absolute;
+            color: white;
+            background: black;
+            padding: 0.2rem;
+
+            bottom: 0;
+            right: 0;
+            font-size: 0.8rem;
         }
     }
 
     .next-video-detail {
         display: flex;
         flex-direction: row;
+        position: relative;
         height: 10rem;
         margin-bottom: 1rem;
         border: none;
@@ -32,6 +45,35 @@
             .view {
                 margin-right: 1rem;
             }
+
+            .desc {
+                height: 1.5rem;
+                overflow: hidden;
+            }
+        }
+
+        .settings-dropdown {
+            position: absolute;
+            display: none;
+            right: 29%;
+
+            ul {
+                width: 100%;
+    
+                li {
+                    background: white;
+                    width: 100%;
+                    padding: 1rem;
+                    list-style-type: none;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    
+                    &:hover {
+                        background-color: lightgray;
+                    }
+                }
+            }
         }
     }
 
@@ -43,4 +85,125 @@
 
 .bold {
     font-weight: bold;
+}
+
+.block {
+    display: block !important;
+}
+
+.modal-bg {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+
+    .modal {
+        background-color: white;
+        width: 20%;
+        padding: 1rem;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+
+            i {
+                cursor: pointer;
+            }
+        }
+
+        .playlist {
+
+            margin-top: 1rem;
+
+            ul {
+                list-style: none;
+            }
+        }
+
+        .create {
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .create-dropdown {
+
+            .title {
+
+                input[type=text]{
+                    border: 0;
+                    border-bottom: 1px solid navy;
+                    outline: none;
+                }
+                margin-bottom: 0.5rem;
+            }
+
+            .privacy {
+                margin-bottom: 0.5rem;
+                span {
+                    margin-right: 1rem;
+
+                    label {
+                        margin-left: 0.5rem;
+                    }
+                }
+            }
+
+            button {
+                width: 100%;
+                padding: 0.5rem;
+                background-color: navy;
+                color: oldlace;
+                outline: none;
+                border: none;
+                cursor: pointer;
+                border-radius: 0.4rem;
+
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+.modal-bg.active {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s;
+}
+
+@media (max-width: 576px){
+
+    .content {
+        flex-direction: column;
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+
+        .image-video {
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .next-video-detail {
+
+            .image-video-detail {
+                width: 100%;
+            }
+        }
+    }
 }

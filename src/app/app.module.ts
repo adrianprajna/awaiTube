@@ -16,6 +16,7 @@ import { UserService } from '../app/services/user.service';
 import { VideoService } from '../app/services/video.service';
 import { CommentService } from '../app/services/comment.service';
 import { ChannelService } from '../app/services/channel.service'
+import { PlaylistService } from './playlist.service'
 import { VideoDetailComponent } from './video-detail/video-detail.component';
 import { TrendingComponent } from './trending/trending.component';
 import { MusicCategoryComponent } from './category/music-category/music-category.component';
@@ -50,6 +51,8 @@ import { ChannelCommunityComponent } from './channel/channel-community/channel-c
 import { PostComponent } from './channel/post/post.component';
 import { SearchComponent } from './search/search.component';
 import { ListSubscribersComponent } from './sidebar/list-subscribers/list-subscribers.component';
+import { PlaylistVideoComponent } from './playlist/playlist-video/playlist-video.component';
+import { ListPlaylistComponent } from './home/list-playlist/list-playlist.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +87,9 @@ import { ListSubscribersComponent } from './sidebar/list-subscribers/list-subscr
     ChannelCommunityComponent,
     PostComponent,
     SearchComponent,
-    ListSubscribersComponent
+    ListSubscribersComponent,
+    PlaylistVideoComponent,
+    ListPlaylistComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +127,8 @@ import { ListSubscribersComponent } from './sidebar/list-subscribers/list-subscr
   UserService,
   VideoService,
   CommentService,
-  ChannelService
+  ChannelService,
+  PlaylistService
   ],
   bootstrap: [AppComponent]
 })

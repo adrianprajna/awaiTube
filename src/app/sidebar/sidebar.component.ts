@@ -4,6 +4,7 @@ import { LoginService } from '../services/login.service';
 import { SocialUser } from 'angularx-social-login';
 import { UserService } from '../services/user.service';
 import { Obj } from '../type';
+import { PlaylistService } from '../playlist.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +19,15 @@ export class SidebarComponent implements OnInit {
 
   subscribers: Array<Obj>;
 
-  constructor(private route:Router, private loginService: LoginService, private userService: UserService) { 
+  playlists_json: Array<Obj>;
+  playlists: Array<any>;
+
+  displayedPlaylist: number = 5;
+  displayedSubs: number = 10;
+  showAll: boolean = false;
+  showAllSubs: boolean = false;
+
+  constructor(private route:Router, private loginService: LoginService, private userService: UserService, private playlistService: PlaylistService) { 
     
   }
 
@@ -73,7 +82,37 @@ export class SidebarComponent implements OnInit {
     this.userService.getUserByEmail(this.user.email).valueChanges
       .subscribe(res => {
         this.subscribers = JSON.parse(res.data.getUserByEmail.subscribed_channel)
+        this.playlists_json = JSON.parse(res.data.getUserByEmail.playlists);
+        this.getAllPlaylists();       
       })
+  }
+
+  getAllPlaylists(){
+    this.playlists = new Array;
+
+    Array.from(this.playlists_json).forEach((vid: any) => {
+        this.playlistService.getPlaylist(vid.id).valueChanges
+          .subscribe(res => {
+            this.playlists.push(res.data.playlist)
+            console.log(this.playlists);                
+          })
+    })  
+
+  }
+
+  showAllPlaylist(){
+    this.displayedPlaylist = this.playlists.length;
+    this.showAll = true;
+  }
+
+  addPlaylistDropdown(){
+    this.displayedPlaylist = 5;
+    this.showAll = !this.showAll;
+  }
+
+  showAllSubscribers(length: number): void{
+    this.showAllSubs = !this.showAllSubs;
+    this.displayedSubs = length;
   }
 
 
