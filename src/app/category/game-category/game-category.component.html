@@ -10,13 +10,35 @@
         <button>Subscribe</button>
     </div>
 
-    <div class="content">
-        <h3>Recommended</h3>
-        <p>Based on your Subscriptions and History</p>
-        <div class="row">
-            <app-video *ngFor="let video of videos" [video]="video"></app-video>
+    <div class="wrapper">
+        <div class="content">
+            <h2>Recently Uploaded</h2>    
+            <div class="row">
+                <app-video *ngFor="let video of recentlyVideos" [video]="video"></app-video>
+            </div>
+        </div>
+    
+        <div class="content">
+            <h2>Popular This Week</h2>    
+            <div class="row">
+                <app-video *ngFor="let video of popularWeekVideos" [video]="video"></app-video>
+            </div>
+        </div>
+    
+        <div class="content">
+            <h2>Popular This Month</h2>    
+            <div class="row">
+                <app-video *ngFor="let video of popularMonthVideos" [video]="video"></app-video>
+            </div>
+        </div>
+    
+        <div class="content" id="all-time">
+                <h2>Popular All Time</h2> 
+            <div class="row">
+                <app-video *ngFor="let video of popularAllTime" [video]="video"></app-video>
+            </div>
         </div>
     </div>
-
+    
 </div>
 

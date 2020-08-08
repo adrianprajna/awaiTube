@@ -206,7 +206,7 @@
     position: absolute;
     transition: all 0.3s;
     right: 100%;
-    bottom: -26.5%;
+    bottom: -54%;
     border-radius: 0.5rem;
     overflow: hidden;
   }
@@ -218,11 +218,11 @@
 }
 
 .location-dropdown-user.not-active {
-  transform: translateY(-275%);
+  transform: translateY(-250%);
 }
 
 .location-dropdown.not-active {
-  transform: translateY(-250%);
+  transform: translateY(-275%);
 }
 
 #hidden {

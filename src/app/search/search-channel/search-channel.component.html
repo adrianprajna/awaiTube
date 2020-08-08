@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="icon" [routerLink]="['/channel/'+channel.id+'/home']">
+        <img src="{{user.img_url}}" alt="">
+    </div>
+    <div class="detail"  [routerLink]="['/channel/'+channel.id+'/home']">
+        <h3>{{user.name}}</h3>
+        <p>{{user.subscribers}} subscribers • {{videos.length}} videos</p>
+        <p>{{channel.description}}</p>
+    </div>
+
+    <div class="subscribe">
+        <button *ngIf="!self && !subscriber" class="red" (click)="subscribeChannel()">Subscribe</button>
+        <button *ngIf="!self && subscriber" class="gray" (click)="unsubscribeChannel()">Subscribed</button>
+        <i class="fa fa-bell" aria-hidden="true" *ngIf="!self && subscriber"></i>
+    </div>
+</div>

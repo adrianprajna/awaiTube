@@ -30,6 +30,7 @@ import {
 import {
   ChannelService
 } from '../services/channel.service';
+import { PlaylistService } from '../playlist.service';
 
 @Component({
   selector: 'app-video-detail',
@@ -46,9 +47,11 @@ export class VideoDetailComponent implements OnInit {
   loginUser: SocialUser;
   comments: any;
   userByEmail: any;
-  videos: any;
+  videos: Array<any>;
   nextVideo: any;
   channel: any;
+  playlists: Array<any> = new Array;
+  playlist_json: Array<Obj>
   isKeyboardActive: boolean = false;
   isViewed: boolean = false;
   isDownload: boolean = false;
@@ -56,6 +59,12 @@ export class VideoDetailComponent implements OnInit {
   isSubscribed: boolean = false;
   isGetAllVideos: boolean = false;
   isPlaylistExists: boolean = false;
+  isModalDrop: boolean = false;
+  createDropdown: boolean = false;
+  observer: IntersectionObserver;
+  observerVideo: IntersectionObserver
+  displayedComments: number = 2;
+  displayedVideos: number = 6;
   category: string;
   ranges = [{
       divider: 1e18,
@@ -84,7 +93,7 @@ export class VideoDetailComponent implements OnInit {
   ];
 
   constructor(private route: ActivatedRoute, private videoService: VideoService, private userService: UserService,
-    private commentService: CommentService, private loginService: LoginService, private apollo: Apollo, private channelService: ChannelService) {}
+    private commentService: CommentService, private loginService: LoginService, private apollo: Apollo, private channelService: ChannelService, private playlistService: PlaylistService) {}
 
   ngOnInit(): void {
 
@@ -96,20 +105,133 @@ export class VideoDetailComponent implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       this.id = parseInt(params.get('id'));
+      console.log(this.id);
       this.getVideo(this.id);
       this.getAllComments(this.id);
     })
 
     this.route.queryParams
       .subscribe(params => {
-        if(Object.keys(params).length == 0){
-          console.log("ga ada");          
-        }else {
-          this.isPlaylistExists = true;
-          console.log(params)
+        if (Object.keys(params).length != 0) {
+          this.isPlaylistExists = true;        
         }
       })
-      
+
+      this.rightClickEvent()
+      this.infiniteComment();
+      // this.infiniteVideo();
+  }
+
+  infiniteComment(){
+    this.observer = new IntersectionObserver(entry => {
+      if(entry[0].isIntersecting){
+        
+        for(let i = 0; i < 4; i++){
+          if(this.displayedComments < this.comments.length){
+            let div = document.createElement('div');
+            let comment = document.createElement('app-comment')
+            comment.setAttribute('comment', 'this.comments[this.displayedComments]');
+            comment.setAttribute('userByEmail', 'this.userByEmail')
+            div.appendChild(comment);
+            let row = document.querySelector('.comment-details');
+            row.appendChild(div);
+            this.displayedComments++;
+          }
+        }
+      }
+    })
+
+    this.observer.observe(document.getElementById('footer'));
+  }
+
+  infiniteVideo(){
+    this.observerVideo = new IntersectionObserver(entry => {
+      if(entry[0].isIntersecting){
+        
+        for(let i = 0; i < 4; i++){
+          if(this.displayedVideos < this.videos.length){
+            let video = document.createElement('app-video-aside')
+            video.setAttribute('video', 'this.videos[this.displayedVideos]');
+            video.setAttribute('nextVideo', 'this.nextVideo')
+            let row = document.querySelector('.infinite');
+            row.appendChild(video);
+            this.displayedVideos++;
+          }
+        }
+      }
+    })
+
+    this.observerVideo.observe(document.getElementById('footer-video'));
+  }
+
+
+  addModal(): void {
+    this.isModalDrop = !this.isModalDrop
+    this.playlistService.videoBehaviour.next(this.id);
+  }
+
+  addCreateDropdown(): void {
+    this.createDropdown  = !this.createDropdown;
+  }
+
+
+  getAllPlaylist(playlist_json: Array<Obj>){
+    playlist_json.forEach((playlist: any) => {
+        this.playlistService.getPlaylist(playlist.id).valueChanges
+          .subscribe(res => {
+            if(this.playlists.length != 0){
+              if(!this.playlists.includes(res.data.playlist))
+                  this.playlists.push(res.data.playlist)
+            } else {
+              this.playlists.push(res.data.playlist)
+            }   
+            this.playlists = this.playlists.filter((playlist: any) => playlist.user_id == this.userByEmail.id)                   
+          })
+    })
+  }
+
+  createPlaylist(){
+    let input = document.getElementById('input-create') as HTMLInputElement
+    let privacy = "Public";
+    let privacies = document.getElementsByName('privacy');
+
+    privacies.forEach(p => {
+      if((p as HTMLInputElement).checked && (p as HTMLInputElement).value == "Private") {
+        privacy = "Private";
+      }
+    })
+    
+    this.playlistService.createPlaylist(this.userByEmail.id as any, input.value, privacy, "this is a description")
+      .subscribe((res: any) => {
+       
+        let id: Obj = {
+          id: parseInt(res.data.createPlaylist.id)
+        }
+        this.playlist_json.push(id)
+        console.log(this.playlist_json);
+        
+        this.apollo.mutate({
+          mutation: this.userService.updateUserQuery,
+          variables: {
+          id: this.user.id,
+          name: this.user.name,
+          email: this.user.email,
+          img_url: this.user.img_url,
+          premium: this.user.premium,
+          subscribers: this.user.subscribers,
+          liked_video: this.user.liked_video,
+          disliked_video: this.user.disliked_video,
+          liked_comment: this.user.liked_comment,
+          disliked_comment: this.user.disliked_comment,
+          subscribed_channel: this.user.subscribed_channel,
+          playlists: JSON.stringify(this.playlist_json),
+          liked_post: this.user.liked_post,
+          disliked_post: this.user.disliked_post
+          }
+        }).subscribe()
+
+      })
+
   }
 
   getVideo(id: number) {
@@ -118,12 +240,12 @@ export class VideoDetailComponent implements OnInit {
       .subscribe(result => {
         this.video = result.data.getVideo
         this.getAllVideos(this.video.category);
-   
+
         this.userService.getUser(this.video.user_id).valueChanges
           .subscribe((result) => {
             this.user = result.data.getUser
             this.getChannel();
-          });  
+          });
       });
   }
 
@@ -136,17 +258,17 @@ export class VideoDetailComponent implements OnInit {
   }
 
   getAllVideos(category: string) {
-    if(!this.isGetAllVideos){
+    // if (!this.isGetAllVideos) {
       this.videoService.getAllVideos().valueChanges
-      .subscribe(result => {
-        if(!this.isGetAllVideos){
-          this.videos = result.data.videos;
-          this.videos = Array.from(this.videos).filter((vid: any) => vid.category == category)  
-          this.nextVideo = this.videos[this.rand(0, this.videos.length)]
-          this.isGetAllVideos = true;
-        }
-      })
-    }
+        .subscribe(result => {
+          // if (!this.isGetAllVideos) {
+            this.videos = result.data.videos;
+            this.videos = Array.from(this.videos).filter((vid: any) => vid.category == category)
+            this.nextVideo = this.videos[this.rand(0, this.videos.length)]
+            this.isGetAllVideos = true;
+          // }
+        })
+    // }
   }
 
   rand(min: number, max: number) {
@@ -159,6 +281,8 @@ export class VideoDetailComponent implements OnInit {
       .valueChanges
       .subscribe(result => {
         this.userByEmail = result.data.getUserByEmail;
+        this.playlist_json = JSON.parse(this.userByEmail.playlists)
+        this.getAllPlaylist(this.playlist_json);  
         this.userByEmail.premium == true ? this.isDownload = true : this.isDownload = false;
         this.checkVideo(JSON.parse(this.userByEmail.liked_video), JSON.parse(this.userByEmail.disliked_video));
       });
@@ -357,7 +481,9 @@ export class VideoDetailComponent implements OnInit {
           liked_comment: this.userByEmail.liked_comment,
           disliked_comment: this.userByEmail.disliked_comment,
           subscribed_channel: this.userByEmail.subscribed_channel,
-          playlists: this.userByEmail.playlists
+          playlists: this.userByEmail.playlists,
+          liked_post: this.userByEmail.liked_post,
+          disliked_post: this.userByEmail.disliked_post
         },
         refetchQueries: [{
           query: this.userService.getUserByEmailQuery,
@@ -481,7 +607,9 @@ export class VideoDetailComponent implements OnInit {
         liked_comment: this.userByEmail.liked_comment,
         disliked_comment: this.userByEmail.disliked_comment,
         subscribed_channel: JSON.stringify(subscribed_channel),
-        playlists: this.userByEmail.playlists
+        playlists: this.userByEmail.playlists,
+        liked_post: this.userByEmail.liked_post,
+        disliked_post: this.userByEmail.disliked_post
       },
       refetchQueries: [{
         query: this.userService.getUserByEmailQuery,
@@ -490,8 +618,8 @@ export class VideoDetailComponent implements OnInit {
         }
       }]
     }).subscribe(res => {
-        this.increaseSubscriber(1);
-        alert('successfuly subscribe this channel!')
+      this.increaseSubscriber(1);
+      alert('successfuly subscribe this channel!')
     });
   }
 
@@ -520,7 +648,9 @@ export class VideoDetailComponent implements OnInit {
         liked_comment: this.userByEmail.liked_comment,
         disliked_comment: this.userByEmail.disliked_comment,
         subscribed_channel: JSON.stringify(subscribed_channel),
-        playlists: this.userByEmail.playlists
+        playlists: this.userByEmail.playlists,
+        liked_post: this.userByEmail.liked_post,
+        disliked_post: this.userByEmail.disliked_post
       },
       refetchQueries: [{
         query: this.userService.getUserByEmailQuery,
@@ -534,7 +664,7 @@ export class VideoDetailComponent implements OnInit {
     });
   }
 
-  increaseSubscriber(subs: number){
+  increaseSubscriber(subs: number) {
     this.apollo.mutate({
       mutation: this.userService.updateUserQuery,
       variables: {
@@ -549,13 +679,19 @@ export class VideoDetailComponent implements OnInit {
         liked_comment: this.user.liked_comment,
         disliked_comment: this.user.disliked_comment,
         subscribed_channel: this.user.subscribed_channel,
-        playlists: this.userByEmail.playlists
+        playlists: this.user.playlists,
+        liked_post: this.userByEmail.liked_post,
+        disliked_post: this.userByEmail.disliked_post
       }
     }).subscribe(res => console.log(res.data));
   }
 
-  navigate(){
+  navigate() {
     window.location.href = `/video-detail/${this.nextVideo.id}`;
   }
 
+  rightClickEvent(){
+    let video = document.querySelector('#v')
+  
+  }
 }

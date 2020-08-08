@@ -16,6 +16,10 @@ import {
 } from 'src/app/services/user.service';
 import { SocialUser } from 'angularx-social-login';
 import { LoginService } from 'src/app/services/login.service';
+import { AngularFireUploadTask, AngularFireStorage } from 'angularfire2/storage';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { finalize, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-channel-community',
@@ -24,7 +28,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class ChannelCommunityComponent implements OnInit {
 
-  constructor(private channelService: ChannelService, private activatedRoute: ActivatedRoute, private userService: UserService, private loginService: LoginService) {}
+  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private channelService: ChannelService, private activatedRoute: ActivatedRoute, private userService: UserService, private loginService: LoginService) {}
 
   id: number;
 
@@ -35,6 +39,18 @@ export class ChannelCommunityComponent implements OnInit {
   loginUser: SocialUser
 
   isInput: boolean = false;
+
+  taskThumbnail: AngularFireUploadTask
+
+  percentageThumbnail: Observable<number>;
+
+  snapshotThumbnail: Observable<any>;
+
+  downloadThumbnailURL: string = "no picture";
+
+  isThumbnailDone: Boolean = false;
+
+  userByEmail: User
 
   ngOnInit(): void {
 
@@ -54,6 +70,7 @@ export class ChannelCommunityComponent implements OnInit {
   getUserByEmail(){
     this.userService.getUserByEmail(this.loginUser.email).valueChanges
       .subscribe(result => {
+        this.userByEmail = result.data.getUserByEmail
         if(result.data.getUserByEmail.id == this.user.id){
             this.isInput = true;
         }
@@ -81,9 +98,10 @@ export class ChannelCommunityComponent implements OnInit {
   }
 
   addPost() {
-    let description = (document.getElementById('desc') as HTMLInputElement).value;
+    let description = (document.getElementById('desc') as HTMLInputElement)
+    let title = document.getElementById('t') as HTMLInputElement
 
-    if (description == "") {
+    if (description.value == "" || title.value == "") {
       alert('description must be filled!');
       return;
     }
@@ -91,9 +109,45 @@ export class ChannelCommunityComponent implements OnInit {
     let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     let date = new Date();
     let join_date = `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
-
-    this.channelService.addPost(this.id, description, 'this is picture', join_date)
+    
+    this.channelService.addPost(this.id, description.value, this.downloadThumbnailURL, join_date, title.value)
     alert('successfuly posted a new post!');
+    title.value = ""
+    description.value = ""
   }
+
+  startUploadThumbnail(file: File){
+    const path = `thumbnails/${Date.now()}_${file.name}`;
+
+    const ref = this.storage.ref(path);
+
+    this.taskThumbnail = this.storage.upload(path, file);
+
+    this.percentageThumbnail = this.taskThumbnail.percentageChanges();
+
+    this.snapshotThumbnail   = this.taskThumbnail.snapshotChanges().pipe(
+      tap(console.log),
+      finalize( async() =>  {
+        this.downloadThumbnailURL = await ref.getDownloadURL().toPromise();
+
+        this.db.collection('files').add( { downloadURL: this.downloadThumbnailURL, path });
+        this.isThumbnailDone = true;
+        alert('success uploaded thumbnail!');
+        console.log(this.isThumbnailDone);
+      }),
+    );
+  }
+
+  isActive(snapshot) {
+    return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes;
+  }
+
+  onDropThumbnail(files: FileList){
+    this.startUploadThumbnail(files.item(0)); 
+  }
+
+  
+
+  
 
 }

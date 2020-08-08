@@ -18,8 +18,8 @@
     </div>
 
     <div class="row">
-        <div *ngFor="let video of videos">
-            <app-video [video]="video"></app-video>
+        <div *ngFor="let video of videos; index as i">
+            <app-video [video]="video" *ngIf="i < displayedVideos"></app-video>
        </div>     
     </div>
     <div id="footer"></div>

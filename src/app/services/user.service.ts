@@ -11,7 +11,7 @@ export class UserService {
 
  
   updateUserQuery = gql `
-    mutation updateUser($id: ID!, $name: String!, $email: String!, $img_url: String!, $premium: Boolean!, $subscribers: Int!, $liked_video: String!, $disliked_video: String!, $liked_comment: String!, $disliked_comment: String!, $subscribed_channel: String!, $playlists: String!) {
+    mutation updateUser($id: ID!, $name: String!, $email: String!, $img_url: String!, $premium: Boolean!, $subscribers: Int!, $liked_video: String!, $disliked_video: String!, $liked_comment: String!, $disliked_comment: String!, $subscribed_channel: String!, $playlists: String!, $liked_post: String!, $disliked_post: String!) {
       updateUser(id: $id, input: {
         name: $name,
         email: $email,
@@ -23,7 +23,9 @@ export class UserService {
         liked_comment: $liked_comment,
         disliked_comment: $disliked_comment,
         subscribed_channel: $subscribed_channel,
-        playlists: $playlists
+        playlists: $playlists,
+        liked_post: $liked_post,
+        disliked_post: $disliked_post
       }){
         id
         name
@@ -37,6 +39,8 @@ export class UserService {
         disliked_comment
         subscribed_channel
         playlists
+        liked_post
+        disliked_post
       }
     }
   `;
@@ -56,6 +60,8 @@ export class UserService {
           disliked_comment
           subscribed_channel
           playlists
+          liked_post
+          disliked_post
         }
       }
   `;
@@ -81,6 +87,8 @@ export class UserService {
           disliked_comment
           subscribed_channel
           playlists
+          liked_post
+          disliked_post
         }
       }
       `,
@@ -114,7 +122,9 @@ export class UserService {
           liked_comment: "[]",
           disliked_comment: "[]",
           subscribed_channel: "[]",
-          playlists: "[]"
+          playlists: "[]",
+          liked_post: "[]",
+          disliked_post: "[]"
         }) {
           id
           name
@@ -128,6 +138,8 @@ export class UserService {
           disliked_comment
           subscribed_channel
           playlists
+          liked_post
+          disliked_post
         }
       }
       `,
@@ -141,7 +153,7 @@ export class UserService {
       let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       let date = new Date();
       let join_date = `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
-      this.channelService.createChannel(this.user.id, this.user.img_url, 'this is a description', join_date, 'this is a link')
+      this.channelService.createChannel(this.user.id, this.user.img_url, 'this is a description', join_date, '[]')
     })
   }
 
@@ -162,12 +174,71 @@ export class UserService {
             disliked_comment
             subscribed_channel
             playlists
+            liked_post
+            disliked_post
           }
         }
       `,
       variables: {
         name: name
       }
+    })
+  }
+
+  getMembership(user_id: number){
+    return this.apollo.watchQuery<any>({
+      query: gql `
+        query getMembership($user_id: Int!){
+          membership(user_id: $user_id){
+            id
+            user_id
+            plan
+            date
+          }
+        }
+      `,
+      variables: {
+        user_id: user_id
+      }
+    })
+  }
+
+  createMembership(user_id: number, plan: string, date: string){
+    return this.apollo.mutate({
+      mutation: gql `
+        mutation createMembership($user_id: Int!, $plan: String!, $date: String!){
+          createMembership(input: {
+            user_id: $user_id,
+            plan: $plan,
+            date: $date
+          }){
+            id
+            user_id
+            plan
+            date
+          }
+        }
+      `,
+      variables: {
+        user_id: user_id,
+        plan: plan,
+        date: date
+      },
+      refetchQueries: [{
+        query: gql `
+        query getMembership($user_id: Int!){
+          membership(user_id: $user_id){
+            id
+            user_id
+            plan
+            date
+          }
+        }
+        `,
+        variables: {
+          user_id: user_id
+        }
+      }]
     })
   }
 

@@ -17,6 +17,8 @@ export class PlaylistVideoComponent implements OnInit {
 
   @Input() video: any;
   @Input() playlist: any;
+  @Input() userByEmail: User
+  @Input() userPlaylist: User
 
   vid: any;
 
@@ -24,6 +26,7 @@ export class PlaylistVideoComponent implements OnInit {
 
   channel: any;
 
+  isOwned: boolean = false;
   id: number;
 
   ranges = [
@@ -38,6 +41,9 @@ export class PlaylistVideoComponent implements OnInit {
   constructor(private videoService: VideoService, private userService: UserService, private channelService: ChannelService, private playlistService: PlaylistService, private route: ActivatedRoute, private apollo :Apollo) { }
 
   ngOnInit(): void {
+
+    if(this.userByEmail.id == this.userPlaylist.id)
+      this.isOwned = true;  
 
     this.route.paramMap.subscribe(paramMap => {
         this.id = parseInt(paramMap.get('id'));

@@ -37,23 +37,23 @@ $breakpoint-mobile: 576px;
 
 @media (max-width: $breakpoint-mobile){
 
-    .header {
+    .trending {
 
-        ul {
-            justify-content: space-between;
-
-            li {
-
-                i {
-                    font-size: 1rem;
+        .header {
+            margin-left: 0;
+            ul {
+                justify-content: space-between;
+    
+                li {
+                    margin-right: 1.5rem;
+                    i {
+                        font-size: 1rem;
+                    }
                 }
+                
             }
-            
         }
     }
 
-    .content {
-        flex-direction: column;
-    }
-
+    
 }

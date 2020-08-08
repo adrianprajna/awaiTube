@@ -14,10 +14,22 @@
                     <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                     <p>{{reply.dislikes}}</p>
                 </li>
-                <li>
-                   <span>Reply</span>
+                <li style="cursor: pointer;">
+                   <span (click)="dropReplyMenu()">Reply</span>
                 </li>
             </ul>
         </div>
+
+        <div class="replies" *ngIf="isReply">
+            <div>
+                <img src="{{ userByEmail.photoUrl }}" alt="">
+                <input type="text" placeholder="add a reply" id="reply-text">
+            </div>
+            <div class="reply-btn">
+                <button (click)="cancelReplyMenu()">Cancel</button>
+                <button (click)="createReply(reply.comment_id)">Reply</button>
+            </div>
+        </div>
+
     </div>
 </div>

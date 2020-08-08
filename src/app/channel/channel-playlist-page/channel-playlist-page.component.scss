@@ -1,0 +1,36 @@
+.channel-playlist {
+    padding: 1rem;
+    font-family: 'Oswald', sans-serif;
+  
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+
+        button {
+            background-color: royalblue;
+            color: white;
+            border: none;
+            outline: none;
+            border-radius: 0.4rem;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: navy;
+            transition: all 0.2s;
+        }
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+        margin-left: 1.24rem;  
+
+        :hover {
+            cursor: pointer;
+        }
+    }    
+}

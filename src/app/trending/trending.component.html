@@ -24,6 +24,8 @@
     <hr>
   </div>
 
-  <app-video-trending *ngFor="let video of videos" [video]="video"></app-video-trending>
+  <div class="row"  *ngFor="let video of videos; index as i">
+    <app-video-trending [video]="video" *ngIf="i < 20"></app-video-trending>
+  </div>
 
 </div>

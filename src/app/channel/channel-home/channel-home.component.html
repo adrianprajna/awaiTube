@@ -2,14 +2,38 @@
 <div class="channel-home">
     <div class="header">
         <h1>Recently Uploaded</h1>
-        <button (click)="navigate('videos')">Show All Videos</button>
+        <button (click)="navigate('videos')">Show All</button>
     </div>
     
 
     <div class="row">
         <div *ngFor="let video of videos; index as i">
-            <app-video [video]="video" *ngIf="i < 5"></app-video>
+            <app-video [video]="video" *ngIf="i < 4"></app-video>
        </div>     
     </div>
+
+    <div class="header">
+        <h1>Random Videos</h1>
+        <button (click)="navigate('videos')">Show All</button>
+    </div>
+
+    <div class="row">
+        <div *ngFor="let video of randomVideos; index as i">
+            <app-video [video]="video" *ngIf="i < 5"></app-video>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Playlists</h1>
+        <button (click)="navigate('playlist')">Show All</button>
+    </div>
+
+    <div class="row">
+        <div *ngFor="let p of playlist; index as i">
+            <app-channel-playlist [playlist]="p" *ngIf="i < 3"></app-channel-playlist>
+        </div>
+    </div>
+  
+
     <div id="footer"></div>
 </div>

@@ -1,0 +1,65 @@
+.content {
+    display: flex;
+    margin-left: 2rem;
+    margin-top: 1rem;
+
+    .thumbnail {
+        flex: 0.5;
+        margin-right: 0.5rem;
+        position: relative;
+
+        img {
+            width: 17rem;
+            height: 100%;
+        }
+
+        button {
+            padding: 0.6rem;
+            background-color: black;
+            color: white;
+            border: 0;
+            outline: none;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            cursor: pointer;
+        }
+    }
+
+    .detail {
+        flex: 2;
+
+        .view-button {
+            margin-top: 0.5rem;
+            button {
+                padding: 0.5rem;
+                background-color: crimson;
+                color: white;
+                border: 0;
+                outline: none;
+                border-radius: 0.3rem;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .content {
+        margin-left: 1rem;
+        flex-direction: column;
+        align-items: center;
+
+        .thumbnail {
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .detail {
+            align-self: flex-start;
+        }
+    }
+}

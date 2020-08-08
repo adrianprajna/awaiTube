@@ -2,11 +2,16 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { time } from 'console';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
+
+
+  locationBehaviour: BehaviorSubject<string> = new BehaviorSubject("Indonesia");
+  locationObservable: Observable<string> = this.locationBehaviour.asObservable();
 
   updateQuery = gql `
     mutation updateVideo($id: ID!, $user_id: Int!, $title: String!, $url: String!, $description: String!, $category: String!, $location: String!, $views: Int!, $day: Int!, $month: Int!, $year: Int!, $thumbnail: String!, $likes: Int!, $dislikes: Int!, $age_restriction: Boolean!, $privacy: String!, $premium: Boolean!, $length: Int!, $time: String!){

@@ -2,6 +2,13 @@
     <h1>Recommended Videos</h1>
 
     <div class="row">
+        <div *ngFor="let video of prioritizedVideos">
+            <app-video [video]="video"></app-video>
+        </div>
+    </div>
+
+    
+    <div class="row">
         <div *ngFor="let video of videos; index as i">
             <app-video [video]="video" *ngIf="i < displayedVideos"></app-video>
        </div>     

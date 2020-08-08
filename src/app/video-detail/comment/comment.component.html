@@ -6,11 +6,11 @@
         <p>{{ comment.description }}</p>
         <div>
             <ul>
-                <li>
+                <li (click)="likeComment()" class="like-dislike" id="a">
                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                     <p>{{ comment.likes }}</p>
                 </li>
-                <li>
+                <li (click)="dislikeComment()" class="like-dislike" id="b">
                     <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                     <p>{{ comment.dislikes }}</p>
                 </li>
@@ -22,7 +22,7 @@
 
         <div class="reply" *ngIf="isReply">
             <div>
-                <img src="{{ loginUser.photoUrl }}" alt="">
+                <img src="{{ userByEmail.photoUrl }}" alt="">
                 <input type="text" placeholder="add a reply" id="reply-text">
             </div>
             <div class="reply-btn">
@@ -37,7 +37,7 @@
 
             <div *ngIf="showReply">
                 <div class="show-reply" *ngFor="let reply of replies">
-                    <app-reply [loginUser]="loginUser" [reply]="reply"></app-reply>
+                    <app-reply [userByEmail]="userByEmail" [reply]="reply"></app-reply>
                 </div>
             </div>
 

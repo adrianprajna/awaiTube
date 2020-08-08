@@ -74,3 +74,10 @@
 .block {
     display: block !important;
 }
+
+
+@media (max-width: 576px){
+    .row {
+        flex-direction: column;
+    }
+}

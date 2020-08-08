@@ -210,4 +210,28 @@ export class PlaylistService {
       }
     })
   }
+
+  getAllUserPlaylist(user_id: number){
+    return this.apollo.watchQuery<any>({
+      query: gql `
+        query getAllUserPlaylist($user_id: Int!){
+          getAllUserPlaylist(user_id: $user_id){
+            id
+            user_id
+            name
+            privacy
+            description
+            views
+            day
+            month
+            year
+            videos
+          }
+        }
+      `,
+      variables: {
+        user_id: user_id
+      }
+    })
+  }
 }

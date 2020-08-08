@@ -24,17 +24,33 @@
          }
     }
 
-    .like-dislike {
-        ul {
-            display: flex;
-            list-style: none;
-
-            li {
-                margin-right: 1rem;
-                cursor: pointer;
+    .right {
+        .like-dislike {
+            ul {
+                display: flex;
+                list-style: none;
+    
+                li {
+                    margin-right: 1rem;
+                    cursor: pointer;
+                }
             }
+    
+            
         }
 
-        
+        img {
+            width: 70%;
+        }
     }
+
+    
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
 }

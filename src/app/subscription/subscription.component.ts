@@ -20,11 +20,14 @@ export class SubscriptionComponent implements OnInit {
   isConcat = false;
   date = new Date()
 
-  displayedVideos: number = 8;
 
   today_videos: Array<any>;
   week_videos: Array<any>;
   month_videos: Array<any>;
+
+  columns: number = 4;
+  observer: IntersectionObserver;
+  displayedVideos: number = 4;
   constructor(private loginService: LoginService, private authService: SocialAuthService, private videoService: VideoService, private userService: UserService, private channelService: ChannelService) { }
 
   ngOnInit(): void {
@@ -36,6 +39,27 @@ export class SubscriptionComponent implements OnInit {
         this.loginUser = this.loginService.user;
         this.getUserByEmail();    
     }
+
+   
+    this.observer = new IntersectionObserver(entry => { 
+      if(entry[0].isIntersecting){
+        console.log(entry[0]);        
+        for(let i = 0; i < this.columns; i++){
+          if(this.displayedVideos < this.month_videos.length){
+            let div = document.createElement('div');
+            let video = document.createElement('app-video')
+            video.setAttribute('video', 'this.month_videos[this.displayedVideos]');
+            div.appendChild(video);
+            let row = document.querySelector('.month');
+            row.appendChild(div);
+            this.displayedVideos++;
+          }
+        }
+      }
+    })
+
+    let footer = document.getElementById('footer');
+    this.observer.observe(footer)  
   }
 
   signIn(){

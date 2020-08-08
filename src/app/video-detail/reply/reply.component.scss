@@ -24,6 +24,51 @@
 
         }
     }
+
+    .replies{
+
+        display: flex;
+        flex-direction: column;
+
+        img {
+            width: 5%;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        input[type=text]{
+            border: none;
+            border-bottom: 1px solid #8842d5;  
+            background-color: snow;
+            outline: none;
+            margin-bottom: 1rem;
+            cursor: text;
+            width: 22rem;
+        }
+
+        .reply-btn {
+
+            display: flex;
+            justify-content: flex-end;
+            
+            button {
+                margin: 0 0.3rem;
+                padding: 0.4rem;
+                color: black;
+                outline: none;
+                border: none;
+                cursor: pointer;
+                border-radius: 0.4rem;
+                background-color: lightgray;
+            }
+
+            :hover {
+                background-color: darkslategray;
+                transition: 0.5s;
+                color: white;
+            }
+        }
+    }
 }
 
 .bold {

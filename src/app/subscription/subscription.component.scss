@@ -26,6 +26,8 @@
 
 .subscriber {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
 
     h2 {
         margin-left: 1rem;
@@ -41,4 +43,18 @@
             cursor: pointer;
         }
     }
+}
+
+@media (max-width: 768px) {
+    .subscriber {
+
+        .row {
+            width: 85%;
+            margin: 1rem auto;
+        }
+    }
+}
+
+#footer {
+    height: 2rem;
 }

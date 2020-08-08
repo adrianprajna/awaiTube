@@ -18,14 +18,35 @@ export class ChannelVideosComponent implements OnInit {
   channel: any;
   videos: any;
   user: User;
-
+  observer: IntersectionObserver
   dropSort: boolean = false;
+
+  displayedVideos = 4;
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = parseInt(params.get('id'));
       this.getChannel(this.id);
     })
+
+    this.observer = new IntersectionObserver(entry => {
+      if(entry[0].isIntersecting){
+        
+        for(let i = 0; i < 4; i++){
+          if(this.displayedVideos < this.videos.length){
+            let div = document.createElement('div');
+            let video = document.createElement('app-video')
+            video.setAttribute('video', 'this.videos[this.displayedVideos]');
+            div.appendChild(video);
+            let row = document.querySelector('.row');
+            row.appendChild(div);
+            this.displayedVideos++;
+          }
+        }
+      }
+    })
+
+    this.observer.observe(document.getElementById('footer'));
   }
 
   getChannel(id: number) {

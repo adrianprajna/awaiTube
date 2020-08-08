@@ -5,15 +5,17 @@
     <div class="right">
         <span class="bold">{{user.name}}</span>
         <span>{{post.date}}</span>
+        <h4>{{post.title}}</h4>
+        <img src="{{post.picture}}" alt="" *ngIf="isImgExists">
         <p>{{post.description}}</p>
         <div class="like-dislike">
             <ul>
-                <li>
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                <li [ngClass]="isLike ? 'blue' : ''">
+                    <i class="fa fa-thumbs-up" aria-hidden="true" (click)="likePost()"></i>
                     <p>{{post.likes}}</p>
                 </li>
-                <li>
-                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                <li [ngClass]="isDislike ? 'red' : ''">
+                    <i class="fa fa-thumbs-down" aria-hidden="true" (click)="dislikePost()"></i>
                     <p>{{post.dislikes}}</p>
                 </li>
             </ul>

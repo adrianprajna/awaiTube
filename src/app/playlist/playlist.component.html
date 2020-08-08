@@ -12,7 +12,7 @@
         <div class="playlist-thumbnail">
             <div class="title">
                 <h2>{{playlist.name}}</h2>
-                <i class="fa fa-pencil" aria-hidden="true" (click)="addInputDropdown()"></i>
+                <i class="fa fa-pencil" aria-hidden="true" (click)="addInputDropdown()" *ngIf="isOwned && isSelf"></i>
             </div>
             <div class="edit-title" *ngIf="inputDropdown">
                 <div>
@@ -28,7 +28,7 @@
                 <span> {{playlist.views}} views •</span>
                 <span> Last updated on {{getDate()}}</span>
             </div>
-            <div class="privacy">
+            <div class="privacy" *ngIf="isSelf && isOwned">
                 <button (click)="addPrivacyDropdown()" *ngIf="public">
                     <span>Public</span>
                     <i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -51,14 +51,16 @@
                 </div>
             </div>
             <div class="button">
+                <i class="fa fa-plus-circle" aria-hidden="true" title="Save to library" *ngIf="!isOwned" (click)="saveToPlaylist()"></i>
+                <i class="fa fa-minus-circle" aria-hidden="true" *ngIf="isOwned && !isSelf" (click)="removeFromPlaylist()"></i>
                 <i class="fa fa-random" aria-hidden="true" title="Shuffle Play" (click)="shufflePlay()"></i>
                 <i class="fa fa-share" aria-hidden="true" title="Share" *ngIf="public"></i>
-                <i class="fa fa-trash-o" aria-hidden="true" title="Remove All Videos" (click)="addModalDrop()"></i>
+                <i class="fa fa-trash-o" aria-hidden="true" title="Remove All Videos" (click)="addModalDrop()" *ngIf="isOwned && isSelf"></i>
             </div>
             <div class="edit-desc">
                 <h3>Description</h3>
                 <p>{{playlist.description}}</p>
-                <button (click)="addDescDropdown()">
+                <button (click)="addDescDropdown()" *ngIf="isSelf">
                     <span>Edit Description</span>
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
@@ -103,10 +105,12 @@
         </div>
 
         <!-- Video Content -->
-        <div class="row" *ngFor="let video of videos">
-            <app-playlist-video [video]="video" [playlist]="playlist"></app-playlist-video>
+        <div class="row" *ngFor="let video of videos; index as i">
+            <app-playlist-video [video]="video" [playlist]="playlist" *ngIf="i < displayedVideos" [userPlaylist]="user" [userByEmail]="userByEmail"></app-playlist-video>
         </div>
+        
 
+        <div id="footer"></div>
     </div>
 
 </div>
@@ -119,4 +123,8 @@
             <p (click)="addModalDrop()">No</p>
         </div>
     </div>
+</div>
+
+<div class="pop-up" [ngClass]="isPop ? 'pop-up pop' : 'pop-up'">
+    <p>{{popString}}</p>
 </div>

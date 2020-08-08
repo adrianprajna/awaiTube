@@ -1,6 +1,6 @@
 .playlist {
     
-    // display: flex;
+    display: flex;
     position: relative;
 
     .left-content {
@@ -269,4 +269,37 @@
     opacity: 1;
     visibility: visible;
     transition: all 0.5s;
+}
+
+.pop-up {
+    position: fixed;
+    left: 50%;
+    color: white;
+    background-color: #5cb85c;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    transform: translateY(-200%);
+    transition: 0.5s all;
+}
+
+.pop-up.pop {
+    transform: translateY(0%);
+    transition: 0.5s all;
+}
+
+@media (max-width: 768px){
+    .playlist {
+        flex-direction: column;
+
+        .left-content {
+            width: 100%;
+            height: auto;
+            position: absolute;
+        }
+
+        .right-content {
+            left: 0;
+            top: 45rem;
+        }
+    }
 }

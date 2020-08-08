@@ -26,6 +26,9 @@
                 margin-right: 0.5rem;
             }
 
+            &.like-dislike {
+                cursor: pointer;
+            }
         }
     }
 
@@ -82,4 +85,12 @@
 
 .bold {
     font-weight: bold;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
 }

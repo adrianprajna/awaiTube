@@ -1,7 +1,7 @@
 <div class="channel-home">
 
     <div class="background">
-        <!-- <img src="../../../assets/images/bg.jpg" alt=""> -->
+        <img src="../../../assets/images/bgg.jpg" alt="">
     </div>
     <div class="header">
         <div class="wrapper">
@@ -17,8 +17,8 @@
                     </div>
                 </div>
                 <div class="subscription">
-                    <button *ngIf="!isSubscribed" class="red">Subscribe</button>
-                    <button *ngIf="isSubscribed" class="gray">Unsubscribe</button>
+                    <button *ngIf="!isSubscribed" class="red" (click)="subscribeChannel()">Subscribe</button>
+                    <button *ngIf="isSubscribed" class="gray" (click)="unsubscribeChannel()">Unsubscribe</button>
                     <i class="fa fa-bell" *ngIf="isSubscribed"></i>
                 </div>
             </div>
@@ -26,9 +26,9 @@
                 <ul>
                     <li (click)="navigate('home')">Home</li>
                     <li (click)="navigate('videos')">Videos</li>
-                    <li>Playlists</li>
+                    <li (click)="navigate('playlist')">Playlists</li>
                     <li (click)="navigate('community')">Community</li>
-                    <li>About</li>
+                    <li (click)="navigate('about')">About</li>
                 </ul>
             </div>
         </div>

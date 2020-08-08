@@ -7,6 +7,33 @@ import gql from 'graphql-tag';
 })
 export class CommentService {
 
+  updateCommentQuery = gql `
+    mutation updateComment($id: ID!, $user_id: Int!, $video_id: Int!, $likes: Int!, $dislikes: Int!, $description: String!, $day: Int!, $month: Int!, $year: Int!, $time: String!){
+      updateComment(id: $id, input:{
+          user_id: $user_id,
+          video_id: $video_id,
+          likes: $likes,
+          dislikes: $dislikes,
+          description: $description,
+          day: $day,
+          month: $month,
+          year: $year,
+          time: $time
+      }){
+        id
+        user_id
+        video_id
+        likes
+        dislikes
+        description
+        day
+        month
+        year
+        time
+      }
+    }
+  `;
+
   getCommentQuery = gql `
     query getAllComments($video_id: Int!) {
       getAllComments(video_id: $video_id){
@@ -162,5 +189,28 @@ export class CommentService {
       }).subscribe(result => console.log(result.data));
     }
 
+    updateComment(comment: any, like: number, dislike: number){
+      return this.apollo.mutate({
+        mutation: this.updateCommentQuery,
+        variables: {
+        id: comment.id,
+        user_id: comment.user_id,
+        video_id: comment.video_id,
+        likes: comment.likes + like,
+        dislikes: comment.dislikes + dislike,
+        description: comment.description,
+        day: comment.day,
+        month: comment.month,
+        year: comment.year,
+        time: comment.time
+      },
+      refetchQueries: [{
+        query: this.getCommentQuery,
+        variables: {
+          id: comment.video_id
+        }
+      }]
+      })
+    }
 
 }

@@ -1,0 +1,13 @@
+<app-channel-header></app-channel-header>
+<div class="channel-playlist">
+    <div class="header">
+        <h1>Playlists</h1>
+    </div>
+
+    <div class="row">
+        <div *ngFor="let p of playlist; index as i">
+            <app-channel-playlist [playlist]="p" *ngIf="i < 3"></app-channel-playlist>
+        </div>
+    </div>
+  
+</div>

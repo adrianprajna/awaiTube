@@ -26,7 +26,7 @@
                     <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                     <p>Add to queue</p>
                 </li>
-                <li class="lists">
+                <li class="lists" (click)="addModal()">
                     <i class="fa fa-list" aria-hidden="true"></i>
                     <p>Save to playlist</p>
                 </li>
@@ -36,3 +36,49 @@
 
     </div>
 </div>
+
+<div class="modal-bg" [ngClass]="isModalDrop ? 'modal-bg active' : 'modal-bg'">   
+    <div class="modal">
+        <div class="header">
+            <p>Save to...</p>
+            <i class="fa fa-times" aria-hidden="true" (click)="addModal()"></i>
+        </div>
+  
+        <hr>
+  
+        <div class="playlist">
+          <ul>
+            <li *ngFor="let playlist of playlists">
+                <app-list-playlist [playlist]="playlist"></app-list-playlist>
+            </li>
+          </ul>
+        </div>
+  
+        <hr>
+  
+        <div class="create" (click)="addCreateDropdown()">
+          <p>Create New Playlist</p>
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+  
+        <div class="create-dropdown" *ngIf="createDropdown">
+          <div class="title">
+            <p>Name</p>
+            <input type="text" name="" id="" style="width: 100%;" placeholder="enter playlist name..." id="input-create">
+          </div>
+          <div class="privacy">
+            <p>Privacy</p>
+            <span>
+              <input type="radio" name="privacy" id="" value="Private">
+              <label for="">Private</label>
+            </span>
+            <span>
+              <input type="radio" name="privacy" id="" value="Public" checked>
+              <label for="">Public</label>
+            </span>
+          </div>
+          <button (click)="createPlaylist()">Create</button>
+        </div>
+  
+    </div>
+  </div>

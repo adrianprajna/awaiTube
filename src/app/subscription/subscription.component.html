@@ -33,11 +33,15 @@
 
     <div class="this-month">
         <h2>This Month</h2>
-        <div class="row">
+        <div class="row month">
             <div *ngFor="let video of month_videos; index as i">
-                <app-video [video]="video"></app-video>
+                <app-video [video]="video" *ngIf="i < displayedVideos"></app-video>
            </div>     
         </div>
-    </div>
+    </div> 
 
+    
 </div>
+
+
+<div id="footer"></div>

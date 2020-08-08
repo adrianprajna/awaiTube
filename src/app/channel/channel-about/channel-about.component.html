@@ -1,0 +1,20 @@
+<app-channel-header></app-channel-header>
+<div class="wrapper">
+    <div class="left">
+        <h2>Description</h2>
+        <p>{{channel.description}}</p>
+        <span>CONTACT: </span>
+        <div *ngFor="let link of links">
+            <a href="{{link.link}}">{{link.link}}</a>
+        </div>
+    </div>
+    <div class="right">
+        <div>
+            <h2>Stats</h2>
+            <hr>
+            <p>Joined {{channel.join_date}}</p>
+            <hr>
+            <p>{{views}} views</p>
+        </div>
+    </div>
+</div>

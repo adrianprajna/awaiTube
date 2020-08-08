@@ -19,7 +19,7 @@
             <ul>
                 <li>Add to Queue</li>
                 <li>Save to Playlist</li>
-                <li (click)="remove(vid.id)">Remove from Playlist</li>
+                <li (click)="remove(vid.id)" *ngIf="isOwned">Remove from Playlist</li>
             </ul>
         </div>
     </div>

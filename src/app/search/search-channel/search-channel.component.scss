@@ -1,0 +1,72 @@
+.row {
+    display: flex;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+
+    .icon {
+        outline: none;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        margin-right: 2rem;
+        cursor: pointer;
+
+        img {
+            height: 100%;
+            width: 7rem;
+            border-radius: 50%;
+        }
+    }
+
+    .detail {
+        cursor: pointer;
+        outline: none;
+        flex: 2;
+    }
+
+    .subscribe {
+        flex: 1;
+
+        button {
+            margin-right: 0.5rem;
+            padding: 0.7rem;
+            color: white;
+            border: 0;
+            outline: none; 
+            border-radius: 0.3rem;
+            cursor: pointer;
+        }
+    }
+}
+
+.gray {
+    background-color: gray;
+}
+
+.red {
+    background-color: red;
+}
+
+@media (max-width: 576px) {
+    .row {
+        margin-left: 0rem;
+        width: 100%;
+
+        .icon {
+
+            img {
+
+                width: 4rem;
+            }
+        }
+
+        .subscribe {
+            align-self: flex-end;
+            text-align: center;
+            margin-left: 0.5rem;
+        }
+    }
+}

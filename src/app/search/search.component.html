@@ -20,6 +20,8 @@
     </div>
   </div>
   <hr>
+  <app-search-channel *ngFor="let user of users" [user]="user"></app-search-channel>
+  <app-search-playlist *ngFor="let playlist of playlists" [playlist]="playlist"></app-search-playlist>
   <app-video-trending *ngFor="let video of videos" [video]="video"></app-video-trending>
 
 </div>

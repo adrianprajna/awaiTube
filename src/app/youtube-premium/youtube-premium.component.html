@@ -11,25 +11,41 @@
             <h1>View premium and not yet published videos & Download Videos</h1>
         </div>
 
-        <div class="footer">
+        <div class="footer" *ngIf="!isPremium">
             <div class="billing">
                 <p>Billing Plan</p>
                 <span>
-                  <input type="radio" name="age" id="" value="Yes">
+                  <input type="radio" name="plan" id="" value="Monthly" checked>
                   <label for="">Monthly</label>
                 </span>
                 <span>
-                  <input type="radio" name="age" id="" value="No" checked>
+                  <input type="radio" name="plan" id="" value="Anually" >
                   <label for="">Anually</label>
                 </span>
             </div>
 
-            <button>Register</button>
+            <button (click)="createMembership()">Register</button>
             <p>Recurring billing • Cancel anytime</p>
             <p>Or save money with a <span>family or student plan</span></p>
             <a href="">Restrictions apply. Learn more here.</a> -->
         </div>
+
+        
+        <table *ngIf="isPremium">
+            <tr>
+                <th>Billing Plans</th>
+                <th>Registered Date</th>
+                <th>Expiration Date</th>
+            </tr>
+            <tr>
+                <td>{{membership.plan}}</td>
+                <td>{{membership.date}}</td>
+                <td>{{expirationDate}}</td>
+            </tr>
+        </table>
     </div>
+</div>
 
-
+<div class="pop-up" [ngClass]="isPop ? 'pop-up pop' : 'pop-up'">
+    <p>Success registered as a premium membership!</p>
 </div>

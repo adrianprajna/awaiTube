@@ -1,73 +1,111 @@
 .youtube-premium {
-    height: 85vh;
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2rem;
+
+  .content {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 2rem;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
 
-    .content {
-        display: flex;
-        flex-direction: column;
+  .logo {
+    display: flex;
+    align-items: center;
+
+    i {
+      color: red;
+      margin-right: 1rem;
+    }
+  }
+
+  .title {
+    width: 70%;
+    margin: 1.5rem 0;
+  }
+
+  .footer {
+
+    .billing {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+
+      span {
+        margin: 0 1rem;
+
+        input[type=radio] {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    button {
+      padding: 1rem;
+      background-color: royalblue;
+      border: 0;
+      outline: none;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+
+      span {
+        color: royalblue;
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
         text-align: center;
-        align-items: center;
-    }
-
-    .logo {
-        display: flex;
-        align-items: center;
-
-        i {
-            color: red;
-            margin-right: 1rem;
-        }
-    }
-
-    .title {
-        width: 70%;
-        margin: 1.5rem 0;
-    }
-
-    .footer {
-
-        .billing {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            span {
-                margin: 0 1rem;
-                input[type=radio]{
-                    margin-right: 0.5rem;
-                }
-            }
+        background-color: royalblue;
+        color: white;
+        border: 1px solid #ddd;
+        padding: 8px;
         }
 
-        button {
-            padding: 1rem;
-            background-color: royalblue;
-            border: 0;
-            outline: none;
-            color: #fff;    
-            margin-bottom: 1rem;      
+    td {
+        border: 1px solid #ddd;
+    padding: 8px;
         }
-
-        p {
-            margin-bottom: 1rem;
-
-            span {
-                color: royalblue;
-            }
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-    }
+   }
 }
+  
+
 
 .footer button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .text-md {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.pop-up {
+  position: fixed;
+  color: white;
+  left: 5%;
+  background-color: #5cb85c;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  transform: translateY(50%);
+  transition: 0.5s all;
+}
+
+.pop-up.pop {
+  transform: translateY(-150%);
+  transition: 0.5s all;
 }

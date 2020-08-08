@@ -53,6 +53,11 @@ import { SearchComponent } from './search/search.component';
 import { ListSubscribersComponent } from './sidebar/list-subscribers/list-subscribers.component';
 import { PlaylistVideoComponent } from './playlist/playlist-video/playlist-video.component';
 import { ListPlaylistComponent } from './home/list-playlist/list-playlist.component';
+import { SearchPlaylistComponent } from './search/search-playlist/search-playlist.component';
+import { SearchChannelComponent } from './search/search-channel/search-channel.component';
+import { ChannelPlaylistComponent } from './channel/channel-playlist/channel-playlist.component';
+import { ChannelPlaylistPageComponent } from './channel/channel-playlist-page/channel-playlist-page.component';
+import { ChannelAboutComponent } from './channel/channel-about/channel-about.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +94,12 @@ import { ListPlaylistComponent } from './home/list-playlist/list-playlist.compon
     SearchComponent,
     ListSubscribersComponent,
     PlaylistVideoComponent,
-    ListPlaylistComponent
+    ListPlaylistComponent,
+    SearchPlaylistComponent,
+    SearchChannelComponent,
+    ChannelPlaylistComponent,
+    ChannelPlaylistPageComponent,
+    ChannelAboutComponent
   ],
   imports: [
     BrowserModule,

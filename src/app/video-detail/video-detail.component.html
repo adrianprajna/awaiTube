@@ -9,9 +9,12 @@
           [preload]="true" [fullscreen]="true" color="accent" spinner="spin" [overlay]="true"
           src="{{ video.url }}" style="width: 100%; height: 70vh;" (mouseenter)="addKeyboard()" (mouseleave)="addKeyboard()" [download]="isDownload" id="v">
         </mat-video>
-        <!-- <button title="Next Video" [routerLink]="['/video-detail/', nextVideo.id]" routerLinkActive="router-link-active" *ngIf="nextVideo">
-          <i class="fa fa-step-forward" aria-hidden="true"></i>
-        </button> -->
+        <a href="/video-detail/{{nextVideo.id}}">
+          <button title="Next Video" *ngIf="nextVideo">
+            <i class="fa fa-forward" aria-hidden="true"></i>
+          </button>
+        </a>
+        
 
         <div class="video-details">
           <h3> {{video.title}} </h3>
@@ -31,7 +34,7 @@
                   <i class="fa fa-share" aria-hidden="true"></i>
                   <p>Share</p>
                 </li>
-                <li>
+                <li (click)="addModal()">
                   <i class="fa fa-list" aria-hidden="true"></i>
                   <p>Save</p>
                 </li>
@@ -57,6 +60,7 @@
         <div class="right">
           <button (click)=subscribeChannel() class="red-bg" *ngIf="!isSubscribed">Subscribe</button>
           <button class="gray" *ngIf="isSubscribed" (click)="unsubscribeChannel()">Unsubscribe</button>
+          <i class="fa fa-bell"  *ngIf="isSubscribed" aria-hidden="true"></i>
         </div>
       </div>
 
@@ -99,18 +103,17 @@
 
       <hr>
 
-      <div class="comment-details" *ngFor="let comment of comments">
-        <app-comment [comment]="comment" [loginUser]="loginUser"></app-comment>
+      <div class="comment-details" *ngFor="let comment of comments; index as i">
+        <app-comment [comment]="comment" [userByEmail]="userByEmail" *ngIf="i < displayedComments"></app-comment>
       </div>
-
+      <div id="footer"></div>
     </div>
   </div>
 
   <div class="right-content">
-    <p class="bold" style="margin-bottom: 1rem;">Up Next</p>
-    <h2 *ngIf="isPlaylistExists">Playlist</h2>
+    <p class="bold" style="margin-bottom: 1rem;" *ngIf="!isPlaylistExists">Up Next</p>
 
-    <div class="next-video-detail" *ngIf="nextVideo">
+    <div class="next-video-detail" *ngIf="nextVideo &&!isPlaylistExists">
       <div class="image-video" (click)="navigate()" style="cursor: pointer;">
         <img src="{{nextVideo.thumbnail}}" alt="">
       </div>
@@ -121,16 +124,75 @@
         <p>Adrian Prajna</p>
         <p>{{nextVideo.views}}x views</p>
       </div>
+    </div>
 
+    <div *ngIf="isPlaylistExists" class="playlist-queue">
+      <div class="playlist-header">
+        <p class="bold">Playlist</p>
+        <p>5 videos</p>
+      </div>
+      <div class="playlist-content">
+        <div class="next-video-detail" *ngFor="let video of videos">
+          <app-video-aside [video]="video" [nextVideo]="nextVideo"></app-video-aside>
+        </div>
+      </div>
     </div>
 
     <hr style="margin-bottom: 1rem;">
 
-    <div class="next-video-detail" *ngFor="let video of videos">
+    <div class="next-video-detail infinite" *ngFor="let video of videos; index as i">
       <app-video-aside [video]="video" [nextVideo]="nextVideo"></app-video-aside>
+      
     </div>
-
+    
+    <div id="footer-video"></div>
   </div>
 
+</div>
 
+
+<div class="modal-bg" [ngClass]="isModalDrop ? 'modal-bg active' : 'modal-bg'">   
+  <div class="modal">
+      <div class="header">
+          <p>Save to...</p>
+          <i class="fa fa-times" aria-hidden="true" (click)="addModal()"></i>
+      </div>
+
+      <hr>
+
+      <div class="playlist">
+        <ul>
+          <li *ngFor="let playlist of playlists">
+              <app-list-playlist [playlist]="playlist"></app-list-playlist>
+          </li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <div class="create" (click)="addCreateDropdown()">
+        <p>Create New Playlist</p>
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </div>
+
+      <div class="create-dropdown" *ngIf="createDropdown">
+        <div class="title">
+          <p>Name</p>
+          <input type="text" name="" id="" style="width: 100%;" placeholder="enter playlist name..." id="input-create">
+        </div>
+        <div class="privacy">
+          <p>Privacy</p>
+          <span>
+            <input type="radio" name="privacy" id="" value="Private">
+            <label for="">Private</label>
+          </span>
+          <span>
+            <input type="radio" name="privacy" id="" value="Public" checked>
+            <label for="">Public</label>
+          </span>
+        </div>
+        <button (click)="createPlaylist()">Create</button>
+      </div>
+
+  </div>
 </div>

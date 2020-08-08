@@ -29,7 +29,8 @@ export class ListPlaylistComponent implements OnInit {
   ngOnInit(): void { 
       
     this.videos = JSON.parse(this.playlist.videos);
-    this.playlistService.videoObserve.subscribe(result => {     
+    this.playlistService.videoObserve.subscribe(result => {
+      console.log(result);           
       this.result = result;
       this.isExists = false
       this.videos.forEach((vid: Obj) => {

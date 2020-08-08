@@ -13,6 +13,42 @@ export class ChannelService {
 
   constructor(private apollo: Apollo) {}
 
+  updatePostQuery = gql `
+    mutation updatePost($id: ID!, $channel_id: Int!, $description: String!, $picture: String!, $date: String!, $likes: Int!, $dislikes: Int!, $title: String!) {
+      updatePost(id: $id, input: {
+        channel_id: $channel_id,
+        description: $description,
+        picture: $picture,
+        date: $date,
+        likes: $likes,
+        dislikes: $dislikes,
+        title: $title
+      }){
+        id
+        channel_id
+        description
+        picture
+        date
+        likes
+        dislikes
+        title
+      }
+    }
+  `;
+
+  getPostQuery = gql `
+    query getPost($id: ID!){
+      post(id: $id){
+        channel_id
+        description
+        picture
+        date
+        likes
+        dislikes
+        title
+      }
+    }
+  `;
   getChannel(id: number) {
     return this.apollo.watchQuery < any > ({
       query: gql `
@@ -94,6 +130,7 @@ export class ChannelService {
             date
             likes
             dislikes
+            title
           }
         }
       `,
@@ -103,10 +140,10 @@ export class ChannelService {
     })
   }
 
-  addPost(channel_id: number, description: string, picture: string, date: string){
+  addPost(channel_id: number, description: string, picture: string, date: string, title: string){
     this.apollo.mutate({
       mutation: gql `
-        mutation createPost($channel_id: Int!, $description: String!, $picture: String!, $date: String!){
+        mutation createPost($channel_id: Int!, $description: String!, $picture: String!, $date: String!, $title: String!){
           createPost(input: {
             channel_id: $channel_id,
             description: $description,
@@ -114,6 +151,7 @@ export class ChannelService {
             date: $date,
             likes: 0,
             dislikes: 0
+            title: $title
           }){
             id
             channel_id
@@ -122,6 +160,7 @@ export class ChannelService {
             date
             likes
             dislikes
+            title
           }
         }
       `,
@@ -129,7 +168,8 @@ export class ChannelService {
         channel_id: channel_id,
         description: description,
         picture: picture,
-        date: date
+        date: date,
+        title: title
       },
       refetchQueries: [{
         query: gql `
@@ -142,6 +182,7 @@ export class ChannelService {
               date
               likes
               dislikes
+              title
             }
           }
         `,
@@ -152,5 +193,6 @@ export class ChannelService {
     }).subscribe()
   }
 
+  
   
 }

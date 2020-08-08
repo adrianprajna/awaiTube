@@ -13,9 +13,11 @@ import { TravelCategoryComponent } from './category/travel-category/travel-categ
 import { EntertainmentCategoryComponent } from './category/entertainment-category/entertainment-category.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { ChannelHomeComponent } from './channel/channel-home/channel-home.component';
+import { ChannelAboutComponent } from './channel/channel-about/channel-about.component'
 import { UploaderComponent } from './upload/uploader/uploader.component';
 import { ChannelVideosComponent } from './channel/channel-videos/channel-videos.component';
 import { ChannelCommunityComponent } from './channel/channel-community/channel-community.component';
+import { ChannelPlaylistPageComponent } from './channel/channel-playlist-page/channel-playlist-page.component'
 import { SearchComponent } from './search/search.component';
 
 
@@ -26,6 +28,8 @@ const routes: Routes = [
   {path: 'channel/:id/home', component: ChannelHomeComponent},
   {path: 'channel/:id/videos', component: ChannelVideosComponent},
   {path: 'channel/:id/community', component: ChannelCommunityComponent},
+  {path: 'channel/:id/playlist', component: ChannelPlaylistPageComponent},
+  {path: 'channel/:id/about', component: ChannelAboutComponent},
   {path: 'search/:url', component: SearchComponent},
   {path: 'category/music', component: MusicCategoryComponent},
   {path: 'category/game', component: GameCategoryComponent},

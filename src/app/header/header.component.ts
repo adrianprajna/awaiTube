@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   isUserDrop: boolean = false;
   isSettingsDrop: boolean = false;
   isLocationDrop: boolean = false;
+  isUserLocationDrop: boolean = false;
   isModalDrop: boolean = false;
   isAutoComplete: boolean = false;
   users = [];
@@ -50,9 +51,10 @@ export class HeaderComponent implements OnInit {
               .subscribe(res => this.channel_id = res.data.getChannelByUser.id);
           })
       }
-
+      
       this.observeActive();
   }
+  
 
   signIn(){
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
@@ -65,7 +67,6 @@ export class HeaderComponent implements OnInit {
         this.loginService.newUser.next(this.user);
         this.loginService.userObservable.next(this.loggedIn);
     });
-
   }
 
   signOut(): void {
@@ -103,6 +104,10 @@ export class HeaderComponent implements OnInit {
     this.isLocationDrop = !this.isLocationDrop;
   }
 
+  addLocationUserDropdown(){
+    this.isUserLocationDrop = !this.isUserLocationDrop;
+  }
+
   addModal(){
     this.isModalDrop = true;
   }
@@ -115,7 +120,6 @@ export class HeaderComponent implements OnInit {
       } else if(!this.active){
         document.getElementById('hidden').style.display = 'none'
       }
-
     })
   }
 
@@ -154,6 +158,12 @@ export class HeaderComponent implements OnInit {
   routeToSearch(input: string): void {
     this.route.navigate([`search/${input}`])
     this.isAutoComplete = false;
+  }
+
+  filterLocation(location: string){
+    this.addLocationDropdown()
+    this.addSettingsDropdown()
+    this.videoService.locationBehaviour.next(location);
   }
 
 }

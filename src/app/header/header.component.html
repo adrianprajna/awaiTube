@@ -50,17 +50,25 @@
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
               <p>Back</p>
             </li>
-            <li>
+            <li (click)="filterLocation('Indonesia')">
               <i class="fa fa-globe" aria-hidden="true"></i>
               <p>Indonesia</p>
             </li>
-            <li>
+            <li (click)="filterLocation('South Korea')">
               <i class="fa fa-globe" aria-hidden="true"></i>
               <p>South Korea</p>
             </li>
-            <li>
+            <li (click)="filterLocation('Singapore')">
               <i class="fa fa-globe" aria-hidden="true"></i>
               <p>Singapore</p>
+            </li>
+            <li (click)="filterLocation('Vietnam')">
+              <i class="fa fa-globe" aria-hidden="true"></i>
+              <p>Vietnam</p>
+            </li>
+            <li (click)="filterLocation('Malaysia')">
+              <i class="fa fa-globe" aria-hidden="true"></i>
+              <p>Malaysia</p>
             </li>
           </ul>
         </li>
@@ -110,11 +118,11 @@
             <p>Keyboard Shortcuts</p>
           </li>
           <li class="lists">
-            <i class="fa fa-globe" aria-hidden="true" (click)="addLocationDropdown()"></i>
+            <i class="fa fa-globe" aria-hidden="true" (click)="addLocationUserDropdown()"></i>
             <p>Location</p>
                 <!-- Location Dropdown -->
-              <ul [ngClass]="isLocationDrop ? 'location-dropdown-user' : 'location-dropdown-user not-active'">
-              <li (click)="addLocationDropdown()">
+              <ul [ngClass]="isUserLocationDrop ? 'location-dropdown-user' : 'location-dropdown-user not-active'">
+              <li (click)="addLocationUserDropdown()">
                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 <p>Back</p>
               </li>
@@ -129,6 +137,14 @@
               <li>
                 <i class="fa fa-globe" aria-hidden="true"></i>
                 <p>Singapore</p>
+              </li>
+              <li>
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <p>Vietnam</p>
+              </li>
+              <li>
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <p>Malaysia</p>
               </li>
             </ul>
           </li>

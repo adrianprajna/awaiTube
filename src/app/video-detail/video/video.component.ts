@@ -1,8 +1,11 @@
 import { Component, OnInit ,Input} from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { User } from '../../type'
+import { User, Obj } from '../../type'
 import { UserService } from 'src/app/services/user.service';
 import { ChannelService } from 'src/app/services/channel.service';
+import { PlaylistService } from 'src/app/playlist.service';
+import { Apollo } from 'apollo-angular';
+import { SocialUser } from 'angularx-social-login';
 
 @Component({
   selector: 'app-video',
@@ -20,6 +23,17 @@ export class VideoComponent implements OnInit {
   user: User
   channel: any;
 
+  userPlaylist: User
+
+  isModalDrop: boolean = false;
+  createDropdown: boolean = false;
+  
+  playlists: Array<any> = new Array;
+  
+  playlist_json: Array<Obj>
+
+  loginUser: SocialUser
+
   ranges = [
     { divider: 1e18 , suffix: 'E' },
     { divider: 1e15 , suffix: 'P' },
@@ -29,9 +43,15 @@ export class VideoComponent implements OnInit {
     { divider: 1e3 , suffix: 'k' }
   ];
 
-  constructor(private loginService: LoginService, private userService: UserService, private channelService: ChannelService) { }
+  constructor(private loginService: LoginService, private userService: UserService, private channelService: ChannelService, private playlistService: PlaylistService, private apollo: Apollo) { }
 
   ngOnInit(): void {
+
+    if(localStorage.getItem('users') != null){
+      this.loginService.getUserFromStorage();
+      this.loginUser = this.loginService.user;
+      this.getUserByEmail(this.loginUser.email)
+  }
 
     this.userService.getUser(this.video.user_id).valueChanges.subscribe(result => {
         this.user = result.data.getUser;
@@ -52,9 +72,86 @@ export class VideoComponent implements OnInit {
     }
   }
 
+  addModal(): void {
+    this.isModalDrop = !this.isModalDrop
+    this.playlistService.videoBehaviour.next(this.video.id);
+  }
+
   getChannel(user_id: number){
     this.channelService.getChannelByUser(user_id).valueChanges
       .subscribe(res => this.channel = res.data.getChannelByUser);
+  }
+
+  getUserByEmail(email: string){
+    this.userService.getUserByEmail(email).valueChanges
+      .subscribe(result => {
+        this.userPlaylist = result.data.getUserByEmail
+        this.playlist_json = JSON.parse(this.userPlaylist.playlists)
+        this.getAllPlaylist(this.playlist_json);   
+      })
+  }
+
+  getAllPlaylist(playlist_json: Array<Obj>){
+    playlist_json.forEach((playlist: any) => {
+        this.playlistService.getPlaylist(playlist.id).valueChanges
+          .subscribe(res => {
+            if(this.playlists.length != 0){
+              if(!this.playlists.includes(res.data.playlist))
+                  this.playlists.push(res.data.playlist)
+            } else {
+              this.playlists.push(res.data.playlist)
+            }   
+            this.playlists = this.playlists.filter((playlist: any) => playlist.user_id == this.userPlaylist.id)                   
+          })
+    })
+  }
+
+  createPlaylist(){
+    let input = document.getElementById('input-create') as HTMLInputElement
+    let privacy = "Public";
+    let privacies = document.getElementsByName('privacy');
+
+    privacies.forEach(p => {
+      if((p as HTMLInputElement).checked && (p as HTMLInputElement).value == "Private") {
+        privacy = "Private";
+      }
+    })
+    
+    this.playlistService.createPlaylist(this.userPlaylist.id as any, input.value, privacy, "this is a description")
+      .subscribe((res: any) => {
+       
+        let id: Obj = {
+          id: parseInt(res.data.createPlaylist.id)
+        }
+        this.playlist_json.push(id)
+        console.log(this.playlist_json);
+        
+        this.apollo.mutate({
+          mutation: this.userService.updateUserQuery,
+          variables: {
+          id: this.userPlaylist.id,
+          name: this.userPlaylist.name,
+          email: this.userPlaylist.email,
+          img_url: this.userPlaylist.img_url,
+          premium: this.userPlaylist.premium,
+          subscribers: this.userPlaylist.subscribers,
+          liked_video: this.userPlaylist.liked_video,
+          disliked_video: this.userPlaylist.disliked_video,
+          liked_comment: this.userPlaylist.liked_comment,
+          disliked_comment: this.userPlaylist.disliked_comment,
+          subscribed_channel: this.userPlaylist.subscribed_channel,
+          playlists: JSON.stringify(this.playlist_json),
+          liked_post: this.userPlaylist.liked_post,
+          disliked_post: this.userPlaylist.disliked_post
+          }
+        }).subscribe()
+
+      })
+
+  }
+
+  addCreateDropdown(): void {
+    this.createDropdown  = !this.createDropdown;
   }
 
   getVideoLength(totalSeconds: number): string{

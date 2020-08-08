@@ -1,0 +1,18 @@
+<div class="content">
+    <div class="thumbnail">
+        <img src="{{video.thumbnail}}" alt="">
+        <button [routerLink]="['/video-detail/'+video.id]" [queryParams]="{playlist:playlist.id}">
+            <i class="fa fa-play" aria-hidden="true" style="margin-right: 0.5rem;"></i>
+            <span>Play All</span>
+        </button>
+    </div>
+    <div class="detail">
+        <h3>Playlist - {{playlist.name}}</h3>
+        <p>{{user.name}}</p>
+        <p>{{playlist.description}}</p>
+
+        <div class="view-button" [routerLink]="['/playlist/', playlist.id]">
+            <button>View Playlist</button>
+        </div>
+    </div>
+</div>

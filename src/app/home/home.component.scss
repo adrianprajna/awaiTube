@@ -13,31 +13,18 @@
             cursor: pointer;
         }
     }
-
-    // .row {
-    //     display: grid;
-    //     grid-template-columns: repeat(auto-fit, 18rem);
-    //     gap: 1rem;
-
-    //     .card-video {
-    //         height: 10rem;
-
-    //         video {
-    //             width: 100%;
-    //             height: 100%;
-    //         }
-    //     }
-
-    //     .card-title {
-    //         display: flex;
-    //         padding: 0.8rem;
-    //         align-items: center;
-    //         justify-content: space-between;
-    //         font-weight: bold;
-    //         flex-wrap: wrap;
-    //     }
-    // }
     
+}
+
+@media (max-width: 768px){
+
+    .home {
+
+        .row {
+            margin: 1rem auto;
+            width: 85%;
+        }
+    }
 }
 
 
