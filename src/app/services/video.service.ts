@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { time } from 'console';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ChannelService } from './channel.service';
 
 @Injectable({
   providedIn: 'root'
@@ -84,7 +85,7 @@ export class VideoService {
     }
   `;
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo, private channelService: ChannelService) { }
 
   getAllVideos(){
     return this.apollo.watchQuery<any>({
@@ -318,5 +319,43 @@ export class VideoService {
     })
   }
 
-
+  deleteVideo(id: number){
+    this.apollo.mutate({
+      mutation: gql `
+      mutation deleteVideo($id: ID!){
+        deleteVideo(id: $id)
+      }
+      `,
+      variables: {
+        id: id
+      },
+      refetchQueries: [{
+        query: gql `
+        query getAllVideos {
+          videos {
+            id
+            user_id
+            title
+            url
+            description
+            category
+            location
+            views
+            day
+            month
+            year
+            thumbnail
+            likes
+            dislikes
+            age_restriction
+            privacy
+            premium
+            length
+            time
+          }
+        }
+        `,
+      }]
+    }).subscribe()
+  }
 }

@@ -30,17 +30,20 @@ export class HomeComponent implements OnInit {
       this.randomVideos = results.data.videos;
 
       this.videoService.locationObservable.subscribe(location => {
-        this.prioritizedVideos = [...this.randomVideos];
-        this.prioritizedVideos = this.prioritizedVideos.filter((vid: any) => vid.location == location)
-        this.prioritizedVideos = this.shuffle(this.prioritizedVideos) 
+        let result1 = new Array;
+        let result2 = new Array;
 
-        this.videos = new Array
-        for(let i = 0; i < this.randomVideos.length; i++){
-          if(!this.prioritizedVideos.includes(this.randomVideos[i])){
-            this.videos.push(this.randomVideos[i]);
+        for (var i = 0; i < this.randomVideos.length; i++) {
+          if (this.randomVideos[i].location == location) {
+            result1.push(this.randomVideos[i]);
+          } else {
+            result2.push(this.randomVideos[i]);
           }
-        }      
-        this.videos = this.shuffle(this.videos)
+        }
+
+        result1 = this.shuffle(result1);
+        result2 = this.shuffle(result2);
+        this.videos = result1.concat(result2);
       })
     })
 

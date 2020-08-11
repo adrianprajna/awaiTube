@@ -1,0 +1,9 @@
+<div class="notif">
+    <div class="left" [style.width]="thumbnail ? '70%' : '100%'">
+        <img src="{{user.img_url}}" alt="">
+        <p>{{user.name}} posted a new <span *ngIf="thumbnail">video</span> <span *ngIf="!thumbnail">post</span>: {{notif.title}}</p>
+    </div>
+    <div class="right" *ngIf="thumbnail">
+        <img src="{{notif.thumbnail}}" alt="">
+    </div>
+</div>

@@ -58,6 +58,8 @@ import { SearchChannelComponent } from './search/search-channel/search-channel.c
 import { ChannelPlaylistComponent } from './channel/channel-playlist/channel-playlist.component';
 import { ChannelPlaylistPageComponent } from './channel/channel-playlist-page/channel-playlist-page.component';
 import { ChannelAboutComponent } from './channel/channel-about/channel-about.component';
+import { NotificationComponent } from './header/notification/notification.component';
+import { ChannelCustomizeComponent } from './channel/channel-customize/channel-customize.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,9 @@ import { ChannelAboutComponent } from './channel/channel-about/channel-about.com
     SearchChannelComponent,
     ChannelPlaylistComponent,
     ChannelPlaylistPageComponent,
-    ChannelAboutComponent
+    ChannelAboutComponent,
+    NotificationComponent,
+    ChannelCustomizeComponent
   ],
   imports: [
     BrowserModule,

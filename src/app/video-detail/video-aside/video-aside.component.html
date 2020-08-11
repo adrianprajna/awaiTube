@@ -1,12 +1,15 @@
-<div class="next-video-detail" (click)="navigate()">
-  <div class="image-video">
+<div class="next-video-detail">
+  <div class="image-video" (click)="navigate()">
     <img src="{{video.thumbnail}}" alt="">
+    <div class="vid-length">
+      <p>{{getVideoLength(video.length)}}</p>
+    </div>
   </div>
   <div class="image-video-detail">
     <div [ngClass]="video.title.length > 30 ? 'height': ''">
       <p class="bold">{{video.title}}</p>
     </div>
-    <p>{{user.name}}</p>
-    <p>{{video.views}}x views</p>
+    <p [routerLink]="['/channel/'+channel.id+'/home']">{{user.name}}</p>
+    <p>{{convertViewToString(video.views)}} views • {{getUploadedDate()}}</p>
   </div>
 </div>

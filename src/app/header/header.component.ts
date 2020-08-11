@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   active: Boolean = false;
 
   user: SocialUser;
+  userByEmail: User
   loggedIn: Boolean = false;
   isUserDrop: boolean = false;
   isSettingsDrop: boolean = false;
@@ -27,10 +28,13 @@ export class HeaderComponent implements OnInit {
   isAutoComplete: boolean = false;
   users = [];
 
+  notifications: Array<any>
+
   videos_name: Array<any>;
   playlists_name: Array<any>;
   channels_name: Array<any>
 
+  isNotif: boolean = false;
   focus:boolean = true;
   channel_id: number;
 
@@ -44,6 +48,7 @@ export class HeaderComponent implements OnInit {
       else{
         this.loginService.getUserFromStorage();
         this.user = this.loginService.user;
+        this.getUserByEmail();
         this.loggedIn = this.loginService.loggedIn;
         this.userService.getUserByEmail(this.user.email).valueChanges
           .subscribe(result => {
@@ -67,6 +72,14 @@ export class HeaderComponent implements OnInit {
         this.loginService.newUser.next(this.user);
         this.loginService.userObservable.next(this.loggedIn);
     });
+  }
+
+  getUserByEmail(){
+    this.userService.getUserByEmail(this.user.email).valueChanges
+      .subscribe(result => {
+        this.userByEmail = result.data.getUserByEmail
+        this.getAllNotifications();
+      })
   }
 
   signOut(): void {
@@ -106,6 +119,10 @@ export class HeaderComponent implements OnInit {
 
   addLocationUserDropdown(){
     this.isUserLocationDrop = !this.isUserLocationDrop;
+  }
+
+  addNotifDropdown(){
+    this.isNotif = !this.isNotif;
   }
 
   addModal(){
@@ -160,10 +177,26 @@ export class HeaderComponent implements OnInit {
     this.isAutoComplete = false;
   }
 
-  filterLocation(location: string){
-    this.addLocationDropdown()
-    this.addSettingsDropdown()
+  filterLocation(location: string, type: boolean){
+    if(!type){
+      this.addLocationDropdown()
+      this.addSettingsDropdown()
+    } else {
+      this.addLocationUserDropdown();
+      this.addUserDropdown();
+    }
     this.videoService.locationBehaviour.next(location);
+  }
+
+  getAllNotifications(){
+    this.channelService.getAllNotifications().valueChanges
+      .subscribe(result => {
+        this.notifications = result.data.notifications;
+        this.channelService.getChannelByUser(this.userByEmail.id as any).valueChanges
+          .subscribe(result => {          
+            this.notifications = this.notifications.filter((notif: any) => notif.channel_id != result.data.getChannelByUser.id)         
+          })
+      })
   }
 
 }

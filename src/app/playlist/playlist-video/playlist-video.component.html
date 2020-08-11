@@ -1,11 +1,11 @@
-<div class="row">
-    <div class="video-thumbnail">
+<div class="row" (mouseenter)="addHover()" (mouseleave)="addHover()" >
+    <div class="video-thumbnail" [routerLink]="['/video-detail/'+video.id]" [queryParams]="{playlist:playlist.id}">
         <img src="{{vid.thumbnail}}" alt="">
         <div class="vid-length">
             <p>{{getVideoLength(vid.length)}}</p>
         </div>
     </div>
-    <div class="video-desc">
+    <div class="video-desc" >
         <h3>{{vid.title}}</h3>
         <p class="user" [routerLink]="['/channel/'+channel.id+'/home']">{{user.name}}</p>
         <p>{{convertViewToString(vid.views)}} views • {{getUploadedDate()}}</p>
@@ -22,5 +22,11 @@
                 <li (click)="remove(vid.id)" *ngIf="isOwned">Remove from Playlist</li>
             </ul>
         </div>
+    </div>
+    <div class="modal" [ngClass]="hover ? 'modal active': 'modal'">
+        <i class="fa fa-arrow-up" aria-hidden="true" (click)="top()"></i>
+        <i class="fa fa-chevron-up" aria-hidden="true" (click)="up()"></i>
+        <i class="fa fa-chevron-down" aria-hidden="true" (click)="down()"></i>
+        <i class="fa fa-arrow-down" aria-hidden="true" (click)="bottom()"></i>
     </div>
 </div>

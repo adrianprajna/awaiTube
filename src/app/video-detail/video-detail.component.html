@@ -92,7 +92,7 @@
 
         <div class="insert-comment-detail">
           <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" *ngIf="!loginUser"></i>
-          <img src="{{loginUser.photoUrl}}" alt="" *ngIf="loginUser">
+          <img src="{{userByEmail.img_url}}" alt="" *ngIf="loginUser">
           <div>
             <input type="text" name="" id="description" placeholder="Add a public comment">
             <button (click)="comment()">Comment</button>
@@ -116,6 +116,9 @@
     <div class="next-video-detail" *ngIf="nextVideo &&!isPlaylistExists">
       <div class="image-video" (click)="navigate()" style="cursor: pointer;">
         <img src="{{nextVideo.thumbnail}}" alt="">
+        <div class="vid-length">
+          <p>{{getVideoLength(nextVideo.length)}}</p>
+        </div>
       </div>
       <div class="image-video-detail">
         <div>
@@ -129,11 +132,11 @@
     <div *ngIf="isPlaylistExists" class="playlist-queue">
       <div class="playlist-header">
         <p class="bold">Playlist</p>
-        <p>5 videos</p>
+        <p>{{videosFromPlaylist.length}} videos</p>
       </div>
       <div class="playlist-content">
-        <div class="next-video-detail" *ngFor="let video of videos">
-          <app-video-aside [video]="video" [nextVideo]="nextVideo"></app-video-aside>
+        <div class="next-video-detail" *ngFor="let video of videosFromPlaylist">
+          <app-video-aside [video]="video" [type]="true" [nextVideo]="nextVideo"></app-video-aside>
         </div>
       </div>
     </div>
@@ -141,7 +144,7 @@
     <hr style="margin-bottom: 1rem;">
 
     <div class="next-video-detail infinite" *ngFor="let video of videos; index as i">
-      <app-video-aside [video]="video" [nextVideo]="nextVideo"></app-video-aside>
+      <app-video-aside [video]="video" [type]="false" [nextVideo]="nextVideo"></app-video-aside>
       
     </div>
     

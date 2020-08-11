@@ -16,7 +16,7 @@
         border-radius: 0.4rem;
         background: white;
         padding: 1rem;
-
+        animation: pageLoad 1s;
 
         h2 {
             justify-self: flex-start;
@@ -202,4 +202,27 @@ input[type=radio]:hover {
 
 .not-allowed {
     cursor: not-allowed !important;
+}
+
+@keyframes pageLoad {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@media (max-width: 576px) {
+    .upload {
+        flex-direction: column;
+        justify-content: flex-start;
+
+        .content {
+            width: 100%;
+        }
+    }
 }

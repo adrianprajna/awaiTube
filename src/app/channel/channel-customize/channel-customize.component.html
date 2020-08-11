@@ -1,0 +1,136 @@
+<div class="container">
+    <div class="art-background">
+        <img src="{{channel.background_url}}" alt="">
+        <label for="art">
+            <div class="change" [ngClass]="backgroundHover ? 'change hover' : 'change'" (mouseenter)="addBackgroundHover()" (mouseleave)="addBackgroundHover()">
+                <span>Change</span>
+                <i class="fa fa-camera" aria-hidden="true"></i>
+            </div>
+        </label>
+        <input type="file" name="art" id="art" style="display: none;" (change)="onDropThumbnail($event.target.files, 1)">
+    </div>
+
+    <div class="header">
+        <div class="user-img">
+            <img src="{{user.img_url}}" alt="">
+            <label for="user">
+                <div class="play-all" [ngClass]="hover ? 'play-all hover' : 'play-all'" (mouseenter)="addHover()" (mouseleave)="addHover()">
+                    <span>Change</span>
+                    <i class="fa fa-camera" aria-hidden="true"></i>
+                </div>
+            </label>
+            <input type="file" name="user" id="user" style="display: none;" (change)="onDropThumbnail($event.target.files, 2)">
+        </div>
+        <h2>{{user.name}}</h2>
+
+        <div class="thumbnail">
+
+            <div *ngIf="snapshotThumbnail | async as snap">
+              <div *ngIf="downloadThumbnailURL as url">
+                <!-- <img [src]="url"><br> -->
+              </div> 
+              <p *ngIf="!isThumbnailDone">{{ snap.bytesTransferred }} of {{ snap.totalBytes }}</p>   
+            </div>
+      
+            <div *ngIf="!isThumbnailDone">
+              <div *ngIf="percentageThumbnail | async as pct">
+                <progress [value]="pct" max="100" style="margin-right: 0.5rem;"></progress>
+                <span>{{ pct | number }}%</span>
+              </div>   
+            </div>
+         
+        </div>
+
+    </div>
+
+    <div class="content">
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Thumbnail</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Privacy</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let video of videos; index as i">
+                <td>{{i+1}}</td>
+                <td>
+                    <img src="{{video.thumbnail}}" alt="">
+                </td>
+                <td>{{video.title}}</td>
+                <td>{{video.description}}</td>
+                <td>{{video.privacy}}</td>
+                <td>
+                    <button class="btn green" (click)="editVideo(video.id)">Edit</button>
+                    <button class="btn red" (click)="deleteVideo(video.id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="modal-bg" [ngClass]="isModalDrop ? 'modal-bg active' : 'modal-bg'">   
+    <div class="modal">
+        <div class="header-modal">
+            <h3>Edit Video</h3>
+            <i class="fa fa-times" aria-hidden="true" (click)="editVideo(0)"></i>
+        </div>
+        <hr>
+        <div class="body-modal">
+
+            <div class="thumbnail-modal">
+                <div class="thumbnail-header">
+                    <span class="no green">1</span>
+                    <span class="bold">Thumbnail</span>
+                </div>
+                <div class="thumbnail-body">
+                    <span id="thumbnail-video">this is thumbnail</span>
+                    <label for="thumbnail-label">
+                        <span>UPLOAD</span>
+                    </label>
+                    <input type="file" name="thumbnail-label" id="thumbnail-label" style="display: none;" (change)="onDropThumbnail($event.target.files, 3)">
+                </div>
+            </div>
+
+            <div class="thumbnail-modal">
+                <div class="thumbnail-header">
+                    <span class="no red">2</span>
+                    <span class="bold">Title</span>
+                </div>
+                <div class="thumbnail-body">
+                    <input type="text" name="" id="title-video" style="width: 70%;" placeholder="add a title...">
+                </div>
+            </div>
+
+            <div class="thumbnail-modal">
+                <div class="thumbnail-header">
+                    <span class="no blue">3</span>
+                    <span class="bold">Description</span>
+                </div>
+                <div class="thumbnail-body">
+                    <textarea name="" id="desc-video" style="width: 70%; height: 5rem;" placeholder="add a description..."></textarea>
+                </div>
+            </div>
+
+            <div class="thumbnail-modal">
+                <div class="thumbnail-header">
+                    <span class="no dark-green">4</span>
+                    <span class="bold">Privacy</span>
+                </div>
+                <div class="thumbnail-body">
+                    <span>
+                        <input type="radio" name="privacy" id="public-video" value="Public">
+                        <label for="">Public</label>
+                      </span>
+                      <span>
+                        <input type="radio" name="privacy" id="private-video" value="Private">
+                        <label for="">Private</label>
+                      </span>
+                </div>
+            </div>
+
+            <button class="btn purple" style="width: 100%;" (click)="submitValue()">Submit</button>
+        </div>
+    </div>
+</div>

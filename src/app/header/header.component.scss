@@ -70,7 +70,7 @@
       top: 100%;
       left: 0;
       width: 90%;
-      height: 60vh;
+      max-height: 60vh;
       overflow-y: scroll;
 
       ul {
@@ -99,6 +99,24 @@
       margin: 0 1rem;
     }
 
+    .notification {
+      display: none;
+      position: absolute;
+      top: 3rem;
+      left: 0;
+      width: 100%;
+      background-color: white;
+
+      .header-notif {
+        padding: 0.5rem;
+
+      }
+
+      ul {
+        padding: 1rem;
+        list-style: none;
+      }
+    }
 
 
     .btn-sign-in {
@@ -122,7 +140,9 @@
 
       img {
         border-radius: 50%;
-        width: 2rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        object-fit: cover;
       }
 
       .user-dropdown {
@@ -162,7 +182,7 @@
       position: absolute;
       top: 3rem;
       right: 28%;
-      transition: all 0.3s;
+      transition: all 1s;
 
       ul {
         width: 100%;
@@ -198,13 +218,13 @@
     position: absolute;
     top: 0%;
     right: 100%;
-    transition: all 0.3s;
+    transition: all 1s;
   }
 
   .location-dropdown-user {
 
     position: absolute;
-    transition: all 0.3s;
+    transition: all 1s;
     right: 100%;
     bottom: -54%;
     border-radius: 0.5rem;
@@ -223,6 +243,11 @@
 
 .location-dropdown.not-active {
   transform: translateY(-275%);
+}
+
+.active {
+  display: block !important;
+  height: auto;
 }
 
 #hidden {

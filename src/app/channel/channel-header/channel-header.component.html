@@ -17,6 +17,7 @@
                     </div>
                 </div>
                 <div class="subscription">
+                    <button class="green" [routerLink]="['/channel/'+id+'/customize']" *ngIf="isSelf">Customize Channel</button>
                     <button *ngIf="!isSubscribed" class="red" (click)="subscribeChannel()">Subscribe</button>
                     <button *ngIf="isSubscribed" class="gray" (click)="unsubscribeChannel()">Unsubscribe</button>
                     <i class="fa fa-bell" *ngIf="isSubscribed"></i>

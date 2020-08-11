@@ -44,6 +44,8 @@ export class ChannelHeaderComponent implements OnInit {
 
   userByEmail: User
 
+  isSelf: boolean = false;
+
   constructor(private activatedRoute: ActivatedRoute, private channelService: ChannelService, private userService: UserService, private loginService: LoginService, private apollo: Apollo) {}
 
   ngOnInit(): void {
@@ -51,7 +53,6 @@ export class ChannelHeaderComponent implements OnInit {
     if (localStorage.getItem('users') != null) {
       this.loginService.getUserFromStorage()
       this.loginUser = this.loginService.user;
-      this.checkSubscribe();
     }
 
     this.activatedRoute.paramMap.subscribe(params => {
@@ -64,7 +65,8 @@ export class ChannelHeaderComponent implements OnInit {
 
           this.userService.getUser(this.channel.user_id).valueChanges
             .subscribe(res => {
-              this.user = res.data.getUser
+              this.user = res.data.getUser    
+              this.checkSubscribe();
             });
         })
     })
@@ -79,6 +81,9 @@ export class ChannelHeaderComponent implements OnInit {
     this.userService.getUserByEmail(this.loginUser.email).valueChanges
       .subscribe(res => {
         this.userByEmail = res.data.getUserByEmail
+        if(this.userByEmail.id == this.user.id){
+          this.isSelf = true;
+        }
         let subscribed_channel: Array < Obj > = JSON.parse(res.data.getUserByEmail.subscribed_channel)
         subscribed_channel.forEach(channel => {
           if (channel.id == this.id) {

@@ -54,8 +54,8 @@
                 <i class="fa fa-plus-circle" aria-hidden="true" title="Save to library" *ngIf="!isOwned" (click)="saveToPlaylist()"></i>
                 <i class="fa fa-minus-circle" aria-hidden="true" *ngIf="isOwned && !isSelf" (click)="removeFromPlaylist()"></i>
                 <i class="fa fa-random" aria-hidden="true" title="Shuffle Play" (click)="shufflePlay()"></i>
-                <i class="fa fa-share" aria-hidden="true" title="Share" *ngIf="public"></i>
-                <i class="fa fa-trash-o" aria-hidden="true" title="Remove All Videos" (click)="addModalDrop()" *ngIf="isOwned && isSelf"></i>
+                <i class="fa fa-share" aria-hidden="true" title="Share" *ngIf="public" (click)="addModalDrop(true)"></i>
+                <i class="fa fa-trash-o" aria-hidden="true" title="Remove All Videos" (click)="addModalDrop(false)" *ngIf="isOwned && isSelf"></i>
             </div>
             <div class="edit-desc">
                 <h3>Description</h3>
@@ -80,9 +80,14 @@
 
             <div class="account" [routerLink]="['/channel/'+channel.id+'/home']">
                 <div class="image">
-                    <img src="{{user.img_url}}" alt="">
+                    <img src="{{user.img_url}}" alt="">    
+                    <p>{{user.name}}</p>
                 </div>
-                <p>{{user.name}}</p>
+                <div class="subscribe">
+                    <button *ngIf="!isSubscribed && !isSelf" class="red" (click)="subscribeChannel()">Subscribe</button>
+                    <button *ngIf="isSubscribed" class="gray" (click)="unsubscribeChannel()">Unsubscribe</button>
+                    <i class="fa fa-bell" *ngIf="isSubscribed"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -109,21 +114,30 @@
             <app-playlist-video [video]="video" [playlist]="playlist" *ngIf="i < displayedVideos" [userPlaylist]="user" [userByEmail]="userByEmail"></app-playlist-video>
         </div>
         
-
         <div id="footer"></div>
     </div>
-
 </div>
 
 <div class="modal-bg" [ngClass]="isModalDrop ? 'modal-bg active' : 'modal-bg'">   
-    <div class="modal">
+    <div class="modal" *ngIf="!isCopy">
         <h3>Are you sure?</h3>
-        <div>
+        <div class="remove-all">
             <p (click)="removeAll()">Yes</p>
-            <p (click)="addModalDrop()">No</p>
+            <p (click)="addModalDrop(false)">No</p>
+        </div>
+    </div>
+    <div class="modal" *ngIf="isCopy">
+        <div class="header-copy">
+            <h3>Url</h3>
+            <i class="fa fa-times" (click)="addModalDrop(true)"></i>
+        </div>
+        <div class="content-copy">
+            <input type="text" name="" id="copy-link">
+            <p (click)="copyUrl()">Copy</p>
         </div>
     </div>
 </div>
+
 
 <div class="pop-up" [ngClass]="isPop ? 'pop-up pop' : 'pop-up'">
     <p>{{popString}}</p>

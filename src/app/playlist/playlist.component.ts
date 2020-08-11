@@ -60,6 +60,8 @@ export class PlaylistComponent implements OnInit {
 
   loginUser: SocialUser
 
+  isSubscribed: boolean = false;
+  isCopy: boolean = true;
 
   date = new Date();
   observer: IntersectionObserver
@@ -109,6 +111,19 @@ export class PlaylistComponent implements OnInit {
     this.observer.observe(footer)
   }
 
+  addLinkUrl(){
+      let url = document.querySelector('#copy-link') as HTMLInputElement
+      url.value = `localhost:4200/playlist/${this.playlist_id}`;
+  }
+
+  copyUrl(){
+      let url = document.querySelector('#copy-link') as HTMLInputElement
+      url.select();
+      url.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+
+      this.alert("Successfuly copy to clipboard!")
+  }
 
   getPlaylist() {
     this.playlistService.getPlaylist(this.playlist_id).valueChanges
@@ -119,6 +134,19 @@ export class PlaylistComponent implements OnInit {
         this.getTopVideo(this.videos[0]);
         this.checkPrivacy();
       });
+  }
+
+  checkSubscribe() {
+    this.userService.getUserByEmail(this.loginUser.email).valueChanges
+      .subscribe(res => {
+        this.userByEmail = res.data.getUserByEmail
+        let subscribed_channel: Array < Obj > = JSON.parse(res.data.getUserByEmail.subscribed_channel)
+        subscribed_channel.forEach(channel => {
+          if (channel.id == this.channel.id) {
+            this.isSubscribed = true;
+          }
+        })
+      })
   }
 
   checkPlaylist() {
@@ -162,7 +190,10 @@ export class PlaylistComponent implements OnInit {
 
   getChannel(user_id: number) {
     this.channelService.getChannelByUser(user_id).valueChanges
-      .subscribe(result => this.channel = result.data.getChannelByUser)
+      .subscribe(result => {
+        this.channel = result.data.getChannelByUser
+        this.checkSubscribe()
+      })
   }
 
   getDate(): string {
@@ -185,6 +216,14 @@ export class PlaylistComponent implements OnInit {
 
   addPrivacyDropdown(): void {
     this.privacyDropdown = !this.privacyDropdown;
+  }
+
+  alert(pop: string): void {
+    this.popString = pop;
+    this.isPop = true;
+    setTimeout(() => {
+      this.isPop = false;
+    }, 3000);
   }
 
   editTitle(): void {
@@ -224,11 +263,7 @@ export class PlaylistComponent implements OnInit {
         }
       }]
     }).subscribe(res => {
-      this.popString = "Successfully update the title!"
-      this.isPop = true;
-      setTimeout(() => {
-        this.isPop = false;
-      }, 2000);
+      this.alert('Successfully edit the title!');
     })
 
     title.value = "";
@@ -353,8 +388,10 @@ export class PlaylistComponent implements OnInit {
 
   }
 
-  addModalDrop(): void {
+  addModalDrop(type: boolean): void {
+    this.isCopy = type;
     this.isModalDrop = !this.isModalDrop;
+    this.addLinkUrl();
   }
 
   shufflePlay(): void {
@@ -402,11 +439,7 @@ export class PlaylistComponent implements OnInit {
        }
      }]
    }).subscribe(result => {
-     this.popString = "Successfully save this playlist!";
-     this.isPop = true;
-     setTimeout(() => {
-       this.isPop = false;
-     }, 3000);
+      this.alert("Successfully save this playlist!")
    })
 
   }
@@ -445,12 +478,118 @@ export class PlaylistComponent implements OnInit {
         }
       }]
     }).subscribe(result => {
-      this.popString = "Successfully remove this playlist from yours!"
-      this.isPop = true;
-      setTimeout(() => {
-        this.isPop = false;
-      }, 3000);
+      this.alert("Successfully remove this playlist from yours!")
     })
+  }
+
+  subscribeChannel() {
+
+    if (this.loginUser == null) {
+      alert('you have to sign in first before subscribe channel!');
+      return;
+    }
+
+    let subscribed_channel: Array < Obj > = JSON.parse(this.userByEmail.subscribed_channel);
+    let object: Obj;
+
+    object = {
+      id: this.channel.id
+    }
+
+    subscribed_channel.push(object);
+
+    this.apollo.mutate({
+      mutation: this.userService.updateUserQuery,
+      variables: {
+        id: this.userByEmail.id,
+        name: this.userByEmail.name,
+        email: this.userByEmail.email,
+        img_url: this.userByEmail.img_url,
+        premium: this.userByEmail.premium,
+        subscribers: this.userByEmail.subscribers,
+        liked_video: this.userByEmail.liked_video,
+        disliked_video: this.userByEmail.disliked_video,
+        liked_comment: this.userByEmail.liked_comment,
+        disliked_comment: this.userByEmail.disliked_comment,
+        subscribed_channel: JSON.stringify(subscribed_channel),
+        playlists: this.userByEmail.playlists,
+        liked_post: this.userByEmail.liked_post,
+        disliked_post: this.userByEmail.disliked_post
+      },
+      refetchQueries: [{
+        query: this.userService.getUserByEmailQuery,
+        variables: {
+          email: this.loginUser.email
+        }
+      }]
+    }).subscribe(res => {
+      this.increaseSubscriber(1);
+      this.alert('successfuly subscribe this channel!')
+    });
+  }
+
+  unsubscribeChannel() {
+
+    let subscribed_channel: Array < Obj > = JSON.parse(this.userByEmail.subscribed_channel);
+
+    subscribed_channel.forEach((channel, index) => {
+      if (channel.id == this.channel.id) {
+        console.log("wkwk");
+        this.isSubscribed = false;
+        subscribed_channel.splice(index, 1);
+      }
+    })
+
+    this.apollo.mutate({
+      mutation: this.userService.updateUserQuery,
+      variables: {
+        id: this.userByEmail.id,
+        name: this.userByEmail.name,
+        email: this.userByEmail.email,
+        img_url: this.userByEmail.img_url,
+        premium: this.userByEmail.premium,
+        subscribers: this.userByEmail.subscribers,
+        liked_video: this.userByEmail.liked_video,
+        disliked_video: this.userByEmail.disliked_video,
+        liked_comment: this.userByEmail.liked_comment,
+        disliked_comment: this.userByEmail.disliked_comment,
+        subscribed_channel: JSON.stringify(subscribed_channel),
+        playlists: this.userByEmail.playlists,
+        liked_post: this.userByEmail.liked_post,
+        disliked_post: this.userByEmail.disliked_post
+      },
+      refetchQueries: [{
+        query: this.userService.getUserByEmailQuery,
+        variables: {
+          email: this.loginUser.email
+        }
+      }]
+    }).subscribe(res => {
+      this.increaseSubscriber(-1);
+      this.alert('successfuly unsubscribe this channel!')
+    });
+  }
+
+  increaseSubscriber(subs: number) {
+    this.apollo.mutate({
+      mutation: this.userService.updateUserQuery,
+      variables: {
+        id: this.user.id,
+        name: this.user.name,
+        email: this.user.email,
+        img_url: this.user.img_url,
+        premium: this.user.premium,
+        subscribers: this.user.subscribers + subs,
+        liked_video: this.user.liked_video,
+        disliked_video: this.user.disliked_video,
+        liked_comment: this.user.liked_comment,
+        disliked_comment: this.user.disliked_comment,
+        subscribed_channel: this.user.subscribed_channel,
+        playlists: this.user.playlists,
+        liked_post: this.user.liked_post,
+        disliked_post: this.user.disliked_post
+      }
+    }).subscribe(res => console.log(res.data));
   }
 
 }

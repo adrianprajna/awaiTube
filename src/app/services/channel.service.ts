@@ -13,6 +13,25 @@ export class ChannelService {
 
   constructor(private apollo: Apollo) {}
 
+  updateChannelQuery = gql `
+  mutation updateChannel($id: ID!, $user_id: Int!, $background_url: String!, $description: String!, $join_date: String!, $links: String!) {
+    updateChannel(id: $id, input: {
+      user_id: $user_id,
+      background_url: $background_url,
+      description: $description,
+      join_date: $join_date,
+      links: $links
+    }) {
+      id
+      user_id
+      background_url
+      description
+      join_date
+      links
+    }
+  }
+  `;
+
   updatePostQuery = gql `
     mutation updatePost($id: ID!, $channel_id: Int!, $description: String!, $picture: String!, $date: String!, $likes: Int!, $dislikes: Int!, $title: String!) {
       updatePost(id: $id, input: {
@@ -96,6 +115,53 @@ export class ChannelService {
         links: links
       }
     }).subscribe(result => window.location.reload());
+  }
+
+  updateChannel(id: number, channel: any){
+    return this.apollo.mutate({
+      mutation: gql `
+        mutation updateChannel($id: ID!, $user_id: Int!, $background_url: String!, $description: String!, $join_date: String!, $links: String!) {
+          updateChannel(id: $id, input: {
+            user_id: $user_id,
+            background_url: $background_url,
+            description: $description,
+            join_date: $join_date,
+            links: $links
+          }) {
+            id
+            user_id
+            background_url
+            description
+            join_date
+            links
+          }
+        }
+      `,
+      variables: {
+        id: id,
+        user_id: channel.user_id,
+        background_url: channel.background_url,
+        description: channel.description,
+        join_date: channel.join_date,
+        links: channel.join_date
+      },
+      refetchQueries: [{
+        query: gql `
+          query getChannel($id: ID!){
+            channel(id: $id){
+              user_id
+              background_url
+              description
+              join_date
+              links
+            }
+          }
+        `,
+        variables: {
+          id: id
+        }
+      }]
+    })
   }
 
   getChannelByUser(user_id: number) {
@@ -190,9 +256,60 @@ export class ChannelService {
           channel_id: channel_id
         }
       }]
-    }).subscribe()
+    }).subscribe(result => {
+      this.createNotification(channel_id, title, "no thumbnail");
+    })
   }
 
-  
+  getAllNotifications(){
+    return this.apollo.watchQuery<any>({
+        query: gql `
+          query getAllNotifications {
+            notifications {
+              id
+              channel_id
+              title
+              thumbnail
+            }
+          }
+        `
+    })
+  }
+
+  createNotification(channel_id: number, title: string, thumbnail: string){
+    this.apollo.mutate({
+      mutation: gql `
+        mutation createNotification($channel_id: Int!, $title: String!, $thumbnail: String!) {
+          createNotification(input: {
+            channel_id: $channel_id,
+            title: $title,
+            thumbnail: $thumbnail
+          }) {
+            id
+            channel_id
+            title
+            thumbnail
+          }
+        }
+      `,
+      variables: {
+        channel_id: channel_id,
+        title: title,
+        thumbnail: thumbnail
+      },
+      refetchQueries: [{
+        query: gql `
+        query getAllNotifications {
+          notifications {
+            id
+            channel_id
+            title
+            thumbnail
+          }
+        }
+        `
+      }]
+    }).subscribe()
+  }
   
 }

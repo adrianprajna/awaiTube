@@ -29,6 +29,8 @@ export class PlaylistVideoComponent implements OnInit {
   isOwned: boolean = false;
   id: number;
 
+  hover: boolean = false
+  date = new Date()
   ranges = [
     { divider: 1e18 , suffix: 'E' },
     { divider: 1e15 , suffix: 'P' },
@@ -59,6 +61,8 @@ export class PlaylistVideoComponent implements OnInit {
             this.getChannel(this.user.id as any);
           })
       })
+
+
   }
 
   getVideoLength(totalSeconds: number): string{
@@ -75,6 +79,144 @@ export class PlaylistVideoComponent implements OnInit {
       ":" + String(seconds).padStart(2, "0");
     }
   }
+
+  addHover(){
+    this.hover = !this.hover;
+  }
+
+  up(): void {
+    let videos: Array<any> = JSON.parse(this.playlist.videos);
+    let update: boolean = false;
+
+    videos.forEach((vid: any, index) => {
+      if(vid.id == this.video.id){
+        if(index - 1 >= 0){
+          update = true;
+          let temp = videos[index];
+          videos[index] = videos[index - 1];
+          videos[index - 1] = temp;
+        }   
+      }
+    })
+
+    if(update){
+      this.apollo.mutate({
+        mutation: this.playlistService.updateQuery,
+        variables: {
+          id: this.id,
+          user_id: this.playlist.user_id,
+          name: this.playlist.name,
+          privacy: this.playlist.privacy,
+          description: this.playlist.description,
+          views: this.playlist.views,
+          day: this.date.getDate(),
+          month: this.date.getMonth() + 1,
+          year: this.date.getFullYear(),
+          videos: JSON.stringify(videos)
+        },
+      }).subscribe()
+    }
+  }
+
+  down(){
+    let videos: Array<any> = JSON.parse(this.playlist.videos);
+    let update: boolean = false;
+
+    for(let i = 0; i < videos.length; i++){
+      if(videos[i].id == this.video.id){
+        if(i + 1 < videos.length){
+          let temp = videos[i];
+          videos[i] = videos[i + 1];
+          videos[i + 1] = temp;      
+          update = true;
+          break;
+        }   
+      }
+    }
+
+    if(update){
+      this.apollo.mutate({
+        mutation: this.playlistService.updateQuery,
+        variables: {
+          id: this.id,
+          user_id: this.playlist.user_id,
+          name: this.playlist.name,
+          privacy: this.playlist.privacy,
+          description: this.playlist.description,
+          views: this.playlist.views,
+          day: this.date.getDate(),
+          month: this.date.getMonth() + 1,
+          year: this.date.getFullYear(),
+          videos: JSON.stringify(videos)
+        },
+      }).subscribe()
+    }
+  }
+
+  top(){
+    let videos: Array<any> = JSON.parse(this.playlist.videos);
+    let update: boolean = false;
+
+    videos.forEach((vid: any, index) => {
+      if(vid.id == this.video.id){
+        update = true;
+        let temp = videos[index];
+        videos[index] = videos[0];
+        videos[0] = temp;
+      }
+    })
+
+    if(update){
+      this.apollo.mutate({
+        mutation: this.playlistService.updateQuery,
+        variables: {
+          id: this.id,
+          user_id: this.playlist.user_id,
+          name: this.playlist.name,
+          privacy: this.playlist.privacy,
+          description: this.playlist.description,
+          views: this.playlist.views,
+          day: this.date.getDate(),
+          month: this.date.getMonth() + 1,
+          year: this.date.getFullYear(),
+          videos: JSON.stringify(videos)
+        },
+      }).subscribe()
+    }
+  }
+  
+  bottom(){
+    let videos: Array<any> = JSON.parse(this.playlist.videos);
+    let update: boolean = false;
+
+    videos.forEach((vid: any, index) => {
+      if(vid.id == this.video.id){
+        update = true;
+        let temp = videos[index];
+        videos[index] = videos[videos.length - 1];
+        videos[videos.length - 1] = temp;
+      }
+    })
+
+    if(update){
+      this.apollo.mutate({
+        mutation: this.playlistService.updateQuery,
+        variables: {
+          id: this.id,
+          user_id: this.playlist.user_id,
+          name: this.playlist.name,
+          privacy: this.playlist.privacy,
+          description: this.playlist.description,
+          views: this.playlist.views,
+          day: this.date.getDate(),
+          month: this.date.getMonth() + 1,
+          year: this.date.getFullYear(),
+          videos: JSON.stringify(videos)
+        },
+      }).subscribe()
+    }
+  }
+  
 
   convertViewToString(views: number): string {
     for(let i: number = 0; i < this.ranges.length; i++){

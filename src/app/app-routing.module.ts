@@ -14,6 +14,7 @@ import { EntertainmentCategoryComponent } from './category/entertainment-categor
 import { PlaylistComponent } from './playlist/playlist.component';
 import { ChannelHomeComponent } from './channel/channel-home/channel-home.component';
 import { ChannelAboutComponent } from './channel/channel-about/channel-about.component'
+import { ChannelCustomizeComponent } from './channel/channel-customize/channel-customize.component'
 import { UploaderComponent } from './upload/uploader/uploader.component';
 import { ChannelVideosComponent } from './channel/channel-videos/channel-videos.component';
 import { ChannelCommunityComponent } from './channel/channel-community/channel-community.component';
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'channel/:id/community', component: ChannelCommunityComponent},
   {path: 'channel/:id/playlist', component: ChannelPlaylistPageComponent},
   {path: 'channel/:id/about', component: ChannelAboutComponent},
+  {path: 'channel/:id/customize', component: ChannelCustomizeComponent},
   {path: 'search/:url', component: SearchComponent},
   {path: 'category/music', component: MusicCategoryComponent},
   {path: 'category/game', component: GameCategoryComponent},

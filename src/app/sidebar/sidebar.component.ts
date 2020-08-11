@@ -93,8 +93,7 @@ export class SidebarComponent implements OnInit {
     Array.from(this.playlists_json).forEach((vid: any) => {
         this.playlistService.getPlaylist(vid.id).valueChanges
           .subscribe(res => {
-            this.playlists.push(res.data.playlist)
-            console.log(this.playlists);                
+            this.playlists.push(res.data.playlist)            
           })
     })  
 

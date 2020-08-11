@@ -50,23 +50,23 @@
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
               <p>Back</p>
             </li>
-            <li (click)="filterLocation('Indonesia')">
+            <li (click)="filterLocation('Indonesia', false)">
               <i class="fa fa-globe" aria-hidden="true"></i>
               <p>Indonesia</p>
             </li>
-            <li (click)="filterLocation('South Korea')">
+            <li (click)="filterLocation('South Korea', false)">
               <i class="fa fa-globe" aria-hidden="true"></i>
               <p>South Korea</p>
             </li>
-            <li (click)="filterLocation('Singapore')">
+            <li (click)="filterLocation('Singapore', false)">
               <i class="fa fa-globe" aria-hidden="true"></i>
               <p>Singapore</p>
             </li>
-            <li (click)="filterLocation('Vietnam')">
+            <li (click)="filterLocation('Vietnam', false)">
               <i class="fa fa-globe" aria-hidden="true"></i>
               <p>Vietnam</p>
             </li>
-            <li (click)="filterLocation('Malaysia')">
+            <li (click)="filterLocation('Malaysia', false)">
               <i class="fa fa-globe" aria-hidden="true"></i>
               <p>Malaysia</p>
             </li>
@@ -83,7 +83,20 @@
 
 
 
-    <i class="fa fa-bell" aria-hidden="true" *ngIf="loggedIn"></i>
+    <i class="fa fa-bell" aria-hidden="true" *ngIf="loggedIn" (click)="addNotifDropdown()"></i>
+    <div class="notification" [ngClass]="isNotif ? 'notification active' : 'notification'">
+      <div class="header-notif">
+        <h3>Notification</h3>
+      </div>
+      <hr>
+      <ul>
+        <li *ngFor="let notif of notifications">
+          <app-notification [notif]="notif"></app-notification>
+        </li>
+      </ul>
+    </div>
+
+
     <div class="btn-sign-in" (click)="signIn()" *ngIf="loggedIn == false">
       <i class="fa fa-user-circle fa-1x"></i>
       <p>Sign in</p>
@@ -94,7 +107,7 @@
         <ul>
           <li>
             <div class="logo">
-              <img src="{{ user.photoUrl }}" alt="">
+              <img src="{{ userByEmail.img_url }}" alt="">
             </div>
             <div>
               <p>{{ user.name }}</p>
@@ -126,23 +139,23 @@
                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 <p>Back</p>
               </li>
-              <li>
+              <li (click)="filterLocation('Indonesia', true)">
                 <i class="fa fa-globe" aria-hidden="true"></i>
                 <p>Indonesia</p>
               </li>
-              <li>
+              <li (click)="filterLocation('South Korea', true)">
                 <i class="fa fa-globe" aria-hidden="true"></i>
                 <p>South Korea</p>
               </li>
-              <li>
+              <li (click)="filterLocation('Singapore', true)">
                 <i class="fa fa-globe" aria-hidden="true"></i>
                 <p>Singapore</p>
               </li>
-              <li>
+              <li (click)="filterLocation('Vietnam', true)">
                 <i class="fa fa-globe" aria-hidden="true"></i>
                 <p>Vietnam</p>
               </li>
-              <li>
+              <li (click)="filterLocation('Malaysia', true)">
                 <i class="fa fa-globe" aria-hidden="true"></i>
                 <p>Malaysia</p>
               </li>

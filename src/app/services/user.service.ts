@@ -153,7 +153,7 @@ export class UserService {
       let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       let date = new Date();
       let join_date = `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
-      this.channelService.createChannel(this.user.id, this.user.img_url, 'this is a description', join_date, '[]')
+      this.channelService.createChannel(this.user.id, 'no background', 'this is a description', join_date, '[]')
     })
   }
 

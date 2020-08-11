@@ -69,9 +69,11 @@ export class ChannelHomeComponent implements OnInit {
       .subscribe(result => {
         this.videos = result.data.videos;
         this.randomVideos = [...this.videos];
-        this.randomVideos = this.shuffle(this.randomVideos);
         this.videos = Array.from(this.videos).filter((video: any) => video.user_id == this.user.id)
         this.videos = Array.from(this.videos).sort((a: any, b: any) => b.id - a.id);
+
+        this.randomVideos = Array.from(this.randomVideos).filter((video: any) => video.user_id == this.user.id)
+        this.randomVideos = this.shuffle(this.randomVideos);
       })
   }
 

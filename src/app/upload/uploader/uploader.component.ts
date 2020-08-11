@@ -11,6 +11,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { url } from 'inspector';
 import { Router } from '@angular/router';
 import { log } from 'console';
+import { ChannelService } from 'src/app/services/channel.service';
 
 @Component({
   selector: 'app-uploader',
@@ -47,8 +48,10 @@ export class UploaderComponent implements OnInit {
   selectControl: FormControl = new FormControl()
 
   user: SocialUser
+
+  length: string
   
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private videoService: VideoService, private userService: UserService, private loginService: LoginService, private router:Router) { }
+  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private videoService: VideoService, private userService: UserService, private loginService: LoginService, private router:Router, private channelService: ChannelService) { }
 
   ngOnInit() {
     this.loginService.getUserFromStorage();
@@ -88,7 +91,12 @@ export class UploaderComponent implements OnInit {
         this.db.collection('files').add( { downloadURL: this.downloadURL, path });
         alert('success uploaded video!');
         this.fileName = file.name;
-        this.isVideoDone = true;
+        let video = document.getElementById('vid') as HTMLVideoElement
+        video.src = this.downloadURL
+        video.onloadedmetadata = () => {
+          this.length = this.getVideoLength(Math.floor(video.duration))
+          this.isVideoDone = true;
+        }  
       }),
     );
 
@@ -119,6 +127,21 @@ export class UploaderComponent implements OnInit {
 
   isActive(snapshot) {
     return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes;
+  }
+
+  getVideoLength(totalSeconds: number): string{
+    let hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = Math.floor(totalSeconds % 60);
+  
+    if(hours > 0){
+      return String(hours).padStart(2, "0") + ":" + 
+      String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+    }else{
+      return String(minutes).padStart(2, "0") + 
+      ":" + String(seconds).padStart(2, "0");
+    }
   }
 
 
@@ -161,21 +184,19 @@ export class UploaderComponent implements OnInit {
       alert('please fill all input!');
       return;
     }
-
-    console.log(date.getSeconds());
-    console.log(date.getMinutes());
-    console.log(date.getHours());
     
-    
-
     this.userService.getUserByEmail(this.user.email).valueChanges
       .subscribe(result => {
         let user_id = result.data.getUserByEmail.id;
 
         this.videoService.createVideo(user_id, title.value, this.downloadURL, desc.value, this.selectControl.value, 'Indonesia', date.getDate(), date.getMonth() + 1, this.downloadThumbnailURL, isRestricted, privacy, isPremium, Math.floor(video.duration), JSON.stringify(time))
           .subscribe(result => {
+            this.channelService.getChannelByUser(user_id).valueChanges
+            .subscribe(res => {
+              this.channelService.createNotification(res.data.getChannelByUser.id, title.value, this.downloadThumbnailURL);         
             alert('success publish video!');
             this.router.navigate(['']);
+            })
           });
       })
 

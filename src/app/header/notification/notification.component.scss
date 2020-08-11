@@ -1,0 +1,25 @@
+.notif {
+    display: flex;
+    margin-bottom: 0.5rem;
+
+    .left {
+        
+        display: flex;
+        width: 70%;
+
+        img {
+            width: 3rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            align-self: flex-start;
+        }
+    }
+
+    .right {
+        width: 30%;
+        img {
+            width: 100%;
+
+        }
+    }
+}

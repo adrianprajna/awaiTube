@@ -68,11 +68,13 @@
 
       .left {
         display: flex;
-        width: 85%;
+        width: 80%;
 
         img {
           border-radius: 50%;
           width: 2.5rem;
+          height: 2.5rem;
+          object-fit: cover;
           align-self: flex-start;
           margin-right: 1rem;
         }
@@ -152,10 +154,12 @@
           }
 
           img {
-            width: 2.5rem;
+            width: 3rem;
+            height: 3rem;
             border-radius: 50%;
             align-self: flex-start;
             margin-right: 1rem;
+            object-fit: cover;
           }
 
           input[type=text] {
@@ -200,6 +204,7 @@
 
     .playlist-queue {
     
+      min-height: 5rem;
       background-color: white;
       margin-bottom: 1rem;
 
@@ -207,7 +212,7 @@
         padding: 1rem;
       }
       .playlist-content {
-        height: 20rem;
+        max-height: 20rem;
         overflow-y: scroll;
         padding: 1rem;
       }
@@ -222,11 +227,24 @@
         background-color: navy;
         flex: 1;
         margin-right: 0.5rem;
+        position: relative;
 
         img {
           width: 100%;
           height: 100%;
         }
+
+          .vid-length{
+            position: absolute;
+            color: white;
+            background: black;
+            padding: 0.2rem;
+
+            bottom: 0;
+            right: 0;
+            font-size: 0.8rem;
+        }
+
       }
 
       .image-video-detail {
