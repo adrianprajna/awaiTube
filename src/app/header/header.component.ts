@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   users = [];
 
   notifications: Array<any>
-
+  realNotifications: Array<any>
   videos_name: Array<any>;
   playlists_name: Array<any>;
   channels_name: Array<any>
@@ -205,7 +205,7 @@ export class HeaderComponent implements OnInit {
         this.channelService.getChannelByUser(this.userByEmail.id as any).valueChanges
           .subscribe(result => { 
             this.notif = true;    
-            // this.notifications = this.notifications.filter((notif: any) => notif.channel_id != result.data.getChannelByUser.id)         
+            this.notifications = this.notifications.filter((notif: any) => notif.channel_id != result.data.getChannelByUser.id)    
           })
       })
   }
