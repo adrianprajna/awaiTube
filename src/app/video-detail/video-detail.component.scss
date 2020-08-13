@@ -14,6 +14,11 @@
         flex-direction: column;
         position: relative;
 
+        #v {
+          height: 70vh;
+          width: 100%;
+        }
+
         button {
           position: absolute;
           bottom: 18.5%;
@@ -92,7 +97,7 @@
         margin-right: 0.5rem;
       }
 
-      
+
     }
 
 
@@ -203,7 +208,7 @@
     margin-left: 1rem;
 
     .playlist-queue {
-    
+
       min-height: 5rem;
       background-color: white;
       margin-bottom: 1rem;
@@ -211,6 +216,7 @@
       .playlist-header {
         padding: 1rem;
       }
+
       .playlist-content {
         max-height: 20rem;
         overflow-y: scroll;
@@ -234,15 +240,15 @@
           height: 100%;
         }
 
-          .vid-length{
-            position: absolute;
-            color: white;
-            background: black;
-            padding: 0.2rem;
+        .vid-length {
+          position: absolute;
+          color: white;
+          background: black;
+          padding: 0.2rem;
 
-            bottom: 0;
-            right: 0;
-            font-size: 0.8rem;
+          bottom: 0;
+          right: 0;
+          font-size: 0.8rem;
         }
 
       }
@@ -297,74 +303,76 @@
   transition: all 0.5s;
 
   .modal {
-      background-color: white;
-      width: 20%;
-      padding: 1rem;
+    background-color: white;
+    width: 20%;
+    padding: 1rem;
 
-      .header {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 0.5rem;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
 
-          i {
-              cursor: pointer;
-          }
+      i {
+        cursor: pointer;
+      }
+    }
+
+    .playlist {
+
+      margin-top: 1rem;
+
+      ul {
+        list-style: none;
+      }
+    }
+
+    .create {
+      margin: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .create-dropdown {
+
+      .title {
+
+        input[type=text] {
+          border: 0;
+          border-bottom: 1px solid navy;
+          outline: none;
+        }
+
+        margin-bottom: 0.5rem;
       }
 
-      .playlist {
+      .privacy {
+        margin-bottom: 0.5rem;
 
-          margin-top: 1rem;
+        span {
+          margin-right: 1rem;
 
-          ul {
-              list-style: none;
+          label {
+            margin-left: 0.5rem;
           }
+        }
       }
 
-      .create {
-          margin: 0.5rem 0;
-          display: flex;
-          justify-content: space-between;
-          cursor: pointer;
+      button {
+        width: 100%;
+        padding: 0.5rem;
+        background-color: navy;
+        color: oldlace;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 0.4rem;
+
+        &:hover {
+          font-weight: bold;
+        }
       }
-
-      .create-dropdown {
-
-          .title {
-
-              input[type=text]{
-                  border: 0;
-                  border-bottom: 1px solid navy;
-                  outline: none;
-              }
-              margin-bottom: 0.5rem;
-          }
-
-          .privacy {
-              margin-bottom: 0.5rem;
-              span {
-                  margin-right: 1rem;
-
-                  label {
-                      margin-left: 0.5rem;
-                  }
-              }
-          }
-
-          button {
-              width: 100%;
-              padding: 0.5rem;
-              background-color: navy;
-              color: oldlace;
-              outline: none;
-              border: none;
-              cursor: pointer;
-              border-radius: 0.4rem;
-
-              &:hover {
-                  font-weight: bold;
-              }
-          }
-      }
+    }
   }
 }
 
@@ -374,12 +382,179 @@
   transition: all 0.5s;
 }
 
-@media (max-width: 576px) {
+.modal-bg-copy {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+
+  .modal-copy {
+    background-color: white;
+    height: 30%;
+    width: 25%;
+    padding: 1rem;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+
+    .remove-all {
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        margin: 0 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+          color: navy;
+        }
+      }
+    }
+
+    .header-copy {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .content-copy {
+      margin-bottom: 0.5rem;
+
+      .content-main-copy {
+        display: flex;
+        justify-content: space-between;
+
+        input[type=text] {
+          border: 0;
+          border-bottom: 1px solid navy;
+          outline: none;
+        }
+
+        p {
+          color: navy;
+          cursor: pointer;
+          font-weight: bold;
+        }
+      }
+
+      input[type=checkbox]{
+        margin-right: 1rem;
+      }
+
+    }
+
+    .content-socmed {
+      display: flex;
+
+      i {
+        margin-right: 1rem;
+        cursor: pointer;
+      }
+    }
+
+  }
+}
+
+
+.modal-bg-copy.active {
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.5s;
+}
+
+.right-click-modal {
+  position: absolute;
+  display: none;
+  background-color: white;
+  padding: 1rem;
+  width: 18%;
+  border-radius: 0.3rem;
+
+  .right-click-menu {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-left: 1rem;
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
 
 
   .home-video-detail {
+    padding: 1rem;
     flex-direction: column;
+
+    input[type=text] {
+      width: 100% !important;
+    }
+
+    .left-content {
+      width: 100%;
+
+      .video-content {
+
+        .video-player {
+
+          #v {
+            height: 40vh;
+          }
+
+          .video-details {
+
+            .details {
+              flex-direction: column;
+
+              ul {
+
+                li {
+                  margin-left: 1rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .right-content {
+      width: 100%;
+      margin-left: 0rem;
+
+      .next-video-detail {
+        height: 12rem;
+      }
+    }
   }
 
 
+}
+
+
+@media (max-width: 576px){
+  .home-video-detail {
+
+
+    .right-content {
+
+      .next-video-detail {
+        height: 8rem;
+      }
+    }
+  }
 }

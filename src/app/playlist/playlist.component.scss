@@ -270,7 +270,7 @@
 
     .modal {
         background-color: white;
-        height: 20%;
+        height: 25%;
         width: 20%;
         padding: 1rem;
 
@@ -297,11 +297,13 @@
         .header-copy {
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .content-copy {
             display: flex;
             justify-content: space-between;
+            margin-bottom: 0.5rem;
 
             input[type=text] {
                 border: 0;
@@ -313,6 +315,15 @@
                 color: navy;
                 cursor: pointer;
                 font-weight: bold;
+            }
+        }
+
+        .content-socmed {
+            display: flex;
+
+            i {
+                margin-right: 1rem;
+                cursor: pointer;
             }
         }
 

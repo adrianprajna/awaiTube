@@ -33,6 +33,16 @@ export class VideoAsideComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute, private channelService: ChannelService) { }
 
   ngOnInit(): void {
+
+    if(this.type){
+      this.route.paramMap.subscribe(params => {
+        let id = parseInt(params.get('id'));
+        if(this.video.id == id){
+          (document.querySelector('.next-video-detail') as HTMLElement).style.backgroundColor = 'lightgray';
+        }
+      })
+    }
+
     this.userService.getUser(this.video.user_id).valueChanges
       .subscribe(result => this.user = result.data.getUser)  
       

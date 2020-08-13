@@ -400,6 +400,10 @@ export class PlaylistComponent implements OnInit {
     this.router.navigate([`/video-detail/${id}`], {queryParams: {playlist: this.playlist_id}})
   }
 
+  navigate(): void {
+    window.location.href = `https://twitter.com/compose/tweet?text=localhost:4200/playlist/${this.playlist_id}`;
+  }
+
   rand(min: number, max: number) {
     let randomNum = Math.random() * (max - min) + min;
     return Math.floor(randomNum);

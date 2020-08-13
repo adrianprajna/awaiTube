@@ -5,9 +5,9 @@
     <div class="video-content">
 
       <div class="video-player">
-        <mat-video [keyboard]="isKeyboardActive" [quality]="true" [loop]="false" [autoplay]="false"
+        <mat-video [keyboard]="isKeyboardActive" [quality]="true" [loop]="isLoop" [autoplay]="false"
           [preload]="true" [fullscreen]="true" color="accent" spinner="spin" [overlay]="true"
-          src="{{ video.url }}" style="width: 100%; height: 70vh;" (mouseenter)="addKeyboard()" (mouseleave)="addKeyboard()" [download]="isDownload" id="v">
+          src="{{ video.url }}" (mouseenter)="addKeyboard()" (mouseleave)="addKeyboard()" [download]="isDownload" id="v">
         </mat-video>
         <a href="/video-detail/{{nextVideo.id}}">
           <button title="Next Video" *ngIf="nextVideo">
@@ -30,7 +30,7 @@
                   <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                   <p>{{convertMetric(video.dislikes)}}</p>
                 </li>
-                <li>
+                <li (click)="addModalCopyDrop()">
                   <i class="fa fa-share" aria-hidden="true"></i>
                   <p>Share</p>
                 </li>
@@ -145,7 +145,9 @@
 
     <div class="next-video-detail infinite" *ngFor="let video of videos; index as i">
       <app-video-aside [video]="video" [type]="false" [nextVideo]="nextVideo"></app-video-aside>
-      
+    </div>
+    <div class="next-video-detail infinite" *ngFor="let video of allVideos; index as i">
+      <app-video-aside [video]="video" [type]="false" [nextVideo]="nextVideo"></app-video-aside>
     </div>
     
     <div id="footer-video"></div>
@@ -196,6 +198,47 @@
         </div>
         <button (click)="createPlaylist()">Create</button>
       </div>
-
   </div>
 </div>
+
+<div class="modal-bg-copy" [ngClass]="isModalCopyDrop ? 'modal-bg-copy active' : 'modal-bg-copy'">   
+  <div class="modal-copy">
+      <div class="header-copy">
+          <h3>Url</h3>
+          <i class="fa fa-times" (click)="addModalCopyDrop()"></i>
+      </div>
+      <div class="content-copy">
+        <div class="content-main-copy">     
+          <input type="text" name="" id="copy-link" style="width: 80%;">
+          <p (click)="copyUrl()">Copy</p>
+        </div>
+        <input type="checkbox" name="" id="cb" (click)="addLinkUrl()"><span>Copy with time</span>
+      </div>
+      <div class="header-copy">
+          <h3>Social Media</h3>
+      </div>
+      <div class="content-socmed">
+          <i class="fa fa-twitter" aria-hidden="true" (click)="navigateTwitter()"></i>
+          <i class="fa fa-facebook-official" aria-hidden="true"></i>
+          <i class="fa fa-instagram" aria-hidden="true"></i>
+      </div>
+  </div>
+</div>
+
+
+<div class="right-click-modal">
+  <div class="right-click-menu">
+    <input type="checkbox" name="" id="cb1" (click)="addRightClickEvent(1)">
+    <p>Loop</p>
+  </div>
+  <div class="right-click-menu">
+    <input type="checkbox" name="" id="cb2" (click)="addRightClickEvent(2)">
+    <p>Copy link video</p>
+  </div>
+  <div class="right-click-menu">
+    <input type="checkbox" name="" id="cb3" (click)="addRightClickEvent(3)">
+    <p>Copy link with current time</p>
+  </div>
+</div>
+
+<input type="text" name="" id="url-hidden" style="transform: translateX(-100%);">

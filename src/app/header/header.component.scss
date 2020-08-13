@@ -105,6 +105,8 @@
       top: 3rem;
       left: 0;
       width: 100%;
+      max-height: 30rem;
+      overflow: scroll;
       background-color: white;
 
       .header-notif {
@@ -259,6 +261,53 @@
   background-color: rgba(0, 0, 0, 0.85);
   z-index: 5555;
   display: none;
+}
+
+.modal-sign-in {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+
+    .content-sign-in {
+      padding: 1rem;
+      width: 20%;
+      height: 20%;
+      background-color: cyan;
+      border-radius: 0.5rem;
+      color: red;
+
+      .button-sign-in {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+
+        button {
+          outline: none;
+          border: 0;
+          background-color: red;
+          padding: 1rem;
+          cursor: pointer;
+          color: cyan;
+          border-radius: 0.3rem;
+        }
+      }
+    }
+}
+
+.modal-sign-in.activeLogin{
+  visibility: visible;
+  opacity: 1;
+  transition: 0.3s all;
 }
 
 @media (max-width: 768px) {

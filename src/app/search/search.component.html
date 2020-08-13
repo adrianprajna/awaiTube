@@ -6,22 +6,50 @@
       <span>Filter</span>
     </div>
     <div class="dropdown" *ngIf="isFilterDrop">
-      <ul>
-        <li (click)="getByWeek()">
-          <span>This Week</span>
-        </li>
-        <li (click)="getByMonth()">
-          <span>This Month</span>
-        </li>
-        <li (click)="getByYear()">
-          <Span>This Year</Span>
-        </li>
-      </ul>
+      <div class="filter-header">
+        <h3>UPLOAD DATE</h3>
+        <h3>TYPE</h3>
+      </div>
+      <hr>
+      <div class="content">
+        <div class="left">
+          <ul>
+            <li (click)="getByWeek()">
+              <span>This Week</span>
+            </li>
+            <li (click)="getByMonth()">
+              <span>This Month</span>
+            </li>
+            <li (click)="getByYear()">
+              <span>This Year</span>
+            </li>
+          </ul>
+        </div>
+        <div class="right">
+          <ul>
+            <li (click)="filterType('Video')">
+              <span>Video</span>
+            </li>
+            <li (click)="filterType('Playlist')">
+              <span>Playlist</span>
+            </li>
+            <li (click)="filterType('Channel')">
+              <span>Channel</span>
+            </li>
+          </ul>
+        </div>
+      </div>  
     </div>
   </div>
   <hr>
-  <app-search-channel *ngFor="let user of users" [user]="user"></app-search-channel>
-  <app-search-playlist *ngFor="let playlist of playlists" [playlist]="playlist"></app-search-playlist>
-  <app-video-trending *ngFor="let video of videos" [video]="video"></app-video-trending>
+  <div *ngIf="isChannelOnly">
+    <app-search-channel *ngFor="let user of users" [user]="user"></app-search-channel>
+  </div>
+  <div *ngIf="isPlaylistOnly">
+    <app-search-playlist *ngFor="let playlist of playlists" [playlist]="playlist"></app-search-playlist>
+  </div>
+  <div *ngIf="isVideoOnly">
+    <app-video-trending *ngFor="let video of videos" [video]="video"></app-video-trending>
+  </div>
 
 </div>

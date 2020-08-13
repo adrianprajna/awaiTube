@@ -111,9 +111,7 @@ export class SubscriptionComponent implements OnInit {
         this.today_videos = videos;
       } else {
         this.today_videos = this.today_videos.concat(videos);
-      }       
-      
-      console.log(this.today_videos);      
+      }         
     })
   }
 

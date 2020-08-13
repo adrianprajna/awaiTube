@@ -7,6 +7,9 @@ import { User } from '../type';
 import { ChannelService } from '../services/channel.service';
 import { VideoService } from '../services/video.service';
 import { PlaylistService } from '../playlist.service';
+import { Observable, timer } from 'rxjs';
+import {} from 'rxjs/add/observable/interval'
+
 
 @Component({
   selector: 'app-header',
@@ -26,6 +29,7 @@ export class HeaderComponent implements OnInit {
   isUserLocationDrop: boolean = false;
   isModalDrop: boolean = false;
   isAutoComplete: boolean = false;
+  isLoginDrop: boolean = false;
   users = [];
 
   notifications: Array<any>
@@ -37,6 +41,8 @@ export class HeaderComponent implements OnInit {
   isNotif: boolean = false;
   focus:boolean = true;
   channel_id: number;
+
+  notif: boolean = false;
 
   constructor(private route: Router, private authService: SocialAuthService, private loginService: LoginService, private channelService: ChannelService, private userService: UserService, private playlistService: PlaylistService, private videoService: VideoService) { }
 
@@ -78,7 +84,7 @@ export class HeaderComponent implements OnInit {
     this.userService.getUserByEmail(this.user.email).valueChanges
       .subscribe(result => {
         this.userByEmail = result.data.getUserByEmail
-        this.getAllNotifications();
+        this.getAllNotifications()
       })
   }
 
@@ -105,6 +111,10 @@ export class HeaderComponent implements OnInit {
       p.textContent = "Off";
   }
 
+  addLoginDrop(){
+    this.isLoginDrop = !this.isLoginDrop;
+  }
+  
   addUserDropdown(){
     this.isUserDrop = !this.isUserDrop;
   }
@@ -156,11 +166,11 @@ export class HeaderComponent implements OnInit {
           this.videos_name = res.data.getAllVideosByTitle;
       })
 
-    this.playlistService.getAllPlaylists(`%${input}%`).valueChanges
-      .subscribe(res => this.playlists_name = res.data.playlists)
+    // this.playlistService.getAllPlaylists(`%${input}%`).valueChanges
+    //   .subscribe(res => this.playlists_name = res.data.playlists)
     
-    this.userService.getAllUsers(`%${input}%`).valueChanges
-      .subscribe(res => this.channels_name = res.data.getAllUsers)
+    // this.userService.getAllUsers(`%${input}%`).valueChanges
+    //   .subscribe(res => this.channels_name = res.data.getAllUsers)
 
     if(event.keyCode == 13){
       this.routeToSearch(input);
@@ -191,10 +201,11 @@ export class HeaderComponent implements OnInit {
   getAllNotifications(){
     this.channelService.getAllNotifications().valueChanges
       .subscribe(result => {
-        this.notifications = result.data.notifications;
+        this.notifications = result.data.notifications
         this.channelService.getChannelByUser(this.userByEmail.id as any).valueChanges
-          .subscribe(result => {          
-            this.notifications = this.notifications.filter((notif: any) => notif.channel_id != result.data.getChannelByUser.id)         
+          .subscribe(result => { 
+            this.notif = true;    
+            // this.notifications = this.notifications.filter((notif: any) => notif.channel_id != result.data.getChannelByUser.id)         
           })
       })
   }

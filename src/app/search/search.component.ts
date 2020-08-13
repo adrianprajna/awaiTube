@@ -20,6 +20,9 @@ export class SearchComponent implements OnInit {
   users: Array<User>
   date = new Date();
 
+  isVideoOnly: boolean = true;
+  isPlaylistOnly: boolean = true;
+  isChannelOnly: boolean = true;
   isFilterDrop: boolean = false;
 
 
@@ -85,6 +88,25 @@ export class SearchComponent implements OnInit {
 
   getByWeek(){
     this.getAllVideos("week")
+    this.setFilter();
+  }
+
+  filterType(type: string){
+    if (type == "Video") {
+      this.isVideoOnly = true;
+      this.isChannelOnly = false;
+      this.isPlaylistOnly = false;
+    }
+    else if(type == "Playlist"){
+      this.isVideoOnly = false;
+      this.isChannelOnly = false;
+      this.isPlaylistOnly = true;
+    }
+    else {
+      this.isVideoOnly = false;
+      this.isChannelOnly = true;
+      this.isPlaylistOnly = false;
+    }
     this.setFilter();
   }
 

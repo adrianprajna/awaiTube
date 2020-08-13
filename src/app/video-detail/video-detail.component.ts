@@ -3,7 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 import {
-  ActivatedRoute
+  ActivatedRoute, UrlSegment
 } from '@angular/router';
 import {
   VideoService
@@ -58,10 +58,12 @@ export class VideoDetailComponent implements OnInit {
   isViewed: boolean = false;
   isDownload: boolean = false;
   isSort: boolean = false;
+  isLoop: boolean = false;
   isSubscribed: boolean = false;
   isGetAllVideos: boolean = false;
   isPlaylistExists: boolean = false;
   isModalDrop: boolean = false;
+  isModalCopyDrop: boolean = false;
   createDropdown: boolean = false;
   observer: IntersectionObserver;
   observerVideo: IntersectionObserver
@@ -69,6 +71,7 @@ export class VideoDetailComponent implements OnInit {
   displayedVideos: number = 6;
 
   videosFromPlaylist: Array < any > = new Array
+  allVideos: Array<any>
   relatedPlaylist: any;
   category: string;
   ranges = [{
@@ -117,7 +120,7 @@ export class VideoDetailComponent implements OnInit {
 
     this.route.queryParams
       .subscribe(params => {
-        if (Object.keys(params).length != 0) {
+        if (Object.keys(params.playlist).length != 0) {
           this.isPlaylistExists = true;
           this.playlistService.getPlaylist(parseInt(params.playlist)).valueChanges
             .subscribe(result => {
@@ -133,6 +136,8 @@ export class VideoDetailComponent implements OnInit {
             })
         }
       })
+
+ 
 
     this.rightClickEvent()
     this.infiniteComment();
@@ -181,6 +186,29 @@ export class VideoDetailComponent implements OnInit {
     this.observerVideo.observe(document.getElementById('footer-video'));
   }
 
+  navigateTwitter(): void {
+    window.location.href = `https://twitter.com/compose/tweet?text=localhost:4200/video-detail/${this.id}`;
+  }
+
+  copyUrl() {
+    let url = document.querySelector('#copy-link') as HTMLInputElement
+    url.select();
+    url.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+  }
+
+  addLinkUrl() {
+    let url = document.querySelector('#copy-link') as HTMLInputElement
+    let checkbox = document.getElementById('cb') as HTMLInputElement
+    let video = document.getElementById('v').querySelector('video') as HTMLVideoElement
+    checkbox.checked == true ? url.value = `localhost:4200/video-detail/${this.id}?time=${video.currentTime}` : 
+    url.value = `localhost:4200/video-detail/${this.id}`;
+  }
+
+  addModalCopyDrop(): void {
+    this.isModalCopyDrop = !this.isModalCopyDrop;
+    this.addLinkUrl()
+  }
 
   addModal(): void {
     this.isModalDrop = !this.isModalDrop
@@ -256,6 +284,7 @@ export class VideoDetailComponent implements OnInit {
       .valueChanges
       .subscribe(result => {
         this.video = result.data.getVideo
+        this.checkCurrentTime();
         this.getAllVideos(this.video.category);
 
         this.userService.getUser(this.video.user_id).valueChanges
@@ -264,6 +293,16 @@ export class VideoDetailComponent implements OnInit {
             this.getChannel();
           });
       });
+  }
+
+  checkCurrentTime(): void {
+    this.route.queryParams
+    .subscribe(params => {
+      if(Object.keys(params.time).length != 0){
+        let video = document.getElementById('v').querySelector('video') as HTMLVideoElement
+        video.currentTime = parseInt(params.time)
+      }
+    })
   }
 
   getAllComments(video_id: number) {
@@ -278,10 +317,17 @@ export class VideoDetailComponent implements OnInit {
     // if (!this.isGetAllVideos) {
     this.videoService.getAllVideos().valueChanges
       .subscribe(result => {
+        this.allVideos = new Array
         // if (!this.isGetAllVideos) {
         this.videos = result.data.videos;
         this.videos = Array.from(this.videos).filter((vid: any) => vid.category == category)
         this.nextVideo = this.videos[this.rand(0, this.videos.length)]
+        
+        for(let i = 0; i < result.data.videos.length; i++){
+          if(!this.videos.includes(result.data.videos[i])){
+            this.allVideos.push(result.data.videos[i])
+          }
+        }
         this.isGetAllVideos = true;
         // }
       })
@@ -594,18 +640,18 @@ export class VideoDetailComponent implements OnInit {
     this.addSort()
   }
 
-  getVideoLength(totalSeconds: number): string{
+  getVideoLength(totalSeconds: number): string {
     let hours = Math.floor(totalSeconds / 3600);
     totalSeconds %= 3600;
     let minutes = Math.floor(totalSeconds / 60);
     let seconds = Math.floor(totalSeconds % 60);
-  
-    if(hours > 0){
-      return String(hours).padStart(2, "0") + ":" + 
-      String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
-    }else{
-      return String(minutes).padStart(2, "0") + 
-      ":" + String(seconds).padStart(2, "0");
+
+    if (hours > 0) {
+      return String(hours).padStart(2, "0") + ":" +
+        String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+    } else {
+      return String(minutes).padStart(2, "0") +
+        ":" + String(seconds).padStart(2, "0");
     }
   }
 
@@ -723,7 +769,37 @@ export class VideoDetailComponent implements OnInit {
   }
 
   rightClickEvent() {
-    let video = document.querySelector('#v')
-
+    let video = document.querySelector('#v') as HTMLVideoElement
+    video.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        let menu = document.querySelector('.right-click-modal') as HTMLElement
+        menu.style.top = `${e.pageY}px`;
+        menu.style.left = `${e.pageX}px`;
+        menu.style.display = 'block';
+    })
   }
+
+  addRightClickEvent(type: number){
+    let cb = document.getElementById(`cb${type}`) as HTMLInputElement
+    let menu = document.querySelector('.right-click-modal') as HTMLElement 
+    let url = document.getElementById('url-hidden') as HTMLInputElement
+    
+    if (type == 1) {
+      cb.checked == true ? this.isLoop = true : this.isLoop = false;
+    } else if (type == 2) {
+      url.value = `localhost:4200/video-detail/${this.id}`
+      url.select();
+      url.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    } else {
+      let video = document.getElementById('v').querySelector('video') as HTMLVideoElement
+      url.value = `localhost:4200/video-detail/${this.id}?time=${video.currentTime}`
+      url.select()
+      url.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    }
+
+    menu.style.display = 'none';
+  }
+
 }

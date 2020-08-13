@@ -9,9 +9,11 @@
 
         img {
             width: 3rem;
+            height: 3rem;
             border-radius: 50%;
             margin-right: 0.5rem;
             align-self: flex-start;
+            object-fit: cover;
         }
     }
 
@@ -19,7 +21,7 @@
         width: 30%;
         img {
             width: 100%;
-
-        }
+            object-fit: cover;
+        }   
     }
 }

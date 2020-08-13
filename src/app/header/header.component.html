@@ -18,12 +18,12 @@
         <li *ngFor="let video of videos_name">
           <span (click)="routeToSearch(video.title)">{{video.title}}</span>
         </li>
-        <li *ngFor="let playlist of playlists_name">
+        <!-- <li *ngFor="let playlist of playlists_name">
           <span>{{playlist.name}}</span>
         </li>
         <li *ngFor="let user of channels_name">
           <span>{{user.name}}</span>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -97,7 +97,7 @@
     </div>
 
 
-    <div class="btn-sign-in" (click)="signIn()" *ngIf="loggedIn == false">
+    <div class="btn-sign-in" *ngIf="loggedIn == false" (click)="addLoginDrop()">
       <i class="fa fa-user-circle fa-1x"></i>
       <p>Sign in</p>
     </div>
@@ -176,4 +176,14 @@
 <app-keyboard-modal (modal)="receiveModal($event)" [isModalDrop]="isModalDrop"></app-keyboard-modal>
 <div id="hidden">
 
+</div>
+
+
+<div class="modal-sign-in" [ngClass]="isLoginDrop ? 'modal-sign-in activeLogin' : 'modal-sign-in'">
+  <div class="content-sign-in">
+      <h3>Login</h3>
+      <div class="button-sign-in">
+        <button (click)="signIn()"><i class="fa fa-google" aria-hidden="true"></i> Sign in with Google</button>
+      </div>
+  </div>
 </div>

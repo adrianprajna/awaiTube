@@ -47,3 +47,19 @@ a {
     text-decoration: none;
     color: black;
 }
+
+@media (max-width: 768px){
+
+
+    .next-video-detail {
+        height: 12rem;
+    }
+}
+
+@media (max-width: 576px){
+
+
+    .next-video-detail {
+        height: 8rem;
+    }
+}

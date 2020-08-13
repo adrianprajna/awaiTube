@@ -22,11 +22,22 @@
         .dropdown {
             position: absolute;
             background: white;
+            z-index: 100;
             top: 23%;
-            width: 10%;
-            text-align: center;
+            width: 15%;
             border-radius: 0.5rem;
             overflow: hidden;
+
+            .filter-header {
+                display: flex;
+                justify-content: space-around;
+                padding: 1rem;
+            }
+
+            .content {
+                display: flex;
+                justify-content: space-around;
+            }
 
             ul {
                 list-style: none;
@@ -34,6 +45,7 @@
                 li {
                     padding: 1rem;
                     cursor: pointer;
+
                 }
 
                 :hover {

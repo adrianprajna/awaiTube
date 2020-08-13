@@ -5,6 +5,8 @@ import {
   Apollo
 } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,9 @@ import gql from 'graphql-tag';
 export class ChannelService {
 
   constructor(private apollo: Apollo) {}
+
+
+  notifBehavour = new Subject<any>();
 
   updateChannelQuery = gql `
   mutation updateChannel($id: ID!, $user_id: Int!, $background_url: String!, $description: String!, $join_date: String!, $links: String!) {
@@ -309,7 +314,13 @@ export class ChannelService {
         }
         `
       }]
-    }).subscribe()
+    })
+    .pipe(
+      tap(() => {
+        this.notifBehavour.next();
+      })
+    )
+    .subscribe();
   }
   
 }
